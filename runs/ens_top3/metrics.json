@@ -1,0 +1,39 @@
+{
+  "name": "ens_top3",
+  "members": [
+    "dinov2_b_probe_s0",
+    "dinov2_b_probe_s1",
+    "dinov2_b_probe_s2",
+    "dinov2_s_s0",
+    "dinov2_s_s1",
+    "dinov2_s_s2",
+    "convnext_tiny_s0",
+    "convnext_tiny_s1",
+    "convnext_tiny_s2"
+  ],
+  "val_acc": 0.9983996799359872,
+  "val_acc_tta": 0.9983996799359872,
+  "confusion_matrix_rows_true_cols_pred": [
+    [
+      2495,
+      4
+    ],
+    [
+      4,
+      2496
+    ]
+  ],
+  "member_val_acc_tta": {
+    "dinov2_b_probe_s0": 0.998999799959992,
+    "dinov2_b_probe_s1": 0.9987997599519904,
+    "dinov2_b_probe_s2": 0.9985997199439888,
+    "dinov2_s_s0": 0.9971994398879775,
+    "dinov2_s_s1": 0.9975995199039808,
+    "dinov2_s_s2": 0.9971994398879775,
+    "convnext_tiny_s0": 0.9971994398879775,
+    "convnext_tiny_s1": 0.9965993198639728,
+    "convnext_tiny_s2": 0.9973994798959792
+  },
+  "n_val": 4999,
+  "n_test": 500
+}

@@ -1,0 +1,49 @@
+{
+  "model": "effnetv2_s",
+  "data": "data_288",
+  "out": "runs",
+  "name": "effnetv2_s_s0",
+  "seed": 0,
+  "epochs": 10,
+  "bs": 128,
+  "opt": "adamw",
+  "lr": 0.0001,
+  "head_lr": 0.001,
+  "wd": 0.05,
+  "sched": "cosine",
+  "warmup_epochs": 1.0,
+  "lp_epochs": 1,
+  "freeze": "none",
+  "layer_decay": 0.0,
+  "label_smoothing": 0.1,
+  "aug": "default",
+  "img_size": null,
+  "init": "kaiming",
+  "no_pretrained": false,
+  "n_train": null,
+  "limit": null,
+  "workers": 8,
+  "clip": null,
+  "no_resume": false,
+  "select": "last",
+  "data_cfg": {
+    "input_size": [
+      3,
+      300,
+      300
+    ],
+    "interpolation": "bicubic",
+    "mean": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "std": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "crop_pct": 1.0,
+    "crop_mode": "center"
+  }
+}

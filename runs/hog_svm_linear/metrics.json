@@ -1,0 +1,19 @@
+{
+  "name": "hog_svm_linear",
+  "model": "hog_svm_linear",
+  "val_acc": 0.6829365873174635,
+  "confusion_matrix_rows_true_cols_pred": [
+    [
+      1711,
+      788
+    ],
+    [
+      797,
+      1703
+    ]
+  ],
+  "n_train": 20000,
+  "n_val": 4999,
+  "feature_dim": 8148,
+  "total_train_min": 4.0
+}

@@ -1,0 +1,27 @@
+{
+  "name": "ens_dinov2_b_probe",
+  "members": [
+    "dinov2_b_probe_s0",
+    "dinov2_b_probe_s1",
+    "dinov2_b_probe_s2"
+  ],
+  "val_acc": 0.9987997599519904,
+  "val_acc_tta": 0.9987997599519904,
+  "confusion_matrix_rows_true_cols_pred": [
+    [
+      2495,
+      4
+    ],
+    [
+      2,
+      2498
+    ]
+  ],
+  "member_val_acc_tta": {
+    "dinov2_b_probe_s0": 0.998999799959992,
+    "dinov2_b_probe_s1": 0.9987997599519904,
+    "dinov2_b_probe_s2": 0.9985997199439888
+  },
+  "n_val": 4999,
+  "n_test": 500
+}

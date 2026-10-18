@@ -1,0 +1,14 @@
+device: cuda:0 = NVIDIA GeForce RTX 3090 (CUDA_VISIBLE_DEVICES=3), torch 2.11.0+cu128
+cifar_convnext_tiny_s0: 27.8M params, train 45000 [4500, 4500, 4500, 4500, 4500, 4500, 4500, 4500, 4500, 4500], val 5000, test 10000, input 224px, method ce
+ep   0 LP train loss 0.2912 acc 0.9098 | val acc 0.9378 | 55s 822 img/s
+ep   1    train loss 0.0997 acc 0.9669 | val acc 0.9768 | 159s 283 img/s
+ep   2    train loss 0.0543 acc 0.9821 | val acc 0.9828 | 139s 324 img/s
+ep   3    train loss 0.0249 acc 0.9918 | val acc 0.9810 | 140s 321 img/s
+ep   4    train loss 0.0123 acc 0.9959 | val acc 0.9770 | 140s 321 img/s
+ep   5    train loss 0.0085 acc 0.9971 | val acc 0.9858 | 140s 321 img/s
+ep   6    train loss 0.0032 acc 0.9991 | val acc 0.9848 | 140s 321 img/s
+ep   7    train loss 0.0017 acc 0.9996 | val acc 0.9866 | 140s 321 img/s
+ep   8    train loss 0.0007 acc 0.9998 | val acc 0.9868 | 140s 320 img/s
+ep   9    train loss 0.0008 acc 0.9998 | val acc 0.9874 | 140s 321 img/s
+last epoch 9: val acc 0.9874 | TEST acc 0.9869 (flip TTA 0.9870), macro-F1 0.9869
+wrote runs/cifar_convnext_tiny_s0/metrics.json

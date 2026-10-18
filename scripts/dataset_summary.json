@@ -1,0 +1,290 @@
+{
+  "root": "/sessions/rcw-01jn2xfnrh5jbnlqypqfcwyo/mnt/IE4483/datasets",
+  "groups": {
+    "train/cat": {
+      "count": 10000,
+      "extensions": {
+        ".jpg": 10000
+      },
+      "formats": {
+        "JPEG": 10000
+      },
+      "modes": {
+        "RGB": 10000
+      },
+      "width": {
+        "min": 50,
+        "p5": 198,
+        "median": 473,
+        "mean": 411.0,
+        "p95": 500,
+        "max": 1023
+      },
+      "height": {
+        "min": 32,
+        "p5": 179,
+        "median": 374,
+        "mean": 357.4,
+        "p95": 500,
+        "max": 768
+      },
+      "aspect_w_over_h": {
+        "min": 0.36,
+        "p5": 0.69,
+        "median": 1.33,
+        "mean": 1.2,
+        "p95": 1.55,
+        "max": 3.82
+      },
+      "short_side_lt_100": 77,
+      "kbytes": {
+        "min": 1.9,
+        "p5": 11.6,
+        "median": 40.4,
+        "mean": 40.5,
+        "p95": 70.6,
+        "max": 180.9
+      },
+      "corrupt": [],
+      "sample_names": [
+        "cat.0.jpg",
+        "cat.1.jpg",
+        "cat.10.jpg"
+      ]
+    },
+    "train/dog": {
+      "count": 10000,
+      "extensions": {
+        ".jpg": 10000
+      },
+      "formats": {
+        "JPEG": 10000
+      },
+      "modes": {
+        "RGB": 10000
+      },
+      "width": {
+        "min": 42,
+        "p5": 186,
+        "median": 423,
+        "mean": 397.7,
+        "p95": 500,
+        "max": 1050
+      },
+      "height": {
+        "min": 33,
+        "p5": 187,
+        "median": 374,
+        "mean": 364.6,
+        "p95": 500,
+        "max": 702
+      },
+      "aspect_w_over_h": {
+        "min": 0.31,
+        "p5": 0.66,
+        "median": 1.19,
+        "mean": 1.1,
+        "p95": 1.51,
+        "max": 5.91
+      },
+      "short_side_lt_100": 83,
+      "kbytes": {
+        "min": 1.8,
+        "p5": 13.0,
+        "median": 45.9,
+        "mean": 48.0,
+        "p95": 91.1,
+        "max": 167.0
+      },
+      "corrupt": [],
+      "sample_names": [
+        "dog.0.jpg",
+        "dog.10.jpg",
+        "dog.100.jpg"
+      ]
+    },
+    "val/cat": {
+      "count": 2500,
+      "extensions": {
+        ".jpg": 2500
+      },
+      "formats": {
+        "JPEG": 2500
+      },
+      "modes": {
+        "RGB": 2500
+      },
+      "width": {
+        "min": 59,
+        "p5": 192,
+        "median": 466,
+        "mean": 408.7,
+        "p95": 500,
+        "max": 500
+      },
+      "height": {
+        "min": 39,
+        "p5": 179,
+        "median": 374,
+        "mean": 352.6,
+        "p95": 500,
+        "max": 500
+      },
+      "aspect_w_over_h": {
+        "min": 0.37,
+        "p5": 0.7,
+        "median": 1.33,
+        "mean": 1.2,
+        "p95": 1.56,
+        "max": 2.7
+      },
+      "short_side_lt_100": 22,
+      "kbytes": {
+        "min": 1.6,
+        "p5": 11.4,
+        "median": 39.6,
+        "mean": 40.0,
+        "p95": 69.9,
+        "max": 133.5
+      },
+      "corrupt": [],
+      "sample_names": [
+        "cat.100.jpg",
+        "cat.1000.jpg",
+        "cat.10000.jpg"
+      ]
+    },
+    "val/dog": {
+      "count": 2500,
+      "extensions": {
+        ".jpg": 2500
+      },
+      "formats": {
+        "JPEG": 2500
+      },
+      "modes": {
+        "RGB": 2500
+      },
+      "width": {
+        "min": 51,
+        "p5": 186,
+        "median": 423,
+        "mean": 397.5,
+        "p95": 500,
+        "max": 500
+      },
+      "height": {
+        "min": 37,
+        "p5": 185,
+        "median": 374,
+        "mean": 364.1,
+        "p95": 500,
+        "max": 500
+      },
+      "aspect_w_over_h": {
+        "min": 0.42,
+        "p5": 0.66,
+        "median": 1.2,
+        "mean": 1.1,
+        "p95": 1.5,
+        "max": 2.68
+      },
+      "short_side_lt_100": 21,
+      "kbytes": {
+        "min": 2.2,
+        "p5": 12.4,
+        "median": 45.8,
+        "mean": 48.4,
+        "p95": 93.1,
+        "max": 157.9
+      },
+      "corrupt": [],
+      "sample_names": [
+        "dog.1.jpg",
+        "dog.1000.jpg",
+        "dog.10008.jpg"
+      ]
+    },
+    "test": {
+      "count": 500,
+      "extensions": {
+        ".jpg": 500
+      },
+      "formats": {
+        "JPEG": 500
+      },
+      "modes": {
+        "RGB": 500
+      },
+      "width": {
+        "min": 37,
+        "p5": 176,
+        "median": 437,
+        "mean": 400.3,
+        "p95": 500,
+        "max": 500
+      },
+      "height": {
+        "min": 50,
+        "p5": 169,
+        "median": 374,
+        "mean": 360.6,
+        "p95": 500,
+        "max": 500
+      },
+      "aspect_w_over_h": {
+        "min": 0.5,
+        "p5": 0.71,
+        "median": 1.21,
+        "mean": 1.1,
+        "p95": 1.51,
+        "max": 1.98
+      },
+      "short_side_lt_100": 5,
+      "kbytes": {
+        "min": 1.6,
+        "p5": 11.6,
+        "median": 42.2,
+        "mean": 43.8,
+        "p95": 84.9,
+        "max": 136.5
+      },
+      "corrupt": [],
+      "sample_names": [
+        "1.jpg",
+        "10.jpg",
+        "100.jpg"
+      ]
+    }
+  },
+  "duplicates": {
+    "exact_duplicate_sets": 5,
+    "files_in_duplicate_sets": 11,
+    "sets_spanning_splits": 1,
+    "sets_with_conflicting_labels": 0,
+    "examples": [
+      [
+        "train/cat/cat.10360.jpg",
+        "train/cat/cat.3345.jpg"
+      ],
+      [
+        "train/cat/cat.2339.jpg",
+        "val/cat/cat.12408.jpg"
+      ],
+      [
+        "train/cat/cat.6143.jpg",
+        "train/cat/cat.6204.jpg"
+      ],
+      [
+        "train/dog/dog.10401.jpg",
+        "train/dog/dog.10797.jpg",
+        "train/dog/dog.2877.jpg"
+      ],
+      [
+        "train/dog/dog.2027.jpg",
+        "train/dog/dog.3082.jpg"
+      ]
+    ]
+  },
+  "seconds": 0.5
+}

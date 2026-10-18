@@ -1,0 +1,19 @@
+{
+  "name": "hog_svm_rbf",
+  "model": "hog_svm_rbf",
+  "val_acc": 0.8005601120224045,
+  "confusion_matrix_rows_true_cols_pred": [
+    [
+      1979,
+      520
+    ],
+    [
+      477,
+      2023
+    ]
+  ],
+  "n_train": 20000,
+  "n_val": 4999,
+  "feature_dim": 8148,
+  "total_train_min": 5.5
+}

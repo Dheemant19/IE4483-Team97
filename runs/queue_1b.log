@@ -1,0 +1,26 @@
+12 jobs on GPUs ['0', '1', '2', '3']
+21:55:36 gpu 0 start dinov2_b_probe_s0
+21:55:36 gpu 1 start dinov2_s_probe_s0
+21:55:36 gpu 2 start convnext_tiny_probe_s0
+21:55:36 gpu 3 start convnext_tiny_s1
+22:02:16 gpu 1 dinov2_s_probe_s0 done
+22:02:16 gpu 1 start convnext_tiny_s2
+22:03:06 gpu 2 convnext_tiny_probe_s0 done
+22:03:06 gpu 2 start dinov2_b_s1
+22:06:46 gpu 0 dinov2_b_probe_s0 done
+22:06:46 gpu 0 start dinov2_b_s2
+22:09:16 gpu 3 convnext_tiny_s1 done
+22:09:16 gpu 3 start dinov2_s_s1
+22:15:36 gpu 1 convnext_tiny_s2 done
+22:15:36 gpu 1 start dinov2_s_s2
+22:20:26 gpu 3 dinov2_s_s1 done
+22:20:26 gpu 3 start effnetv2_s_s0
+22:26:36 gpu 1 dinov2_s_s2 done
+22:26:36 gpu 1 start resnet50_probe_s1
+22:27:56 gpu 2 dinov2_b_s1 done
+22:27:56 gpu 2 start resnet50_probe_s2
+22:32:06 gpu 0 dinov2_b_s2 done
+22:33:06 gpu 1 resnet50_probe_s1 done
+22:34:26 gpu 2 resnet50_probe_s2 done
+22:43:36 gpu 3 effnetv2_s_s0 done
+all done

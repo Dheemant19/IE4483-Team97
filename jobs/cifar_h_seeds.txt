@@ -1,0 +1,12 @@
+--model resnet18_cifar --imb-ratio 100 --method ce --seed 1 --name cifar_r18_lt100_ce_s1
+--model resnet18_cifar --imb-ratio 100 --method cb_drw --seed 1 --name cifar_r18_lt100_cbdrw_s1
+--model resnet18_cifar --imb-ratio 100 --method la --seed 1 --name cifar_r18_lt100_la_s1
+--model resnet18_cifar --imb-ratio 10 --method ce --seed 1 --name cifar_r18_lt10_ce_s1
+--model resnet18_cifar --imb-ratio 10 --method cb_drw --seed 1 --name cifar_r18_lt10_cbdrw_s1
+--model resnet18_cifar --imb-ratio 10 --method la --seed 1 --name cifar_r18_lt10_la_s1
+--model resnet18_cifar --imb-ratio 100 --method ce --seed 2 --name cifar_r18_lt100_ce_s2
+--model resnet18_cifar --imb-ratio 100 --method cb_drw --seed 2 --name cifar_r18_lt100_cbdrw_s2
+--model resnet18_cifar --imb-ratio 100 --method la --seed 2 --name cifar_r18_lt100_la_s2
+--model resnet18_cifar --imb-ratio 10 --method ce --seed 2 --name cifar_r18_lt10_ce_s2
+--model resnet18_cifar --imb-ratio 10 --method cb_drw --seed 2 --name cifar_r18_lt10_cbdrw_s2
+--model resnet18_cifar --imb-ratio 10 --method la --seed 2 --name cifar_r18_lt10_la_s2

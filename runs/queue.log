@@ -1,0 +1,25 @@
+nohup: ignoring input
+11 jobs on GPUs ['0', '1', '2', '3']
+21:02:58 gpu 0 start resnet50_s1
+21:02:58 gpu 1 start resnet50_s2
+21:02:58 gpu 2 start scratch_cnn_s1
+21:02:58 gpu 3 start scratch_cnn_s2
+21:12:48 gpu 0 resnet50_s1 done
+21:12:48 gpu 0 start resnet50_probe_s0
+21:14:08 gpu 1 resnet50_s2 done
+21:14:08 gpu 1 start convnext_tiny_s0
+21:17:38 gpu 2 scratch_cnn_s1 done
+21:17:38 gpu 2 start effnetv2_s_s0
+21:17:48 gpu 3 scratch_cnn_s2 done
+21:17:48 gpu 3 start dinov2_s_s0
+21:20:58 gpu 0 resnet50_probe_s0 done
+21:20:58 gpu 0 start dinov2_b_s0
+21:27:38 gpu 1 convnext_tiny_s0 done
+21:27:38 gpu 1 start resnet50_s0
+21:28:58 gpu 3 dinov2_s_s0 done
+21:28:58 gpu 3 start scratch_cnn_s0
+21:38:08 gpu 2 effnetv2_s_s0 done
+21:38:18 gpu 1 resnet50_s0 done
+21:40:38 gpu 3 scratch_cnn_s0 done
+21:48:28 gpu 0 dinov2_b_s0 done
+all done

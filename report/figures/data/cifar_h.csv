@@ -1,0 +1,23 @@
+ratio,method,seed,test_acc_pct
+100,Cross-entropy,0,73.9800
+100,Cross-entropy,1,74.1100
+100,Cross-entropy,2,74.2800
+100,Focal loss,0,73.5300
+100,Re-sampling,0,69.2400
+100,Class-balanced + DRW,0,76.2400
+100,Class-balanced + DRW,1,76.1800
+100,Class-balanced + DRW,2,75.7300
+100,Logit adjustment,0,78.9000
+100,Logit adjustment,1,77.9500
+100,Logit adjustment,2,78.7500
+10,Cross-entropy,0,89.0300
+10,Cross-entropy,1,88.8400
+10,Cross-entropy,2,88.8100
+10,Focal loss,0,89.0100
+10,Re-sampling,0,88.8500
+10,Class-balanced + DRW,0,89.8000
+10,Class-balanced + DRW,1,88.9000
+10,Class-balanced + DRW,2,89.2900
+10,Logit adjustment,0,89.9800
+10,Logit adjustment,1,89.7200
+10,Logit adjustment,2,89.8800

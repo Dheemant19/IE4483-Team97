@@ -1,0 +1,54 @@
+device: cuda:0 = NVIDIA GeForce RTX 3090 (CUDA_VISIBLE_DEVICES=0), torch 2.11.0+cu128
+scratch_cnn_n2000_s1: 2.4M params, train 2000, val 4999, test 500, input (3, 128, 128)
+ep   0    train loss 0.6914 acc 0.5156 | val loss 0.6993 acc 0.4999 | 12s 165 img/s
+ep   1    train loss 0.6727 acc 0.5922 | val loss 0.7172 acc 0.5161 | 1s 1506 img/s
+ep   2    train loss 0.6644 acc 0.6026 | val loss 0.6422 acc 0.6263 | 1s 1405 img/s
+ep   3    train loss 0.6462 acc 0.6281 | val loss 0.6763 acc 0.5869 | 1s 1484 img/s
+ep   4    train loss 0.6437 acc 0.6495 | val loss 0.6313 acc 0.6495 | 1s 1481 img/s
+ep   5    train loss 0.6791 acc 0.6260 | val loss 0.9026 acc 0.5669 | 1s 1541 img/s
+ep   6    train loss 0.6391 acc 0.6719 | val loss 0.6153 acc 0.6565 | 1s 1487 img/s
+ep   7    train loss 0.6488 acc 0.6547 | val loss 0.6277 acc 0.6659 | 1s 1452 img/s
+ep   8    train loss 0.6510 acc 0.6714 | val loss 0.7107 acc 0.6371 | 1s 1523 img/s
+ep   9    train loss 0.6477 acc 0.6609 | val loss 0.7368 acc 0.6089 | 1s 1430 img/s
+ep  10    train loss 0.6181 acc 0.6917 | val loss 0.6104 acc 0.6693 | 1s 1441 img/s
+ep  11    train loss 0.6086 acc 0.7083 | val loss 0.5488 acc 0.7235 | 1s 1482 img/s
+ep  12    train loss 0.6271 acc 0.6974 | val loss 0.7327 acc 0.6157 | 1s 1510 img/s
+ep  13    train loss 0.6171 acc 0.6995 | val loss 0.6145 acc 0.6641 | 1s 1384 img/s
+ep  14    train loss 0.5817 acc 0.7224 | val loss 0.5503 acc 0.7481 | 1s 1463 img/s
+ep  15    train loss 0.5893 acc 0.7224 | val loss 0.5903 acc 0.6919 | 1s 1486 img/s
+ep  16    train loss 0.5443 acc 0.7646 | val loss 0.6410 acc 0.6535 | 1s 1474 img/s
+ep  17    train loss 0.5548 acc 0.7599 | val loss 0.7091 acc 0.6343 | 1s 1293 img/s
+ep  18    train loss 0.5428 acc 0.7682 | val loss 0.6829 acc 0.6611 | 1s 1525 img/s
+ep  19    train loss 0.5410 acc 0.7708 | val loss 0.5026 acc 0.7626 | 1s 1466 img/s
+ep  20    train loss 0.5401 acc 0.7651 | val loss 0.5431 acc 0.7301 | 1s 1474 img/s
+ep  21    train loss 0.5257 acc 0.7745 | val loss 0.5173 acc 0.7425 | 1s 1496 img/s
+ep  22    train loss 0.5067 acc 0.7865 | val loss 0.6955 acc 0.6699 | 1s 1524 img/s
+ep  23    train loss 0.5105 acc 0.7865 | val loss 0.4903 acc 0.7728 | 1s 1496 img/s
+ep  24    train loss 0.5145 acc 0.7865 | val loss 0.5529 acc 0.7207 | 1s 1510 img/s
+ep  25    train loss 0.5053 acc 0.7969 | val loss 0.4964 acc 0.7594 | 1s 1360 img/s
+ep  26    train loss 0.4892 acc 0.7984 | val loss 0.5064 acc 0.7638 | 1s 1520 img/s
+ep  27    train loss 0.4921 acc 0.8115 | val loss 0.5282 acc 0.7399 | 1s 1468 img/s
+ep  28    train loss 0.4779 acc 0.8214 | val loss 0.4951 acc 0.7680 | 1s 1438 img/s
+ep  29    train loss 0.4649 acc 0.8276 | val loss 0.4952 acc 0.7686 | 1s 1412 img/s
+ep  30    train loss 0.4428 acc 0.8396 | val loss 0.4182 acc 0.8092 | 1s 1473 img/s
+ep  31    train loss 0.4421 acc 0.8495 | val loss 0.4270 acc 0.8058 | 1s 1421 img/s
+ep  32    train loss 0.4305 acc 0.8505 | val loss 0.4222 acc 0.8120 | 1s 1491 img/s
+ep  33    train loss 0.4344 acc 0.8536 | val loss 0.4089 acc 0.8132 | 1s 1356 img/s
+ep  34    train loss 0.4329 acc 0.8479 | val loss 0.3934 acc 0.8228 | 1s 1440 img/s
+ep  35    train loss 0.4229 acc 0.8573 | val loss 0.4338 acc 0.8056 | 1s 1507 img/s
+ep  36    train loss 0.4053 acc 0.8635 | val loss 0.4367 acc 0.8036 | 1s 1386 img/s
+ep  37    train loss 0.4041 acc 0.8635 | val loss 0.3758 acc 0.8328 | 1s 1523 img/s
+ep  38    train loss 0.3877 acc 0.8833 | val loss 0.3979 acc 0.8252 | 1s 1350 img/s
+ep  39    train loss 0.3808 acc 0.8911 | val loss 0.3610 acc 0.8408 | 1s 1462 img/s
+ep  40    train loss 0.3745 acc 0.8943 | val loss 0.3701 acc 0.8364 | 1s 1438 img/s
+ep  41    train loss 0.3715 acc 0.8948 | val loss 0.3899 acc 0.8320 | 1s 1489 img/s
+ep  42    train loss 0.3674 acc 0.8953 | val loss 0.3342 acc 0.8598 | 1s 1378 img/s
+ep  43    train loss 0.3656 acc 0.9000 | val loss 0.3367 acc 0.8548 | 1s 1495 img/s
+ep  44    train loss 0.3526 acc 0.9062 | val loss 0.3370 acc 0.8556 | 1s 1460 img/s
+ep  45    train loss 0.3551 acc 0.9146 | val loss 0.3516 acc 0.8482 | 1s 1373 img/s
+ep  46    train loss 0.3514 acc 0.9193 | val loss 0.3324 acc 0.8584 | 1s 1495 img/s
+ep  47    train loss 0.3414 acc 0.9172 | val loss 0.3288 acc 0.8576 | 1s 1413 img/s
+ep  48    train loss 0.3384 acc 0.9229 | val loss 0.3263 acc 0.8580 | 1s 1453 img/s
+ep  49    train loss 0.3357 acc 0.9250 | val loss 0.3255 acc 0.8588 | 1s 1402 img/s
+last epoch 49: val acc 0.8588 (flip TTA 0.8636), confusion [[2181, 318], [388, 2112]] | best 0.8598 @ ep 42
+wrote runs/scratch_cnn_n2000_s1/submission.csv

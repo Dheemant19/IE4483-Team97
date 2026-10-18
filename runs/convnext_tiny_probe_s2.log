@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/usr1/home/s126mdg21_01/ie4483/src/train.py", line 22, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+device: cuda:0 = NVIDIA GeForce RTX 3090 (CUDA_VISIBLE_DEVICES=3), torch 2.11.0+cu128
+convnext_tiny_probe_s2: 27.8M params, train 20000, val 4999, test 500, input (3, 224, 224)
+ep   0 LP train loss 0.3012 acc 0.9443 | val loss 0.0738 acc 0.9956 | 37s 541 img/s
+ep   1 LP train loss 0.2209 acc 0.9925 | val loss 0.0705 acc 0.9964 | 27s 737 img/s
+ep   2 LP train loss 0.2181 acc 0.9936 | val loss 0.0690 acc 0.9960 | 31s 651 img/s
+ep   3 LP train loss 0.2159 acc 0.9945 | val loss 0.0702 acc 0.9968 | 26s 764 img/s
+ep   4 LP train loss 0.2153 acc 0.9938 | val loss 0.0694 acc 0.9962 | 28s 724 img/s
+ep   5 LP train loss 0.2150 acc 0.9942 | val loss 0.0705 acc 0.9966 | 25s 801 img/s
+ep   6 LP train loss 0.2141 acc 0.9944 | val loss 0.0675 acc 0.9966 | 26s 770 img/s
+ep   7 LP train loss 0.2135 acc 0.9947 | val loss 0.0690 acc 0.9964 | 29s 681 img/s
+ep   8 LP train loss 0.2139 acc 0.9938 | val loss 0.0686 acc 0.9964 | 27s 748 img/s
+ep   9 LP train loss 0.2138 acc 0.9941 | val loss 0.0684 acc 0.9964 | 23s 861 img/s
+last epoch 9: val acc 0.9964 (flip TTA 0.9968), confusion [[2488, 11], [7, 2493]] | best 0.9968 @ ep 3
+wrote runs/convnext_tiny_probe_s2/submission.csv

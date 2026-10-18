@@ -1,0 +1,3 @@
+features 8148-d: train 20000, val 4999, test 500 (35s)
+hog_svm_linear: val acc 0.6829, confusion [[1711, 788], [797, 1703]] (243s)
+hog_svm_rbf: val acc 0.8006, confusion [[1979, 520], [477, 2023]] (331s)

@@ -1,0 +1,351 @@
+model,seed,epoch,curve,error_pct
+Scratch CNN,0,0,Training (augmented),37.8456
+Scratch CNN,0,0,Validation,30.2460
+Scratch CNN,0,1,Training (augmented),30.1082
+Scratch CNN,0,1,Validation,29.8860
+Scratch CNN,0,2,Training (augmented),25.8464
+Scratch CNN,0,2,Validation,24.2048
+Scratch CNN,0,3,Training (augmented),22.6613
+Scratch CNN,0,3,Validation,19.5039
+Scratch CNN,0,4,Training (augmented),18.9553
+Scratch CNN,0,4,Validation,25.3651
+Scratch CNN,0,5,Training (augmented),16.4113
+Scratch CNN,0,5,Validation,12.7425
+Scratch CNN,0,6,Training (augmented),13.8872
+Scratch CNN,0,6,Validation,12.4425
+Scratch CNN,0,7,Training (augmented),12.6202
+Scratch CNN,0,7,Validation,21.6443
+Scratch CNN,0,8,Training (augmented),11.1478
+Scratch CNN,0,8,Validation,8.7618
+Scratch CNN,0,9,Training (augmented),10.1212
+Scratch CNN,0,9,Validation,10.5021
+Scratch CNN,0,10,Training (augmented),9.8708
+Scratch CNN,0,10,Validation,9.3819
+Scratch CNN,0,11,Training (augmented),9.1196
+Scratch CNN,0,11,Validation,7.3415
+Scratch CNN,0,12,Training (augmented),8.3183
+Scratch CNN,0,12,Validation,7.5415
+Scratch CNN,0,13,Training (augmented),7.9277
+Scratch CNN,0,13,Validation,7.9016
+Scratch CNN,0,14,Training (augmented),7.8726
+Scratch CNN,0,14,Validation,5.7612
+Scratch CNN,0,15,Training (augmented),7.4720
+Scratch CNN,0,15,Validation,6.3213
+Scratch CNN,0,16,Training (augmented),7.0112
+Scratch CNN,0,16,Validation,5.2611
+Scratch CNN,0,17,Training (augmented),6.6907
+Scratch CNN,0,17,Validation,5.5811
+Scratch CNN,0,18,Training (augmented),6.3301
+Scratch CNN,0,18,Validation,5.4411
+Scratch CNN,0,19,Training (augmented),6.0447
+Scratch CNN,0,19,Validation,6.0612
+Scratch CNN,0,20,Training (augmented),5.8844
+Scratch CNN,0,20,Validation,5.1210
+Scratch CNN,0,21,Training (augmented),5.4237
+Scratch CNN,0,21,Validation,4.5009
+Scratch CNN,0,22,Training (augmented),5.8293
+Scratch CNN,0,22,Validation,5.7011
+Scratch CNN,0,23,Training (augmented),5.3636
+Scratch CNN,0,23,Validation,4.0008
+Scratch CNN,0,24,Training (augmented),5.1633
+Scratch CNN,0,24,Validation,6.2012
+Scratch CNN,0,25,Training (augmented),5.1482
+Scratch CNN,0,25,Validation,6.8814
+Scratch CNN,0,26,Training (augmented),4.6374
+Scratch CNN,0,26,Validation,4.9810
+Scratch CNN,0,27,Training (augmented),5.0431
+Scratch CNN,0,27,Validation,6.5813
+Scratch CNN,0,28,Training (augmented),4.8728
+Scratch CNN,0,28,Validation,7.8216
+Scratch CNN,0,29,Training (augmented),4.3019
+Scratch CNN,0,29,Validation,5.0010
+Scratch CNN,0,30,Training (augmented),4.2368
+Scratch CNN,0,30,Validation,5.0010
+Scratch CNN,0,31,Training (augmented),4.3269
+Scratch CNN,0,31,Validation,5.6611
+Scratch CNN,0,32,Training (augmented),3.9463
+Scratch CNN,0,32,Validation,6.3813
+Scratch CNN,0,33,Training (augmented),3.8311
+Scratch CNN,0,33,Validation,3.2807
+Scratch CNN,0,34,Training (augmented),3.6709
+Scratch CNN,0,34,Validation,4.5609
+Scratch CNN,0,35,Training (augmented),3.6458
+Scratch CNN,0,35,Validation,3.5807
+Scratch CNN,0,36,Training (augmented),3.5557
+Scratch CNN,0,36,Validation,4.0008
+Scratch CNN,0,37,Training (augmented),3.3103
+Scratch CNN,0,37,Validation,3.3207
+Scratch CNN,0,38,Training (augmented),2.9046
+Scratch CNN,0,38,Validation,3.3207
+Scratch CNN,0,39,Training (augmented),2.9247
+Scratch CNN,0,39,Validation,2.7606
+Scratch CNN,0,40,Training (augmented),2.7995
+Scratch CNN,0,40,Validation,3.3007
+Scratch CNN,0,41,Training (augmented),2.4840
+Scratch CNN,0,41,Validation,2.8206
+Scratch CNN,0,42,Training (augmented),2.4589
+Scratch CNN,0,42,Validation,2.7606
+Scratch CNN,0,43,Training (augmented),2.1484
+Scratch CNN,0,43,Validation,2.3005
+Scratch CNN,0,44,Training (augmented),2.2736
+Scratch CNN,0,44,Validation,2.5605
+Scratch CNN,0,45,Training (augmented),2.0082
+Scratch CNN,0,45,Validation,2.4605
+Scratch CNN,0,46,Training (augmented),1.6827
+Scratch CNN,0,46,Validation,2.6405
+Scratch CNN,0,47,Training (augmented),1.7278
+Scratch CNN,0,47,Validation,2.2605
+Scratch CNN,0,48,Training (augmented),1.6877
+Scratch CNN,0,48,Validation,2.3205
+Scratch CNN,0,49,Training (augmented),1.6276
+Scratch CNN,0,49,Validation,2.2805
+Scratch CNN,1,0,Training (augmented),39.0725
+Scratch CNN,1,0,Validation,33.7868
+Scratch CNN,1,1,Training (augmented),32.2366
+Scratch CNN,1,1,Validation,36.6473
+Scratch CNN,1,2,Training (augmented),27.9397
+Scratch CNN,1,2,Validation,27.1054
+Scratch CNN,1,3,Training (augmented),24.9599
+Scratch CNN,1,3,Validation,19.4639
+Scratch CNN,1,4,Training (augmented),21.3942
+Scratch CNN,1,4,Validation,18.3037
+Scratch CNN,1,5,Training (augmented),19.0555
+Scratch CNN,1,5,Validation,15.3431
+Scratch CNN,1,6,Training (augmented),15.8203
+Scratch CNN,1,6,Validation,17.4835
+Scratch CNN,1,7,Training (augmented),14.1627
+Scratch CNN,1,7,Validation,16.5833
+Scratch CNN,1,8,Training (augmented),11.8790
+Scratch CNN,1,8,Validation,18.4637
+Scratch CNN,1,9,Training (augmented),11.3782
+Scratch CNN,1,9,Validation,8.2216
+Scratch CNN,1,10,Training (augmented),9.7256
+Scratch CNN,1,10,Validation,8.6017
+Scratch CNN,1,11,Training (augmented),9.3349
+Scratch CNN,1,11,Validation,7.3015
+Scratch CNN,1,12,Training (augmented),8.5887
+Scratch CNN,1,12,Validation,7.5415
+Scratch CNN,1,13,Training (augmented),8.1981
+Scratch CNN,1,13,Validation,9.6219
+Scratch CNN,1,14,Training (augmented),7.5972
+Scratch CNN,1,14,Validation,5.9612
+Scratch CNN,1,15,Training (augmented),7.2867
+Scratch CNN,1,15,Validation,6.0412
+Scratch CNN,1,16,Training (augmented),6.9712
+Scratch CNN,1,16,Validation,7.1614
+Scratch CNN,1,17,Training (augmented),7.0062
+Scratch CNN,1,17,Validation,5.1210
+Scratch CNN,1,18,Training (augmented),6.5154
+Scratch CNN,1,18,Validation,8.8418
+Scratch CNN,1,19,Training (augmented),6.1699
+Scratch CNN,1,19,Validation,8.8018
+Scratch CNN,1,20,Training (augmented),5.8594
+Scratch CNN,1,20,Validation,6.3413
+Scratch CNN,1,21,Training (augmented),5.8293
+Scratch CNN,1,21,Validation,5.4611
+Scratch CNN,1,22,Training (augmented),5.2133
+Scratch CNN,1,22,Validation,5.4211
+Scratch CNN,1,23,Training (augmented),5.7342
+Scratch CNN,1,23,Validation,5.0210
+Scratch CNN,1,24,Training (augmented),5.5689
+Scratch CNN,1,24,Validation,4.2408
+Scratch CNN,1,25,Training (augmented),5.0931
+Scratch CNN,1,25,Validation,4.9410
+Scratch CNN,1,26,Training (augmented),4.7326
+Scratch CNN,1,26,Validation,4.7009
+Scratch CNN,1,27,Training (augmented),4.7175
+Scratch CNN,1,27,Validation,3.7608
+Scratch CNN,1,28,Training (augmented),4.7426
+Scratch CNN,1,28,Validation,3.8808
+Scratch CNN,1,29,Training (augmented),4.4521
+Scratch CNN,1,29,Validation,3.6007
+Scratch CNN,1,30,Training (augmented),4.2468
+Scratch CNN,1,30,Validation,5.0010
+Scratch CNN,1,31,Training (augmented),4.0815
+Scratch CNN,1,31,Validation,4.2809
+Scratch CNN,1,32,Training (augmented),3.9814
+Scratch CNN,1,32,Validation,3.7608
+Scratch CNN,1,33,Training (augmented),3.7059
+Scratch CNN,1,33,Validation,4.2608
+Scratch CNN,1,34,Training (augmented),3.6508
+Scratch CNN,1,34,Validation,4.3609
+Scratch CNN,1,35,Training (augmented),3.5457
+Scratch CNN,1,35,Validation,3.5407
+Scratch CNN,1,36,Training (augmented),3.5056
+Scratch CNN,1,36,Validation,3.6407
+Scratch CNN,1,37,Training (augmented),3.3053
+Scratch CNN,1,37,Validation,3.2407
+Scratch CNN,1,38,Training (augmented),3.1601
+Scratch CNN,1,38,Validation,3.3407
+Scratch CNN,1,39,Training (augmented),3.0198
+Scratch CNN,1,39,Validation,3.1406
+Scratch CNN,1,40,Training (augmented),2.7995
+Scratch CNN,1,40,Validation,3.7808
+Scratch CNN,1,41,Training (augmented),2.7694
+Scratch CNN,1,41,Validation,3.2407
+Scratch CNN,1,42,Training (augmented),2.5491
+Scratch CNN,1,42,Validation,3.3807
+Scratch CNN,1,43,Training (augmented),2.2937
+Scratch CNN,1,43,Validation,3.4007
+Scratch CNN,1,44,Training (augmented),2.1234
+Scratch CNN,1,44,Validation,2.8606
+Scratch CNN,1,45,Training (augmented),1.8329
+Scratch CNN,1,45,Validation,2.6805
+Scratch CNN,1,46,Training (augmented),2.0383
+Scratch CNN,1,46,Validation,2.7005
+Scratch CNN,1,47,Training (augmented),1.8480
+Scratch CNN,1,47,Validation,2.5405
+Scratch CNN,1,48,Training (augmented),1.7428
+Scratch CNN,1,48,Validation,2.4805
+Scratch CNN,1,49,Training (augmented),1.6827
+Scratch CNN,1,49,Validation,2.4605
+Scratch CNN,2,0,Training (augmented),39.1877
+Scratch CNN,2,0,Validation,33.4467
+Scratch CNN,2,1,Training (augmented),31.6757
+Scratch CNN,2,1,Validation,28.7457
+Scratch CNN,2,2,Training (augmented),27.0583
+Scratch CNN,2,2,Validation,21.5443
+Scratch CNN,2,3,Training (augmented),23.2272
+Scratch CNN,2,3,Validation,23.2446
+Scratch CNN,2,4,Training (augmented),19.7666
+Scratch CNN,2,4,Validation,16.0432
+Scratch CNN,2,5,Training (augmented),17.3127
+Scratch CNN,2,5,Validation,15.0230
+Scratch CNN,2,6,Training (augmented),15.3796
+Scratch CNN,2,6,Validation,18.1236
+Scratch CNN,2,7,Training (augmented),13.3964
+Scratch CNN,2,7,Validation,10.8222
+Scratch CNN,2,8,Training (augmented),11.9391
+Scratch CNN,2,8,Validation,19.5039
+Scratch CNN,2,9,Training (augmented),10.6470
+Scratch CNN,2,9,Validation,8.4417
+Scratch CNN,2,10,Training (augmented),10.1062
+Scratch CNN,2,10,Validation,10.1220
+Scratch CNN,2,11,Training (augmented),9.1446
+Scratch CNN,2,11,Validation,7.4215
+Scratch CNN,2,12,Training (augmented),8.6338
+Scratch CNN,2,12,Validation,10.5821
+Scratch CNN,2,13,Training (augmented),8.1731
+Scratch CNN,2,13,Validation,12.4225
+Scratch CNN,2,14,Training (augmented),7.7674
+Scratch CNN,2,14,Validation,10.1420
+Scratch CNN,2,15,Training (augmented),7.3167
+Scratch CNN,2,15,Validation,12.3825
+Scratch CNN,2,16,Training (augmented),7.0363
+Scratch CNN,2,16,Validation,5.7612
+Scratch CNN,2,17,Training (augmented),6.8059
+Scratch CNN,2,17,Validation,5.7612
+Scratch CNN,2,18,Training (augmented),6.6156
+Scratch CNN,2,18,Validation,4.5009
+Scratch CNN,2,19,Training (augmented),6.2951
+Scratch CNN,2,19,Validation,6.2212
+Scratch CNN,2,20,Training (augmented),5.8494
+Scratch CNN,2,20,Validation,11.2622
+Scratch CNN,2,21,Training (augmented),6.1148
+Scratch CNN,2,21,Validation,5.3411
+Scratch CNN,2,22,Training (augmented),5.5439
+Scratch CNN,2,22,Validation,7.2414
+Scratch CNN,2,23,Training (augmented),5.4838
+Scratch CNN,2,23,Validation,10.3621
+Scratch CNN,2,24,Training (augmented),5.3636
+Scratch CNN,2,24,Validation,5.1210
+Scratch CNN,2,25,Training (augmented),5.3586
+Scratch CNN,2,25,Validation,6.5813
+Scratch CNN,2,26,Training (augmented),4.9279
+Scratch CNN,2,26,Validation,6.0012
+Scratch CNN,2,27,Training (augmented),4.7726
+Scratch CNN,2,27,Validation,10.9822
+Scratch CNN,2,28,Training (augmented),4.6174
+Scratch CNN,2,28,Validation,6.1412
+Scratch CNN,2,29,Training (augmented),4.4321
+Scratch CNN,2,29,Validation,3.9608
+Scratch CNN,2,30,Training (augmented),4.4521
+Scratch CNN,2,30,Validation,3.7808
+Scratch CNN,2,31,Training (augmented),4.2117
+Scratch CNN,2,31,Validation,7.2214
+Scratch CNN,2,32,Training (augmented),4.2819
+Scratch CNN,2,32,Validation,3.8008
+Scratch CNN,2,33,Training (augmented),3.8311
+Scratch CNN,2,33,Validation,3.5807
+Scratch CNN,2,34,Training (augmented),3.7610
+Scratch CNN,2,34,Validation,3.5207
+Scratch CNN,2,35,Training (augmented),3.5256
+Scratch CNN,2,35,Validation,3.9408
+Scratch CNN,2,36,Training (augmented),3.4505
+Scratch CNN,2,36,Validation,3.3207
+Scratch CNN,2,37,Training (augmented),3.3153
+Scratch CNN,2,37,Validation,3.9208
+Scratch CNN,2,38,Training (augmented),3.1500
+Scratch CNN,2,38,Validation,3.3207
+Scratch CNN,2,39,Training (augmented),2.9998
+Scratch CNN,2,39,Validation,2.8206
+Scratch CNN,2,40,Training (augmented),2.6993
+Scratch CNN,2,40,Validation,2.9006
+Scratch CNN,2,41,Training (augmented),2.6092
+Scratch CNN,2,41,Validation,3.1806
+Scratch CNN,2,42,Training (augmented),2.5641
+Scratch CNN,2,42,Validation,3.2206
+Scratch CNN,2,43,Training (augmented),2.0633
+Scratch CNN,2,43,Validation,2.7005
+Scratch CNN,2,44,Training (augmented),2.1985
+Scratch CNN,2,44,Validation,2.3605
+Scratch CNN,2,45,Training (augmented),2.0833
+Scratch CNN,2,45,Validation,2.5405
+Scratch CNN,2,46,Training (augmented),1.8079
+Scratch CNN,2,46,Validation,2.3205
+Scratch CNN,2,47,Training (augmented),1.8429
+Scratch CNN,2,47,Validation,2.3805
+Scratch CNN,2,48,Training (augmented),1.6977
+Scratch CNN,2,48,Validation,2.3205
+Scratch CNN,2,49,Training (augmented),1.7027
+Scratch CNN,2,49,Validation,2.3205
+ResNet-50,0,0,Validation,0.4001
+ResNet-50,0,1,Validation,1.1802
+ResNet-50,0,2,Validation,0.8802
+ResNet-50,0,3,Validation,0.6801
+ResNet-50,0,4,Validation,0.6601
+ResNet-50,0,5,Validation,0.7201
+ResNet-50,0,6,Validation,0.6001
+ResNet-50,0,7,Validation,0.5201
+ResNet-50,0,8,Validation,0.5601
+ResNet-50,0,9,Validation,0.5601
+EfficientNetV2-S,0,0,Validation,0.3601
+EfficientNetV2-S,0,1,Validation,0.4401
+EfficientNetV2-S,0,2,Validation,0.4001
+EfficientNetV2-S,0,3,Validation,0.3601
+EfficientNetV2-S,0,4,Validation,0.3601
+EfficientNetV2-S,0,5,Validation,0.3601
+EfficientNetV2-S,0,6,Validation,0.3601
+EfficientNetV2-S,0,7,Validation,0.3801
+EfficientNetV2-S,0,8,Validation,0.4001
+EfficientNetV2-S,0,9,Validation,0.3601
+ConvNeXt-T,0,0,Validation,0.3801
+ConvNeXt-T,0,1,Validation,0.4601
+ConvNeXt-T,0,2,Validation,0.6001
+ConvNeXt-T,0,3,Validation,0.4001
+ConvNeXt-T,0,4,Validation,0.4601
+ConvNeXt-T,0,5,Validation,0.3801
+ConvNeXt-T,0,6,Validation,0.2801
+ConvNeXt-T,0,7,Validation,0.2400
+ConvNeXt-T,0,8,Validation,0.2600
+ConvNeXt-T,0,9,Validation,0.2600
+DINOv2-S,0,0,Validation,0.2600
+DINOv2-S,0,1,Validation,0.4801
+DINOv2-S,0,2,Validation,0.6601
+DINOv2-S,0,3,Validation,0.3601
+DINOv2-S,0,4,Validation,0.3201
+DINOv2-S,0,5,Validation,0.4801
+DINOv2-S,0,6,Validation,0.4001
+DINOv2-S,0,7,Validation,0.3601
+DINOv2-S,0,8,Validation,0.2600
+DINOv2-S,0,9,Validation,0.2600
+DINOv2-B,0,0,Validation,0.1200
+DINOv2-B,0,1,Validation,0.4001
+DINOv2-B,0,2,Validation,0.3201
+DINOv2-B,0,3,Validation,0.3601
+DINOv2-B,0,4,Validation,0.3601
+DINOv2-B,0,5,Validation,0.2200
+DINOv2-B,0,6,Validation,0.2600
+DINOv2-B,0,7,Validation,0.2000
+DINOv2-B,0,8,Validation,0.2400
+DINOv2-B,0,9,Validation,0.2200

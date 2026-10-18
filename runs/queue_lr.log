@@ -1,0 +1,11 @@
+nohup: ignoring input
+4 jobs on GPUs ['0', '1', '2', '3']
+20:45:54 gpu 0 start resnet50_lr1e-5_s0
+20:45:54 gpu 1 start resnet50_lr3e-5_s0
+20:45:54 gpu 2 start resnet50_lr1e-4_s0
+20:45:54 gpu 3 start resnet50_lr3e-4_s0
+20:55:34 gpu 0 resnet50_lr1e-5_s0 done
+20:55:34 gpu 2 resnet50_lr1e-4_s0 done
+20:56:34 gpu 3 resnet50_lr3e-4_s0 done
+20:56:44 gpu 1 resnet50_lr3e-5_s0 done
+all done

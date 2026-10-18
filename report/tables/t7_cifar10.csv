@@ -1,0 +1,5 @@
+Model,Training,Input,Epochs,n,Test acc,Test acc + flip TTA,Macro-F1
+ResNet-18 (CIFAR variant),from scratch,32 × 32,200,3,94.78 ± 0.25,95.13 ± 0.09,0.9478 ± 0.0025
+DINOv2-B,linear probe,224 × 224 (upsampled),10,1,97.99,98.15,0.9799
+ConvNeXt-T,fine-tuned (LP-FT),224 × 224 (upsampled),10,1,98.69,98.70,0.9869
+DINOv2-S,fine-tuned (LP-FT),224 × 224 (upsampled),10,1,98.87,98.93,0.9887

@@ -1,0 +1,14 @@
+device: cuda:0 = NVIDIA GeForce RTX 3090 (CUDA_VISIBLE_DEVICES=0), torch 2.11.0+cu128
+convnext_tiny_n2000_s2: 27.8M params, train 2000, val 4999, test 500, input (3, 224, 224)
+ep   0 LP train loss 0.3250 acc 0.9281 | val loss 0.0765 acc 0.9870 | 13s 153 img/s
+ep   1    train loss 0.2357 acc 0.9901 | val loss 0.0630 acc 0.9940 | 29s 67 img/s
+ep   2    train loss 0.2102 acc 0.9964 | val loss 0.0651 acc 0.9946 | 6s 326 img/s
+ep   3    train loss 0.2082 acc 0.9969 | val loss 0.0619 acc 0.9960 | 6s 320 img/s
+ep   4    train loss 0.2044 acc 0.9979 | val loss 0.0617 acc 0.9950 | 6s 327 img/s
+ep   5    train loss 0.2041 acc 0.9979 | val loss 0.0618 acc 0.9968 | 6s 328 img/s
+ep   6    train loss 0.2044 acc 0.9964 | val loss 0.0585 acc 0.9952 | 6s 300 img/s
+ep   7    train loss 0.2036 acc 0.9984 | val loss 0.0620 acc 0.9970 | 6s 320 img/s
+ep   8    train loss 0.2017 acc 0.9990 | val loss 0.0598 acc 0.9972 | 6s 317 img/s
+ep   9    train loss 0.2012 acc 0.9995 | val loss 0.0597 acc 0.9972 | 6s 324 img/s
+last epoch 9: val acc 0.9972 (flip TTA 0.9968), confusion [[2492, 7], [7, 2493]] | best 0.9972 @ ep 8, LP 0.9870
+wrote runs/convnext_tiny_n2000_s2/submission.csv

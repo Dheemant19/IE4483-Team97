@@ -1,0 +1,6 @@
+Augmentation,Epochs,n,Val acc,Val acc + flip TTA
+none (resize + centre crop),50,1,94.56,95.34
+random resized crop + flip,50,1,97.72,97.84
+"+ rotation ±15°, colour jitter, random erasing (default)",50,3,97.65 ± 0.09,97.81 ± 0.14
+default + TrivialAugmentWide,50,1,97.50,97.56
+default,100,1,97.90,98.22

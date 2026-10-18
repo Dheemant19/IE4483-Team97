@@ -1,0 +1,14 @@
+device: cuda:0 = NVIDIA GeForce RTX 3090 (CUDA_VISIBLE_DEVICES=1), torch 2.11.0+cu128
+resnet50_n10000_s2: 23.5M params, train 10000, val 4999, test 500, input (3, 224, 224)
+ep   0 LP train loss 0.3242 acc 0.9711 | val loss 0.0940 acc 0.9944 | 21s 469 img/s
+ep   1    train loss 0.3047 acc 0.9481 | val loss 0.0861 acc 0.9868 | 31s 317 img/s
+ep   2    train loss 0.2446 acc 0.9823 | val loss 0.0802 acc 0.9898 | 26s 390 img/s
+ep   3    train loss 0.2314 acc 0.9869 | val loss 0.0726 acc 0.9922 | 26s 389 img/s
+ep   4    train loss 0.2232 acc 0.9913 | val loss 0.0718 acc 0.9920 | 26s 386 img/s
+ep   5    train loss 0.2244 acc 0.9900 | val loss 0.0690 acc 0.9932 | 26s 386 img/s
+ep   6    train loss 0.2205 acc 0.9923 | val loss 0.0679 acc 0.9932 | 26s 387 img/s
+ep   7    train loss 0.2175 acc 0.9936 | val loss 0.0674 acc 0.9934 | 26s 389 img/s
+ep   8    train loss 0.2168 acc 0.9943 | val loss 0.0669 acc 0.9932 | 26s 388 img/s
+ep   9    train loss 0.2177 acc 0.9938 | val loss 0.0668 acc 0.9936 | 26s 387 img/s
+last epoch 9: val acc 0.9936 (flip TTA 0.9936), confusion [[2484, 15], [17, 2483]] | best 0.9944 @ ep 0, LP 0.9944
+wrote runs/resnet50_n10000_s2/submission.csv

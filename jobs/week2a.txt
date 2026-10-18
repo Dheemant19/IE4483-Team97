@@ -1,0 +1,20 @@
+--model dinov2_b --lr 1e-5 --layer-decay 0.75 --seed 0 --name dinov2_b_gentle_s0
+--model dinov2_b --lr 1e-5 --layer-decay 0.75 --seed 1 --name dinov2_b_gentle_s1
+--model dinov2_b --aug basic --label-smoothing 0 --seed 0 --name dinov2_b_lightaug_s0
+--model scratch_cnn --epochs 100 --seed 0 --name scratch_cnn_100ep_s0
+--model scratch_cnn --aug none --seed 0 --name scratch_cnn_aug-none_s0
+--model scratch_cnn --aug basic --seed 0 --name scratch_cnn_aug-basic_s0
+--model scratch_cnn --aug trivial --seed 0 --name scratch_cnn_aug-trivial_s0
+--model resnet50 --aug basic --label-smoothing 0 --seed 0 --name resnet50_lightaug_s0
+--model scratch_cnn --n-train 10000 --seed 0 --name scratch_cnn_n10000_s0
+--model resnet50 --n-train 10000 --seed 0 --name resnet50_n10000_s0
+--model convnext_tiny --n-train 10000 --seed 0 --name convnext_tiny_n10000_s0
+--model dinov2_b --freeze backbone --n-train 10000 --seed 0 --name dinov2_b_probe_n10000_s0
+--model scratch_cnn --n-train 5000 --seed 0 --name scratch_cnn_n5000_s0
+--model resnet50 --n-train 5000 --seed 0 --name resnet50_n5000_s0
+--model convnext_tiny --n-train 5000 --seed 0 --name convnext_tiny_n5000_s0
+--model dinov2_b --freeze backbone --n-train 5000 --seed 0 --name dinov2_b_probe_n5000_s0
+--model scratch_cnn --n-train 2000 --seed 0 --name scratch_cnn_n2000_s0
+--model resnet50 --n-train 2000 --seed 0 --name resnet50_n2000_s0
+--model convnext_tiny --n-train 2000 --seed 0 --name convnext_tiny_n2000_s0
+--model dinov2_b --freeze backbone --n-train 2000 --seed 0 --name dinov2_b_probe_n2000_s0

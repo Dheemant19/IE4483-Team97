@@ -1,0 +1,12 @@
+# Part (h): long-tailed CIFAR-10 (exp profile), ResNet-18 from scratch, seed 0. Balanced val and test.
+# Run with: python scripts/run_queue.py jobs/cifar_h.txt --script src/cifar.py --gpus 0,1,2,3
+--model resnet18_cifar --imb-ratio 100 --method ce --seed 0 --name cifar_r18_lt100_ce_s0
+--model resnet18_cifar --imb-ratio 100 --method resample --seed 0 --name cifar_r18_lt100_resample_s0
+--model resnet18_cifar --imb-ratio 100 --method cb_drw --seed 0 --name cifar_r18_lt100_cbdrw_s0
+--model resnet18_cifar --imb-ratio 100 --method la --seed 0 --name cifar_r18_lt100_la_s0
+--model resnet18_cifar --imb-ratio 100 --method focal --seed 0 --name cifar_r18_lt100_focal_s0
+--model resnet18_cifar --imb-ratio 10 --method ce --seed 0 --name cifar_r18_lt10_ce_s0
+--model resnet18_cifar --imb-ratio 10 --method resample --seed 0 --name cifar_r18_lt10_resample_s0
+--model resnet18_cifar --imb-ratio 10 --method cb_drw --seed 0 --name cifar_r18_lt10_cbdrw_s0
+--model resnet18_cifar --imb-ratio 10 --method la --seed 0 --name cifar_r18_lt10_la_s0
+--model resnet18_cifar --imb-ratio 10 --method focal --seed 0 --name cifar_r18_lt10_focal_s0

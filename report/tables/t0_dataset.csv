@@ -1,0 +1,4 @@
+Split,Images,Cats,Dogs,Used for
+train,20000,10000,10000,training only
+val,4999,2499,2500,"model selection, all reported Dogs-vs-Cats accuracies"
+test,500,-,-,submission.csv only

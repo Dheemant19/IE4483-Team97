@@ -1,0 +1,6 @@
+# Part (c): backbone learning-rate sweep for ResNet-50 fine-tuning (seed 0, default 10 epochs, LP-FT).
+# Final metrics come from the LAST epoch; best and LP accuracies are also in metrics.json.
+--model resnet50 --seed 0 --lr 1e-5 --name resnet50_lr1e-5_s0
+--model resnet50 --seed 0 --lr 3e-5 --name resnet50_lr3e-5_s0
+--model resnet50 --seed 0 --lr 1e-4 --name resnet50_lr1e-4_s0
+--model resnet50 --seed 0 --lr 3e-4 --name resnet50_lr3e-4_s0

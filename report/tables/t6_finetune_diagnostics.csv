@@ -1,0 +1,8 @@
+Run,Setting,n,Val acc
+DINOv2-B FT default,"backbone LR 5e-5, default augmentation, label smoothing 0.1",3,99.77 ± 0.02
+DINOv2-B FT gentle,backbone LR 1e-5,2,99.87 ± 0.04
+DINOv2-B FT light aug,"crop + flip only, no label smoothing",1,99.82
+DINOv2-B linear probe,backbone frozen,3,99.86 ± 0.02
+ResNet-50 FT default,"backbone LR 1e-4, default augmentation",3,99.45 ± 0.01
+ResNet-50 FT light aug,"crop + flip only, no label smoothing",1,99.36
+ResNet-50 linear probe,backbone frozen,3,99.52 ± 0.03

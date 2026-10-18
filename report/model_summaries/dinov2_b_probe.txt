@@ -1,0 +1,138 @@
+Final model: DINOv2-B (ViT-B/14) frozen backbone + linear head
+Input 1x3x224x224; output 1x2 logits (cat=0, dog=1) -> softmax.
+Parameters: 85,726,466 total, 1,538 trainable.
+
+============================================================================================================================================
+Layer (type (var_name))                  Input Shape               Output Shape              Param #                   Trainable
+============================================================================================================================================
+VisionTransformer (VisionTransformer)    [1, 3, 224, 224]          [1, 2]                    198,144                   Partial
+├─PatchEmbed (patch_embed)               [1, 3, 224, 224]          [1, 256, 768]             --                        False
+│    └─Conv2d (proj)                     [1, 3, 224, 224]          [1, 768, 16, 16]          (452,352)                 False
+│    └─Identity (norm)                   [1, 256, 768]             [1, 256, 768]             --                        --
+├─Dropout (pos_drop)                     [1, 257, 768]             [1, 257, 768]             --                        --
+├─Identity (patch_drop)                  [1, 257, 768]             [1, 257, 768]             --                        --
+├─Identity (norm_pre)                    [1, 257, 768]             [1, 257, 768]             --                        --
+├─Sequential (blocks)                    [1, 257, 768]             [1, 257, 768]             --                        False
+│    └─Block (0)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (1)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (2)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (3)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (4)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (5)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (6)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (7)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (8)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (9)                         [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (10)                        [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    └─Block (11)                        [1, 257, 768]             [1, 257, 768]             --                        False
+│    │    └─LayerNorm (norm1)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Attention (attn)             [1, 257, 768]             [1, 257, 768]             (2,362,368)               False
+│    │    └─LayerScale (ls1)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path1)        [1, 257, 768]             [1, 257, 768]             --                        --
+│    │    └─LayerNorm (norm2)            [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+│    │    └─Mlp (mlp)                    [1, 257, 768]             [1, 257, 768]             (4,722,432)               False
+│    │    └─LayerScale (ls2)             [1, 257, 768]             [1, 257, 768]             (768)                     False
+│    │    └─Identity (drop_path2)        [1, 257, 768]             [1, 257, 768]             --                        --
+├─LayerNorm (norm)                       [1, 257, 768]             [1, 257, 768]             (1,536)                   False
+├─Identity (fc_norm)                     [1, 768]                  [1, 768]                  --                        --
+├─Dropout (head_drop)                    [1, 768]                  [1, 768]                  --                        --
+├─Linear (head)                          [1, 768]                  [1, 2]                    1,538                     True
+============================================================================================================================================
+Total params: 85,726,466
+Trainable params: 1,538
+Non-trainable params: 85,724,928
+Total mult-adds (Units.MEGABYTES): 200.86
+============================================================================================================================================
+Input size (MB): 0.60
+Forward/backward pass size (MB): 249.48
+Params size (MB): 342.11
+Estimated Total Size (MB): 592.19
+============================================================================================================================================

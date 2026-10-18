@@ -1,0 +1,5 @@
+Backbone LR,After head-only epoch,Best epoch,Last epoch (reported)
+1e-5,99.58,99.58 (epoch 0),98.98
+3e-5,99.58,99.58 (epoch 0),99.30
+1e-4,99.58,99.58 (epoch 0),99.48
+3e-4,99.58,99.58 (epoch 0),99.52

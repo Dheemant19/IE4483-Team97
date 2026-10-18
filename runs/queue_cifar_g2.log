@@ -1,0 +1,10 @@
+skip cifar_r18_s0 (done)
+skip cifar_r18_s1 (done)
+skip cifar_r18_s2 (done)
+skip cifar_convnext_tiny_s0 (done)
+2 jobs on GPUs ['0', '1']
+15:00:10 gpu 0 start cifar_dinov2_s_s0
+15:00:10 gpu 1 start cifar_dinov2_b_probe_s0
+15:19:10 gpu 0 cifar_dinov2_s_s0 done
+15:24:30 gpu 1 cifar_dinov2_b_probe_s0 done
+all done

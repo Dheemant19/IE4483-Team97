@@ -1,0 +1,12 @@
+--model dinov2_b --freeze backbone --seed 0 --name dinov2_b_probe_s0
+--model dinov2_s --freeze backbone --seed 0 --name dinov2_s_probe_s0
+--model convnext_tiny --freeze backbone --seed 0 --name convnext_tiny_probe_s0
+--model convnext_tiny --seed 1
+--model convnext_tiny --seed 2
+--model dinov2_b --seed 1
+--model dinov2_b --seed 2
+--model dinov2_s --seed 1
+--model dinov2_s --seed 2
+--model effnetv2_s --seed 0
+--model resnet50 --freeze backbone --seed 1 --name resnet50_probe_s1
+--model resnet50 --freeze backbone --seed 2 --name resnet50_probe_s2

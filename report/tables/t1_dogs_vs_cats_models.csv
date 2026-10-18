@@ -1,0 +1,14 @@
+Model,Training,Params (M),Trainable,n,Val acc,Val acc + flip TTA,Train min / run
+HOG + linear SVM,"classical, no pretraining",-,-,1,68.29,-,4.0
+HOG + RBF SVM,"classical, no pretraining",-,-,1,80.06,-,5.5
+Scratch CNN,from scratch,2.35,all,3,97.65 ± 0.09,97.81 ± 0.14,11.1
+ResNet-50,fine-tuned (LP-FT),23.51,all,3,99.45 ± 0.01,99.49 ± 0.06,7.9
+ResNet-50,linear probe,23.51,head,3,99.52 ± 0.03,99.59 ± 0.02,4.6
+EfficientNetV2-S,fine-tuned (LP-FT),20.18,all,3,99.64 ± 0.00,99.67 ± 0.03,18.4
+ConvNeXt-T,fine-tuned (LP-FT),27.82,all,3,99.70 ± 0.04,99.71 ± 0.04,10.4
+ConvNeXt-T,linear probe,27.82,head,3,99.66 ± 0.02,99.69 ± 0.01,4.6
+DINOv2-S,fine-tuned (LP-FT),21.63,all,3,99.73 ± 0.05,99.73 ± 0.02,9.1
+DINOv2-S,linear probe,21.63,head,3,99.71 ± 0.02,99.76 ± 0.02,4.7
+DINOv2-B,fine-tuned (LP-FT),85.73,all,3,99.77 ± 0.02,99.77 ± 0.02,21.1
+DINOv2-B,linear probe,85.73,head,3,99.86 ± 0.02,99.88 ± 0.02,8.0
+"**Final: DINOv2-B probe, 3-seed ensemble**",average of the 3 seeds' probabilities,85.73,head,1,99.88,99.88,-

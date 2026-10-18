@@ -1,0 +1,15 @@
+device: cuda:0 = NVIDIA GeForce RTX 3090 (CUDA_VISIBLE_DEVICES=3), torch 2.11.0+cu128
+re-initialised head (std 0.41 -> 0.02)
+effnetv2_s_s0: 20.2M params, train 20000, val 4999, test 500, input (3, 300, 300)
+ep   0 LP train loss 0.2405 acc 0.9841 | val loss 0.0679 acc 0.9964 | 54s 373 img/s
+ep   1    train loss 0.2682 acc 0.9660 | val loss 0.0818 acc 0.9956 | 143s 139 img/s
+ep   2    train loss 0.2202 acc 0.9908 | val loss 0.0630 acc 0.9960 | 121s 165 img/s
+ep   3    train loss 0.2123 acc 0.9944 | val loss 0.0617 acc 0.9964 | 120s 166 img/s
+ep   4    train loss 0.2071 acc 0.9969 | val loss 0.0646 acc 0.9964 | 120s 166 img/s
+ep   5    train loss 0.2066 acc 0.9963 | val loss 0.0630 acc 0.9964 | 119s 168 img/s
+ep   6    train loss 0.2042 acc 0.9976 | val loss 0.0607 acc 0.9964 | 118s 169 img/s
+ep   7    train loss 0.2030 acc 0.9982 | val loss 0.0601 acc 0.9962 | 116s 171 img/s
+ep   8    train loss 0.2027 acc 0.9983 | val loss 0.0609 acc 0.9960 | 115s 173 img/s
+ep   9    train loss 0.2035 acc 0.9977 | val loss 0.0605 acc 0.9964 | 116s 172 img/s
+last epoch 9: val acc 0.9964 (flip TTA 0.9964), confusion [[2488, 11], [7, 2493]] | best 0.9964 @ ep 0, LP 0.9964
+wrote runs/effnetv2_s_s0/submission.csv

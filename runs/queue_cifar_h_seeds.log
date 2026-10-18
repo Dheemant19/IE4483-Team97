@@ -1,0 +1,26 @@
+12 jobs on GPUs ['2', '3']
+15:02:53 gpu 2 start cifar_r18_lt100_ce_s1
+15:02:53 gpu 3 start cifar_r18_lt100_cbdrw_s1
+15:13:13 gpu 2 cifar_r18_lt100_ce_s1 done
+15:13:13 gpu 2 start cifar_r18_lt100_la_s1
+15:14:23 gpu 3 cifar_r18_lt100_cbdrw_s1 done
+15:14:23 gpu 3 start cifar_r18_lt10_ce_s1
+15:23:13 gpu 2 cifar_r18_lt100_la_s1 done
+15:23:13 gpu 2 start cifar_r18_lt10_cbdrw_s1
+15:30:03 gpu 3 cifar_r18_lt10_ce_s1 done
+15:30:03 gpu 3 start cifar_r18_lt10_la_s1
+15:37:43 gpu 2 cifar_r18_lt10_cbdrw_s1 done
+15:37:43 gpu 2 start cifar_r18_lt100_ce_s2
+15:47:03 gpu 3 cifar_r18_lt10_la_s1 done
+15:47:03 gpu 3 start cifar_r18_lt100_cbdrw_s2
+15:48:43 gpu 2 cifar_r18_lt100_ce_s2 done
+15:48:43 gpu 2 start cifar_r18_lt100_la_s2
+15:59:23 gpu 3 cifar_r18_lt100_cbdrw_s2 done
+15:59:23 gpu 3 start cifar_r18_lt10_ce_s2
+15:59:43 gpu 2 cifar_r18_lt100_la_s2 done
+15:59:43 gpu 2 start cifar_r18_lt10_cbdrw_s2
+16:13:43 gpu 2 cifar_r18_lt10_cbdrw_s2 done
+16:13:43 gpu 2 start cifar_r18_lt10_la_s2
+16:15:13 gpu 3 cifar_r18_lt10_ce_s2 done
+16:27:53 gpu 2 cifar_r18_lt10_la_s2 done
+all done

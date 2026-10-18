@@ -1,0 +1,36 @@
+10 jobs on GPUs ['0', '1', '2', '3']
+03:45:51 gpu 0 start cifar_r18_lt100_ce_s0
+03:45:51 gpu 1 start cifar_r18_lt100_resample_s0
+03:45:51 gpu 2 start cifar_r18_lt100_cbdrw_s0
+03:45:51 gpu 3 start cifar_r18_lt100_la_s0
+03:57:01 gpu 0 cifar_r18_lt100_ce_s0 done
+03:57:01 gpu 2 cifar_r18_lt100_cbdrw_s0 done
+03:57:01 gpu 0 start cifar_r18_lt100_focal_s0
+03:57:01 gpu 2 start cifar_r18_lt10_ce_s0
+03:58:01 gpu 3 cifar_r18_lt100_la_s0 done
+03:58:01 gpu 3 start cifar_r18_lt10_resample_s0
+03:58:11 gpu 1 cifar_r18_lt100_resample_s0 done
+03:58:11 gpu 1 start cifar_r18_lt10_cbdrw_s0
+04:09:21 gpu 0 cifar_r18_lt100_focal_s0 done
+04:09:21 gpu 0 start cifar_r18_lt10_la_s0
+04:13:31 gpu 2 cifar_r18_lt10_ce_s0 done
+04:13:31 gpu 2 start cifar_r18_lt10_focal_s0
+04:16:31 gpu 3 cifar_r18_lt10_resample_s0 done
+04:16:31 gpu 1 cifar_r18_lt10_cbdrw_s0 done
+04:24:51 gpu 0 cifar_r18_lt10_la_s0 done
+04:27:51 gpu 2 cifar_r18_lt10_focal_s0 done
+all done
+6 jobs on GPUs ['0', '1', '2', '3']
+04:28:02 gpu 0 start cifar_r18_s0
+04:28:02 gpu 1 start cifar_r18_s1
+04:28:02 gpu 2 start cifar_r18_s2
+04:28:02 gpu 3 start cifar_dinov2_s_s0
+04:28:32 gpu 3 cifar_dinov2_s_s0 FAILED (exit 1)
+04:28:32 gpu 3 start cifar_convnext_tiny_s0
+04:53:22 gpu 3 cifar_convnext_tiny_s0 done
+04:53:22 gpu 3 start cifar_dinov2_b_probe_s0
+04:53:52 gpu 3 cifar_dinov2_b_probe_s0 FAILED (exit 1)
+04:56:52 gpu 2 cifar_r18_s2 done
+04:57:02 gpu 0 cifar_r18_s0 done
+05:01:22 gpu 1 cifar_r18_s1 done
+all done; failed: ['cifar_dinov2_s_s0', 'cifar_dinov2_b_probe_s0']

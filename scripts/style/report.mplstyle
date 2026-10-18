@@ -1,0 +1,84 @@
+# IE4483 report figures. Based on the scientific-visualization skill's publication.mplstyle
+# (copied into this folder so the scripts never depend on ~/.claude). Sizes are in points at the
+# final printed size: figures are drawn at 110-160 mm wide and meant to be inserted at 100 %.
+
+figure.dpi: 150
+figure.facecolor: white
+figure.constrained_layout.use: False
+
+font.size: 7
+font.family: sans-serif
+font.sans-serif: Arial, Helvetica, Liberation Sans, DejaVu Sans
+mathtext.default: regular
+text.color: "#222222"
+
+axes.linewidth: 0.6
+axes.edgecolor: "#444444"
+axes.labelcolor: "#222222"
+axes.labelsize: 7.5
+axes.labelpad: 3
+axes.titlesize: 7.5
+axes.spines.top: False
+axes.spines.right: False
+axes.axisbelow: True
+axes.grid: False
+axes.xmargin: 0.03
+axes.ymargin: 0.05
+axes.prop_cycle: cycler('color', ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#000000"])
+
+grid.color: "#E4E4E4"
+grid.linewidth: 0.5
+grid.linestyle: -
+
+xtick.color: "#444444"
+ytick.color: "#444444"
+xtick.labelcolor: "#222222"
+ytick.labelcolor: "#222222"
+xtick.labelsize: 6.5
+ytick.labelsize: 6.5
+xtick.major.size: 2.5
+ytick.major.size: 2.5
+xtick.minor.size: 1.5
+ytick.minor.size: 1.5
+xtick.major.width: 0.6
+ytick.major.width: 0.6
+xtick.minor.width: 0.4
+ytick.minor.width: 0.4
+xtick.major.pad: 2
+ytick.major.pad: 2
+xtick.direction: out
+ytick.direction: out
+
+lines.linewidth: 1.2
+lines.markersize: 4
+lines.markeredgewidth: 0.6
+lines.solid_capstyle: round
+
+legend.fontsize: 6.5
+legend.frameon: False
+legend.handlelength: 1.8
+legend.handletextpad: 0.4
+legend.columnspacing: 1.2
+legend.borderaxespad: 0.2
+legend.labelspacing: 0.3
+
+errorbar.capsize: 0
+
+savefig.dpi: 600
+savefig.bbox: standard
+savefig.facecolor: white
+savefig.edgecolor: white
+savefig.transparent: False
+
+pdf.fonttype: 42
+ps.fonttype: 42
+svg.fonttype: none
+
+image.cmap: viridis
+image.interpolation: antialiased
+
+# Math text (10^{-5} etc.) in the same face as the labels
+mathtext.fontset: custom
+mathtext.rm: Arial
+mathtext.it: Arial:italic
+mathtext.bf: Arial:bold

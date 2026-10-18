@@ -1,0 +1,11 @@
+# Week 1: remaining seeds of the two baselines, linear probe (M2), first transfer models.
+# One line = one train.py run. Re-running the queue skips runs that already have metrics.json.
+--model resnet50 --seed 1
+--model resnet50 --seed 2
+--model scratch_cnn --seed 1
+--model scratch_cnn --seed 2
+--model resnet50 --freeze backbone --seed 0 --name resnet50_probe_s0
+--model convnext_tiny --seed 0
+--model effnetv2_s --seed 0
+--model dinov2_s --seed 0
+--model dinov2_b --seed 0

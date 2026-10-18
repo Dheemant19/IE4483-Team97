@@ -1,0 +1,48 @@
+{
+  "model": "scratch_cnn",
+  "data": "data_288",
+  "out": "runs",
+  "name": "scratch_cnn_n5000_s2",
+  "seed": 2,
+  "epochs": 50,
+  "bs": 128,
+  "opt": "sgd",
+  "lr": 0.05,
+  "head_lr": 0.05,
+  "wd": 0.0005,
+  "sched": "onecycle",
+  "warmup_epochs": 1.0,
+  "lp_epochs": 0,
+  "freeze": "none",
+  "layer_decay": 0.0,
+  "label_smoothing": 0.1,
+  "aug": "default",
+  "img_size": null,
+  "init": "kaiming",
+  "no_pretrained": false,
+  "n_train": 5000,
+  "limit": null,
+  "workers": 8,
+  "clip": null,
+  "no_resume": false,
+  "select": "last",
+  "data_cfg": {
+    "input_size": [
+      3,
+      128,
+      128
+    ],
+    "crop_pct": 0.875,
+    "interpolation": "bilinear",
+    "mean": [
+      0.48935064673423767,
+      0.453003466129303,
+      0.413100004196167
+    ],
+    "std": [
+      0.2597542703151703,
+      0.25225064158439636,
+      0.25280335545539856
+    ]
+  }
+}

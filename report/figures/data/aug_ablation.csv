@@ -1,0 +1,8 @@
+setting,seed,val_acc_pct
+None,0,94.5589
+Crop + flip,0,97.7195
+Default,0,97.7195
+Default,1,97.5395
+Default,2,97.6795
+Default + TrivialAugment,0,97.4995
+"Default, 100 epochs",0,97.8996

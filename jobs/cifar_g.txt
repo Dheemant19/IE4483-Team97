@@ -1,0 +1,8 @@
+# Part (g): CIFAR-10, balanced. Main metric = official 10k test accuracy (test_acc in metrics.json).
+# Run with: python scripts/run_queue.py jobs/cifar_g.txt --script src/cifar.py --gpus 0,1,2,3
+--model resnet18_cifar --seed 0 --name cifar_r18_s0
+--model resnet18_cifar --seed 1 --name cifar_r18_s1
+--model resnet18_cifar --seed 2 --name cifar_r18_s2
+--model dinov2_s --seed 0 --name cifar_dinov2_s_s0
+--model convnext_tiny --seed 0 --name cifar_convnext_tiny_s0
+--model dinov2_b --freeze backbone --seed 0 --name cifar_dinov2_b_probe_s0

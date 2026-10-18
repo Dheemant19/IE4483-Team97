@@ -1,0 +1,14 @@
+device: cuda:0 = NVIDIA GeForce RTX 3090 (CUDA_VISIBLE_DEVICES=3), torch 2.11.0+cu128
+dinov2_s_s0: 21.6M params, train 20000, val 4999, test 500, input (3, 224, 224)
+ep   0 LP train loss 0.2431 acc 0.9825 | val loss 0.0651 acc 0.9974 | 35s 568 img/s
+ep   1    train loss 0.2150 acc 0.9942 | val loss 0.0641 acc 0.9952 | 57s 350 img/s
+ep   2    train loss 0.2131 acc 0.9932 | val loss 0.0639 acc 0.9934 | 57s 349 img/s
+ep   3    train loss 0.2094 acc 0.9948 | val loss 0.0541 acc 0.9964 | 57s 347 img/s
+ep   4    train loss 0.2044 acc 0.9970 | val loss 0.0579 acc 0.9968 | 58s 346 img/s
+ep   5    train loss 0.2042 acc 0.9971 | val loss 0.0617 acc 0.9952 | 58s 346 img/s
+ep   6    train loss 0.2028 acc 0.9976 | val loss 0.0613 acc 0.9960 | 57s 348 img/s
+ep   7    train loss 0.2012 acc 0.9989 | val loss 0.0596 acc 0.9964 | 58s 347 img/s
+ep   8    train loss 0.2012 acc 0.9986 | val loss 0.0567 acc 0.9974 | 58s 346 img/s
+ep   9    train loss 0.2012 acc 0.9984 | val loss 0.0569 acc 0.9974 | 58s 344 img/s
+last epoch 9: val acc 0.9974 (flip TTA 0.9972), confusion [[2491, 8], [5, 2495]] | best 0.9974 @ ep 0, LP 0.9974
+wrote runs/dinov2_s_s0/submission.csv

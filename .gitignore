@@ -1,0 +1,29 @@
+# Data and anything derived from it (too large, and redistributing the course dataset is not ours to do)
+datasets/
+data_288/
+cifar/
+hf_cache/
+
+# Checkpoints and archives
+*.pt
+*.pth
+*.ckpt
+*.tgz
+*.zip
+
+# Course handout and internal working notes
+IE4483-Project2.pdf
+IE4483_project_briefing.pdf
+mlda_agents.md
+eee_cluster_agents.md
+FIGURE_REDESIGN_PROMPT.md
+FIGURE_REDESIGN_PROGRESS.md
+report/figures_before/
+report/before_after/
+
+# Python / tooling
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+runs/*/tb/
