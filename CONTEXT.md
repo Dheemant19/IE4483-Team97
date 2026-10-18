@@ -33,7 +33,7 @@ Written 18 Oct 2026 by the person who ran the experiments. It assumes you have t
 | b. Model, architecture, I/O dims, loss, training strategy, code, reproducibility | `arch_final_model`, `arch_scratch_cnn`; layer-by-layer shapes in `report/model_summaries/*.txt`; `training_curves`; `README.md` (code and run instructions, seeds) |
 | c. Choice of hyperparameters | `lr_sweep` + table "learning rate"; table "diagnostic runs"; `aug_ablation`; default recipes in §4a |
 | d. Validation accuracy and submission | Table "Final model and submission"; `submission_final.csv` |
-| e. Correct/incorrect samples, strengths/weaknesses | `errors_final_val`, `errors_scratch_val`, `test_uncertain`, `gradcam`; §4e |
+| e. Correct/incorrect samples, strengths/weaknesses | `test_cases`, `test_confidence`, `test_uncertain`, `errors_final_val`, `errors_scratch_val`, `gradcam`; contact sheets of all 500 test images in `report/test_review/`; §4e |
 | f. How model choice and data processing affect accuracy | `model_ladder`, `datasize_curve`, `aug_ablation`; tables "all models", "linear probe vs fine-tuning", "training-set size" |
 | g. CIFAR-10 | `cifar_g`; table "CIFAR-10" |
 | h. Imbalanced CIFAR-10, ≥ 2 methods | `cifar_h`, `cifar_h_groups`; table "Long-tailed CIFAR-10" |
@@ -133,7 +133,7 @@ The full table is "Dogs vs. Cats: all models" in RESULTS.md; the figure is `mode
 
 ### e. Error analysis (part e)
 
-Figures: `errors_final_val`, `errors_scratch_val`, `test_uncertain`, `gradcam`.
+Figures: `errors_final_val`, `errors_scratch_val`, `test_uncertain`, `test_cases`, `test_confidence`, `gradcam`.
 - **Most of the final model's 6 validation "errors" are dataset problems**, judged by eye (check them yourself in the figure):
   - `cat.7920` and `cat.9882` show **a dog and a cat together**;
   - `cat.7377` is a portrait of **a man**;
@@ -143,7 +143,18 @@ Figures: `errors_final_val`, `errors_scratch_val`, `test_uncertain`, `gradcam`.
 
   So 99.88% is close to the ceiling the labels allow. This is worth a paragraph: the Kaggle Dogs vs. Cats data is known to contain such images.
 - **The scratch CNN's mistakes** are mostly ordinary, clear single-animal photos. It has not learned robust features; the pretrained model has.
-- **Uncertain test images** (`test_uncertain`) show the same patterns: multiple animals, tiny or low-resolution images, and text overlays.
+- **Test set, visual check:** Dheemant inspected all 500 test predictions by eye, using the contact sheets in `report/test_review/` (made by `scripts/make_test_review.py`). He found **no wrong prediction**, so the estimated test accuracy is 500/500. Say clearly that this comes from visual inspection, since the test labels are not public.
+  - **Confidence** (`test_confidence`): only 3 of 500 test images have p(dog) between 0.2 and 0.8.
+  - **Hardest correct test cases** (`test_cases` panel a, all predicted correctly):
+    - **469** (dog, p = 0.65): a tiny, blurry photo of fluffy merle puppies;
+    - **216** (cat, 0.25): cats behind cage bars with large yellow text overlaid;
+    - **47** (dog, 0.80): puppies far away in a basket, seen through a chain-link fence;
+    - **179** (dog, 0.83): a greyhound, a slim, unusual dog shape;
+    - **293** (cat, 0.15): a child with a toy pram; the cat is small, in the pram;
+    - **342** (cat, 0.14): a small, dark, low-contrast cat photo.
+  - **Strengths:** confident and correct on ordinary photos, whatever the pose, breed or background (`test_cases` panel b).
+  - **Weaknesses:** confidence drops when the animal is small in the frame, occluded by bars or a fence, low-resolution or blurred, overlaid with text, or an unusual breed.
+  - **Reading p(dog):** training used label smoothing (0.1), so confident predictions sit near 0.05 and 0.95, not 0 and 1. Values of 0.09–0.15 are still confident.
 - **Grad-CAM:** the heat maps show where each model looks. Describe what they show after looking at `gradcam.png`; the caption draft is in `captions_gradcam.md`.
 
 ### f. CIFAR-10 (part g)
