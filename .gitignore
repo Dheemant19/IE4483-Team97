@@ -1,5 +1,6 @@
 # Data and anything derived from it (too large, and redistributing the course dataset is not ours to do)
 datasets/
+data_288/
 cifar/
 hf_cache/
 
