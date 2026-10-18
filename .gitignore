@@ -4,24 +4,18 @@ data_288/
 cifar/
 hf_cache/
 
-# Checkpoints and archives
+# Model checkpoints (kept on the training server only)
 *.pt
 *.pth
 *.ckpt
-*.tgz
-*.zip
 
-# Course handout and internal working notes
+# Course handouts and personal cluster notes (kept locally, not shared)
 IE4483-Project2.pdf
 IE4483_project_briefing.pdf
 mlda_agents.md
 eee_cluster_agents.md
-FIGURE_REDESIGN_PROMPT.md
-FIGURE_REDESIGN_PROGRESS.md
-report/figures_before/
-report/before_after/
 
-# Python / tooling
+# Python / tooling (regenerated whenever scripts run)
 __pycache__/
 *.pyc
 .venv/
