@@ -143,7 +143,7 @@ Figures: `errors_final_val`, `errors_scratch_val`, `test_uncertain`, `test_cases
 
   So 99.88% is close to the ceiling the labels allow. This is worth a paragraph: the Kaggle Dogs vs. Cats data is known to contain such images.
 - **The scratch CNN's mistakes** are mostly ordinary, clear single-animal photos. It has not learned robust features; the pretrained model has.
-- **Test set, visual check:** Dheemant inspected all 500 test predictions by eye, using the contact sheets in `report/test_review/` (made by `scripts/make_test_review.py`). He found **no wrong prediction**, so the estimated test accuracy is 500/500. Say clearly that this comes from visual inspection, since the test labels are not public.
+- **Test set, visual check:** Dheemant inspected all 500 test predictions by eye, using the contact sheets in `report/test_review/` (made by `scripts/make_test_review.py`). The check found **no wrong prediction**, so the estimated test accuracy is 500/500. Say clearly that this comes from visual inspection, since the test labels are not public.
   - **Confidence** (`test_confidence`): only 3 of 500 test images have p(dog) between 0.2 and 0.8.
   - **Hardest correct test cases** (`test_cases` panel a, all predicted correctly):
     - **469** (dog, p = 0.65): a tiny, blurry photo of fluffy merle puppies;
