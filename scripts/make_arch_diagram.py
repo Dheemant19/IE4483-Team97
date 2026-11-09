@@ -1,11 +1,8 @@
-"""Part (b): architecture diagrams of the final model and the scratch CNN (laptop; matplotlib only).
+"""Part (b): architecture diagrams of the final model and the scratch CNN.
 
-    python scripts/make_arch_diagram.py              # -> report/figures/arch_final_model.png|pdf, arch_scratch_cnn.png|pdf
+Shapes are read from report/model_summaries/stages.csv (written by model_summary.py).
 
-Tensor shapes are read from report/model_summaries/stages.csv (written by scripts/model_summary.py), so the
-diagram always matches the real models. Same style and colours as the other report figures (figstyle.py):
-green = trained linear head of the linear probe, vermillion = trained from scratch, grey = frozen pretrained.
-No titles inside the figures; captions go to report/figures/captions_arch.md.
+    python scripts/make_arch_diagram.py    # -> report/figures/arch_final_model.*, arch_scratch_cnn.*
 """
 import argparse
 import csv

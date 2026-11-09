@@ -1,23 +1,8 @@
-"""Report figures from runs/*/metrics.json (runs on the laptop; needs matplotlib, numpy, pandas, seaborn).
+"""Report figures from runs/*/metrics.json -> report/figures/<name>.png (600 dpi) and .pdf.
 
-    python scripts/make_plots.py                       # -> report/figures/<name>.png (600 dpi, RGB) + .pdf
+Also writes captions.md and data/<name>.csv. Individual seeds are drawn next to their mean.
+
     python scripts/make_plots.py --runs runs --out report/figures
-
-Design rules (scientific-visualization skill): no titles or explanatory text inside the figures, the
-caption carries that; one colour meaning per figure, always doubled by marker shape, line style or a
-direct label; individual seeds are always drawn (small open markers) next to the mean (large filled
-marker), and the thin bar behind a mean spans the seed range (min to max), not an SD.
-
-Also writes report/figures/captions.md (draft caption + alt text per figure) and data/<name>.csv.
-
-    datasize_curve   part f   validation error vs training-set size, 4 models
-    model_ladder     part f   every Dogs-vs-Cats model, one row per backbone
-    aug_ablation     part f   scratch CNN augmentation levels
-    lr_sweep         part c   ResNet-50 backbone LR: (a) accuracy per epoch, (b) final accuracy vs LR
-    training_curves  part b   (a) scratch CNN train/val error, (b) pretrained fine-tunes per epoch
-    cifar_g          part g   CIFAR-10 test accuracy, scratch vs transfer
-    cifar_h          part h   long-tailed CIFAR-10 test accuracy per method, (a) ratio 100, (b) ratio 10
-    cifar_h_groups   part h   head / medium / tail test accuracy at ratio 100
 """
 import argparse
 import json

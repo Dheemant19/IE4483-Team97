@@ -1,13 +1,9 @@
-"""Train / validate / predict for Dogs vs. Cats (PLAN.md section 8).
+"""Train, validate and predict for Dogs vs. Cats: one model and one seed per run.
 
-One run = one model + one seed, written to runs/<name>/:
-    last.pt (resumable), best.pt (best val acc), tb/ (TensorBoard),
-    metrics.json, val_predictions.csv, test_probs.csv, submission.csv
+Writes runs/<name>/: args.json, metrics.json, val_predictions.csv, test_probs.csv,
+submission.csv, last.pt (resumable), best.pt and tb/ (TensorBoard).
 
-Examples (pick a free GPU first with nvidia-smi):
-    CUDA_VISIBLE_DEVICES=0 python src/train.py --model resnet50 --seed 0
-    CUDA_VISIBLE_DEVICES=1 python src/train.py --model scratch_cnn --seed 0
-    python src/train.py --model resnet50 --limit 512 --epochs 1 --name smoke   # quick smoke test
+    python src/train.py --model dinov2_b --freeze backbone --seed 0 --name dinov2_b_probe_s0
 """
 import argparse
 import csv

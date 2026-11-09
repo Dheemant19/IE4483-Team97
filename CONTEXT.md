@@ -9,7 +9,7 @@ Written 18 Oct 2026 by the person who ran the experiments. It assumes you have t
 
 - **Final model:** the DINOv2-B vision transformer, used as a **frozen feature extractor with a trained linear classifier** (a "linear probe"). Three seeds are averaged, and each image is also scored mirrored (flip test-time augmentation, "TTA").
   - **Validation accuracy: 99.88%** (6 errors out of 4,999).
-  - The submission file is `submission_final.csv`: 500 rows, 259 dogs and 241 cats.
+  - The submission file is `submission.csv`: 500 rows, 259 dogs and 241 cats.
 - **Pretraining matters far more than anything else.** The model ladder (all validation accuracy):
 
   | Model | Val acc |
@@ -32,7 +32,7 @@ Written 18 Oct 2026 by the person who ran the experiments. It assumes you have t
 | a. Data, preprocessing, augmentation | Table "Dataset"; `aug_examples` (what the network sees); `aug_ablation`; §3 below |
 | b. Model, architecture, I/O dims, loss, training strategy, code, reproducibility | `arch_final_model`, `arch_scratch_cnn`; layer-by-layer shapes in `report/model_summaries/*.txt`; `training_curves`; `README.md` (code and run instructions, seeds) |
 | c. Choice of hyperparameters | `lr_sweep` + table "learning rate"; table "diagnostic runs"; `aug_ablation`; default recipes in §4a |
-| d. Validation accuracy and submission | Table "Final model and submission"; `submission_final.csv` |
+| d. Validation accuracy and submission | Table "Final model and submission"; `submission.csv` |
 | e. Correct/incorrect samples, strengths/weaknesses | `test_cases`, `test_confidence`, `test_uncertain`, `errors_final_val`, `errors_scratch_val`, `gradcam`; contact sheets of all 500 test images in `report/test_review/`; §4e |
 | f. How model choice and data processing affect accuracy | `model_ladder`, `datasize_curve`, `aug_ablation`; tables "all models", "linear probe vs fine-tuning", "training-set size" |
 | g. CIFAR-10 | `cifar_g`; table "CIFAR-10" |
@@ -194,7 +194,7 @@ Figures `cifar_h`, `cifar_h_groups`; table "Long-tailed CIFAR-10".
 
   Head-class accuracy stays at ≈ 94% for every method, so the gains come from the rare classes.
 - **Results at ratio 10:** the same order but smaller gaps. Logit adjustment 89.86 ± 0.13 vs CE 88.89 ± 0.12; CB+DRW 89.33 ± 0.45 is within noise of CE.
-- **Why re-sampling hurts:** the 45 images of the rarest class are repeated ~100× per epoch and get memorised. This is why deferred schedules like DRW exist.
+- **Why re-sampling hurts:** each of the 45 images of the rarest class is drawn about 25 times per epoch (100 times as often as an image of the largest class), so they are probably memorised. This is consistent with the idea behind deferred schedules like DRW.
 - **Seeds:** CE, CB+DRW and LA have 3 seeds; focal and re-sampling have 1 seed each, so say so.
 
 ## 5. Problems found along the way (worth knowing; mention briefly where relevant)
@@ -224,7 +224,7 @@ Figures `cifar_h`, `cifar_h_groups`; table "Long-tailed CIFAR-10".
 | `report/gradcam/` | Grad-CAM maps computed on the server (`gradcam_maps.npz`) |
 | `runs/<run>/` | Per run: `metrics.json` (all numbers + per-epoch history), `args.json` (exact settings), `val_predictions.csv`, `test_probs.csv`; logs in `runs/<run>.log` |
 | `jobs/*.txt` | Run lists for most batches. A few later batches (extra seeds, data-size seeds, fine-tuning diagnostics) were written directly on the server and are not here; each run's `args.json` records its exact settings |
-| `submission_final.csv` | The file to submit |
+| `submission.csv` | The file to submit |
 | `src/`, `scripts/` | All code |
 | `PLAN.md` | The original plan (§3 dataset analysis is still accurate; the compute section is outdated) |
 
@@ -236,4 +236,4 @@ Figures `cifar_h`, `cifar_h_groups`; table "Long-tailed CIFAR-10".
 - **Contributions:** the brief requires a statement of who did what. Training, experiments, results, figures and code: Dheemant.
 - **Part (e):** describe the mislabelled/ambiguous validation images (§4e) and what the Grad-CAM maps show.
 - **References:** Kumar et al. 2022 (LP-FT); Oquab et al. 2024 (DINOv2); Cui et al. 2019; Cao et al. 2019; Menon et al. 2021; Lin et al. 2017; He et al. 2016; Liu et al. 2022 (ConvNeXt); Tan & Le 2021; Selvaraju et al. 2017 (Grad-CAM). Full list in `PLAN.md` §12.
-- **Submission:** upload `submission_final.csv` with the report.
+- **Submission:** upload `submission.csv` with the report.

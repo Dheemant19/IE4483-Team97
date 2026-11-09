@@ -1,18 +1,8 @@
-"""Part (b): per-layer architecture tables for the final model and the scratch CNN, as CSV.
+"""Part (b): per-layer tables (input shape, output shape, parameters) of the final model and the scratch CNN.
 
-Builds both models with the project's own code (src/models.py), runs one dummy batch through each and
-writes, for every layer, its input shape, output shape and parameter count:
+Weights are random, which does not change the shapes or parameter counts.
 
-    report/tables/arch_dinov2_b_probe.csv     final model: DINOv2-B backbone frozen + linear head
-    report/tables/arch_scratch_cnn.csv        scratch CNN
-
-    python scripts/arch_table.py                      # dummy batch 1x3x224x224 for both models (as requested)
-    python scripts/arch_table.py --scratch-size 128   # the scratch CNN at its training resolution (128 px)
-
-Uses torchinfo if it is installed, otherwise forward hooks (same columns either way; --no-torchinfo forces
-hooks). Weights are random (pretrained=False): layer shapes and parameter counts do not depend on them.
-Columns: order, layer (module path), type, depth, input_shape, output_shape, params (this layer incl.
-sub-layers), trainable_params, leaf (True for layers without sub-layers). Shapes include the batch dim (1).
+    python scripts/arch_table.py    # -> report/tables/arch_dinov2_b_probe.csv, arch_scratch_cnn.csv
 """
 import argparse
 import csv

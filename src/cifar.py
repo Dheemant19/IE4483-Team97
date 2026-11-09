@@ -1,33 +1,12 @@
-"""CIFAR-10 (part g) and imbalanced CIFAR-10 (part h), PLAN.md section 9.
+"""CIFAR-10 (part g) and long-tailed CIFAR-10 (part h).
 
-The whole dataset lives on the GPU as uint8 and is augmented there (random crop with
-4 px padding, horizontal flip, optional cutout), so there is no DataLoader bottleneck.
+The data is kept on the GPU and augmented there (4 px padded crop, flip). 500 images per class are held
+out of the training set for validation, and the official test set is evaluated once, after the last epoch.
+--model resnet18_cifar trains a CIFAR-style ResNet-18 from scratch; any train.py model name fine-tunes a
+pretrained timm model at 224 px. --imb-ratio makes the training set long-tailed and --method picks the
+imbalance handling: ce, resample, cb, cb_drw, la (logit adjustment) or focal.
 
-Splits: 500 images per class are held out from the official 50k train set as a
-balanced validation set (fixed seed 1234), so training uses 4,500 per class. The
-official 10k test set is only evaluated once, after the last epoch.
-
-Models:
-    resnet18_cifar   CIFAR-style ResNet-18 from scratch (3x3 stem, no max-pool), 32x32 input
-    any train.py name (convnext_tiny, dinov2_s, dinov2_b, resnet50, ...): pretrained timm model,
-                     images upsampled to 224 on the GPU; --freeze backbone for a linear probe
-
-Imbalance (part h): --imb-type exp|step --imb-ratio R builds a long-tailed / step training set
-from the 4,500-per-class pool (class 0 keeps 4,500; validation and test stay balanced).
-Methods (--method):
-    ce        plain cross-entropy (baseline)
-    resample  class-balanced re-sampling (every class drawn equally often)
-    cb        class-balanced loss weights, effective number of samples (Cui et al. 2019)
-    cb_drw    the same weights, switched on only for the last 20% of epochs (DRW, Cao et al. 2019)
-    la        logit-adjusted loss, logits + tau * log(prior) during training (Menon et al. 2021)
-    focal     focal loss, gamma 1 (Lin et al. 2017)
-
-Examples:
-    python src/cifar.py --model resnet18_cifar --seed 0                              # part g, from scratch
-    python src/cifar.py --model dinov2_s --seed 0                                    # part g, transfer
-    python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 0  # part h
-    python src/cifar.py --model resnet18_cifar --epochs 1 --limit 2000 --name cifar_smoke   # smoke test
-Writes runs/<name>/: last.pt, tb/, metrics.json (val_acc, test_acc, per-class accuracy, macro-F1, ...).
+    python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 0 --name cifar_r18_lt100_la_s0
 """
 import argparse
 import json

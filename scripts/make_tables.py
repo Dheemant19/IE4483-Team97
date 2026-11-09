@@ -1,11 +1,8 @@
-"""Final result tables for the report, from runs/*/metrics.json (laptop; standard library only).
+"""Report tables from runs/*/metrics.json -> report/tables/*.csv and RESULTS.md.
 
-    python scripts/make_tables.py            # -> report/tables/*.csv + report/tables/RESULTS.md
+Dogs vs. Cats uses last-epoch validation accuracy and CIFAR-10 uses test accuracy, as mean ± SD over seeds.
 
-Conventions (same as the figures):
-- Dogs vs Cats: validation accuracy on 4,999 images at the LAST epoch (val/), the number we report.
-- CIFAR-10: TEST accuracy on the official 10,000-image test set, evaluated once after the last epoch.
-- mean ± SD over seeds (sample SD, n-1); n = number of seeds; "TTA" = average of image + horizontal flip.
+    python scripts/make_tables.py
 """
 import argparse
 import csv
@@ -223,10 +220,10 @@ def main():
         t.add("Model", "DINOv2-B (ViT-B/14) frozen + linear head; average of 3 seeds; flip TTA")
         t.add("Validation accuracy", f"{100 * ens['val_acc']:.2f}% ({cm[0][1] + cm[1][0]} errors / {ens['n_val']})")
         t.add("Validation confusion (rows true cat/dog, cols predicted)", f"cat: {cm[0]}, dog: {cm[1]}")
-    sub = Path("submission_final.csv")
+    sub = Path("submission.csv")
     if sub.exists():
         rows = list(csv.DictReader(open(sub)))
-        t.add("submission_final.csv", f"{len(rows)} rows (id 1-500), {sum(int(r['label']) for r in rows)} predicted dogs")
+        t.add("submission.csv", f"{len(rows)} rows (id 1-500), {sum(int(r['label']) for r in rows)} predicted dogs")
     tables.append(t)
 
     for tb in tables:

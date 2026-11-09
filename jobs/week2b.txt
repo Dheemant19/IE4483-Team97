@@ -1,0 +1,36 @@
+# Remaining runs (seeds 1 and 2 of the probes, data-size runs and baselines), rebuilt from runs/<name>/args.json.
+# Run with: python scripts/run_queue.py jobs/week2b.txt --gpus 0,1,2,3
+--model convnext_tiny --seed 1 --name convnext_tiny_n10000_s1 --n-train 10000
+--model convnext_tiny --seed 2 --name convnext_tiny_n10000_s2 --n-train 10000
+--model convnext_tiny --seed 1 --name convnext_tiny_n2000_s1 --n-train 2000
+--model convnext_tiny --seed 2 --name convnext_tiny_n2000_s2 --n-train 2000
+--model convnext_tiny --seed 1 --name convnext_tiny_n5000_s1 --n-train 5000
+--model convnext_tiny --seed 2 --name convnext_tiny_n5000_s2 --n-train 5000
+--model convnext_tiny --seed 1 --name convnext_tiny_probe_s1 --freeze backbone
+--model convnext_tiny --seed 2 --name convnext_tiny_probe_s2 --freeze backbone
+--model dinov2_b --seed 1 --name dinov2_b_probe_n10000_s1 --freeze backbone --n-train 10000
+--model dinov2_b --seed 2 --name dinov2_b_probe_n10000_s2 --freeze backbone --n-train 10000
+--model dinov2_b --seed 1 --name dinov2_b_probe_n2000_s1 --freeze backbone --n-train 2000
+--model dinov2_b --seed 2 --name dinov2_b_probe_n2000_s2 --freeze backbone --n-train 2000
+--model dinov2_b --seed 1 --name dinov2_b_probe_n5000_s1 --freeze backbone --n-train 5000
+--model dinov2_b --seed 2 --name dinov2_b_probe_n5000_s2 --freeze backbone --n-train 5000
+--model dinov2_b --seed 1 --name dinov2_b_probe_s1 --freeze backbone
+--model dinov2_b --seed 2 --name dinov2_b_probe_s2 --freeze backbone
+--model dinov2_s --seed 1 --name dinov2_s_probe_s1 --freeze backbone
+--model dinov2_s --seed 2 --name dinov2_s_probe_s2 --freeze backbone
+--model effnetv2_s --seed 1 --name effnetv2_s_s1
+--model effnetv2_s --seed 2 --name effnetv2_s_s2
+--model resnet50 --seed 1 --name resnet50_n10000_s1 --n-train 10000
+--model resnet50 --seed 2 --name resnet50_n10000_s2 --n-train 10000
+--model resnet50 --seed 1 --name resnet50_n2000_s1 --n-train 2000
+--model resnet50 --seed 2 --name resnet50_n2000_s2 --n-train 2000
+--model resnet50 --seed 1 --name resnet50_n5000_s1 --n-train 5000
+--model resnet50 --seed 2 --name resnet50_n5000_s2 --n-train 5000
+--model resnet50 --seed 0 --name resnet50_s0
+--model scratch_cnn --seed 1 --name scratch_cnn_n10000_s1 --n-train 10000
+--model scratch_cnn --seed 2 --name scratch_cnn_n10000_s2 --n-train 10000
+--model scratch_cnn --seed 1 --name scratch_cnn_n2000_s1 --n-train 2000
+--model scratch_cnn --seed 2 --name scratch_cnn_n2000_s2 --n-train 2000
+--model scratch_cnn --seed 1 --name scratch_cnn_n5000_s1 --n-train 5000
+--model scratch_cnn --seed 2 --name scratch_cnn_n5000_s2 --n-train 5000
+--model scratch_cnn --seed 0 --name scratch_cnn_s0

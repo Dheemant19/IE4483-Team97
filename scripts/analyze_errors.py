@@ -1,23 +1,8 @@
-"""Part (e): error galleries and Grad-CAM (galleries on the laptop, Grad-CAM maps on MLDA).
+"""Part (e): validation error galleries, uncertain test images and Grad-CAM figures.
 
-    python scripts/analyze_errors.py                                   # laptop: the three galleries
-    python scripts/analyze_errors.py --gradcam --out report/gradcam    # MLDA: compute Grad-CAM maps + figure
-    python scripts/analyze_errors.py --cams-from report/gradcam/gradcam_maps.npz   # laptop: redraw Grad-CAM
-
-Writes to --out (PNG at 600 dpi, RGB + PDF; same style as make_plots.py via figstyle.py):
-    errors_final_val     (a) every validation mistake of the final model (3-seed DINOv2-B probe ensemble),
-                         (b) its least confident correct predictions
-    errors_scratch_val   the scratch CNN's most confident validation mistakes
-    test_uncertain       the test images the final model is least sure about (no labels)
-    gradcam              8 images x (input, DINOv2-B probe Grad-CAM, scratch CNN Grad-CAM)
-    gradcam_maps.npz     (with --gradcam) the maps, model views and probabilities, so the figure can be
-                         redrawn without torch
-    captions_errors.md   draft captions + alt text;  data/*.csv the image lists with probabilities
-
-Under every gallery image, a bar shows p(dog) on [0, 1] (left = cat, right = dog); the coloured segment
-runs from the 0.5 threshold to the prediction, so its side is the predicted class and its length the
-confidence. Wrong predictions are framed and coloured vermillion. Gallery probabilities are the saved
-flip-TTA probabilities; Grad-CAM recomputes single-model probabilities (no TTA) from seed-0 checkpoints.
+    python scripts/analyze_errors.py                                              # galleries (CPU)
+    python scripts/analyze_errors.py --gradcam --out report/gradcam               # Grad-CAM maps (GPU)
+    python scripts/analyze_errors.py --cams-from report/gradcam/gradcam_maps.npz  # redraw Grad-CAM (CPU)
 """
 import argparse
 import csv
@@ -213,7 +198,7 @@ def compute_cams(sel, runs, out):
     return out / "gradcam_maps.npz"
 
 
-# ---------------------------------------------------------------- Grad-CAM figure (server or laptop)
+# ---------------------------------------------------------------- Grad-CAM figure (GPU or CPU)
 
 def heat_rgba(view, cam, cmap):
     """Photo in light greyscale under the heat map; map opacity grows with relevance."""
@@ -337,7 +322,7 @@ def main():
                 sel.append(dict(path=c["path"], true=cls, missed=False, name=short(c["name"])))
             sel += [dict(path=r["path"], true=None, missed=False, name=f"test {r['id']}") for r in tu[:2]]
             npz = compute_cams(sel, {"probe": args.probe_run, "scratch": args.scratch_run}, out)
-            try:                        # the laptop redraws the final figure from the .npz anyway
+            try:                        # the CPU redraw from the .npz makes the final figure anyway
                 draw_gradcam(npz, out)
             except Exception as e:      # noqa: BLE001
                 print(f"maps saved; figure not drawn here ({type(e).__name__}: {e})")

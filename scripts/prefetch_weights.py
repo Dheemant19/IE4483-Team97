@@ -1,8 +1,5 @@
-"""Download every pretrained backbone and CIFAR-10 once (PLAN.md section 7).
+"""Download all pretrained backbones (into $HF_HOME) and CIFAR-10 once.
 
-Set HF_HOME before running so the cache lands in the project folder:
-
-    export HF_HOME=~/ie4483/hf_cache
     python scripts/prefetch_weights.py --cifar-root ~/ie4483/cifar
 """
 import argparse

@@ -1,9 +1,6 @@
-"""Collect runs/*/metrics.json into one table: mean +- std over seeds.
+"""Print a table of all runs (mean and SD over seeds) and write runs/summary.csv.
 
-Runs are grouped by name with the trailing _s<seed> removed, so
-resnet50_s0, resnet50_s1, resnet50_s2 -> resnet50.
-
-    python scripts/summarize.py            # prints a Markdown table, writes runs/summary.csv
+    python scripts/summarize.py
 """
 import argparse
 import csv

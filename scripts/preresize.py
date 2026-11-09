@@ -1,8 +1,6 @@
-"""One-time pre-resize of the Dogs vs. Cats data (PLAN.md section 5.1).
+"""One-time copy of the Dogs vs. Cats data with the shorter side resized to 288 px.
 
-Shorter side -> 288 px (aspect ratio kept, tiny images are never upscaled),
-saved as JPEG quality 95 with the same folder layout. The val copy of the
-train duplicate (val/cat/cat.12408.jpg == train/cat/cat.2339.jpg) is dropped.
+Aspect ratio is kept, smaller images are not upscaled, and the validation copy of a training image is dropped.
 
     python scripts/preresize.py --src datasets --dst data_288
 """

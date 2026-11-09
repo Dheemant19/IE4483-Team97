@@ -1,12 +1,6 @@
-"""Part (b): layer tables (input/output size and parameters per layer) for the models in the report.
+"""Part (b): torchinfo layer tables of the report's models (random weights, CPU).
 
-    python scripts/model_summary.py                  # writes report/model_summaries/
-Runs on CPU and needs no pretrained weights: the architectures are built with random weights, which
-gives identical layer shapes and parameter counts. Needs torch, timm and torchinfo.
-
-Writes:
-    <model>.txt        full torchinfo table (layer, output shape, #params, trainable)
-    stages.csv         compact stage-by-stage shapes used for the architecture diagrams
+    python scripts/model_summary.py    # -> report/model_summaries/<model>.txt, stages.csv
 """
 import argparse
 import csv

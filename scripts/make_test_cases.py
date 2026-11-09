@@ -1,12 +1,6 @@
-"""Part (e): test-set cases of the final model, after a visual check of all 500 test predictions.
+"""Part (e): least and most confident test predictions, and the p(dog) distribution over the test set.
 
-    python scripts/make_test_cases.py        # -> report/figures/test_cases.png|pdf, test_confidence.png|pdf
-
-test_cases       (a) the test images with the least confident predictions (all correct by visual check),
-                 (b) the most confident cats and dogs, for contrast
-test_confidence  distribution of the final model's p(dog) over the 500 test images
-A visual check of all 500 test images (contact sheets from make_test_review.py, 18 Oct 2026) found no wrong
-prediction; --wrong lets you pass ids that turn out to be wrong, which are then drawn in vermillion.
+    python scripts/make_test_cases.py    # -> report/figures/test_cases.*, test_confidence.*
 """
 import argparse
 import csv

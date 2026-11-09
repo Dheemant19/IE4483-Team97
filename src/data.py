@@ -1,4 +1,4 @@
-"""Datasets and transforms (PLAN.md section 5)."""
+"""Datasets and transforms for Dogs vs. Cats."""
 import json
 import random
 from pathlib import Path
@@ -28,12 +28,8 @@ def eval_transform(cfg):
 
 
 def train_transform(cfg, aug="default", scale_min=0.5):
-    """aug levels for the augmentation ablation (PLAN.md 8.4):
-    none -> eval-style resize + centre crop
-    basic -> RandomResizedCrop + flip
-    default -> basic + rotation + colour jitter + random erasing
-    trivial -> default + TrivialAugmentWide
-    """
+    """Training transform for one augmentation level: none (eval view), basic (crop + flip),
+    default (basic + rotation, colour jitter, random erasing) or trivial (default + TrivialAugmentWide)."""
     if aug == "none":
         return eval_transform(cfg)
     size = cfg["input_size"][-1]

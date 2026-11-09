@@ -1,8 +1,4 @@
-"""Shared look for every report figure (make_plots.py and analyze_errors.py).
-
-Only needs matplotlib, numpy and Pillow, so it also runs on the MLDA server. The style file and the
-Okabe-Ito palette live in scripts/style/ (copied from the scientific-visualization skill).
-"""
+"""Shared figure style and colour-blind-safe palette (scripts/style/) for all report figures."""
 import sys
 from pathlib import Path
 

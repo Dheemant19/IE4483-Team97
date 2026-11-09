@@ -1,13 +1,7 @@
-"""Average the predictions of several finished runs (seed or model ensemble, PLAN.md 8.5).
-
-Uses the flip-TTA probabilities each run saved (val_predictions.csv: prob_dog_tta,
-test_probs.csv: prob_dog). Scores the averaged val probabilities exactly like a
-single run, so ensembles and single models can be compared on val.
+"""Average the flip-TTA predictions of several finished runs and write the ensemble's submission.csv.
 
     python scripts/ensemble.py runs/dinov2_b_probe_s0 runs/dinov2_b_probe_s1 runs/dinov2_b_probe_s2 \
         --out runs/ens_dinov2_b_probe
-    python scripts/ensemble.py runs/dinov2_b_probe_s* runs/dinov2_s_probe_s* --out runs/ens_dinov2_bs
-Writes <out>/submission.csv, test_probs.csv, val_predictions.csv, metrics.json.
 """
 import argparse
 import csv

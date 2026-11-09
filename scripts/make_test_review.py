@@ -1,10 +1,6 @@
-"""Contact sheets of all 500 test images, grouped by the final model's prediction, for checking by eye.
+"""Contact sheets of all 500 test images, grouped by predicted class, for checking the predictions by eye.
 
-    python scripts/make_test_review.py         # -> report/test_review/predicted_cat_*.png, predicted_dog_*.png,
-                                               #    test_review.csv (fill in the 'wrong' column)
-Each sheet holds up to 60 thumbnails of images the model called cat (or dog), sorted from least to most
-confident. Under each thumbnail: test id and p(dog). Any dog on a 'predicted cat' sheet (or vice versa) is a
-model error: write its id into the 'wrong' column of test_review.csv (1 = model wrong).
+    python scripts/make_test_review.py    # -> report/test_review/predicted_{cat,dog}_*.png, test_review.csv
 """
 import argparse
 import csv

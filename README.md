@@ -1,158 +1,242 @@
-# IE4483 Mini Project (Option 2): Dogs vs. Cats, CIFAR-10 and long-tailed CIFAR-10
+# IE4483 Mini Project (Option 2), Team 97: Dogs vs. Cats, CIFAR-10 and long-tailed CIFAR-10
 
-This README covers the code: how to set it up and run every experiment, the final submission, and every table and figure in the report. For what was done, what came out and where each result lives, read `CONTEXT.md`.
+This repository holds all code, settings and results behind our IE4483 report. It covers:
 
-## Contents of this folder
+- **Dogs vs. Cats.** The final model is a DINOv2-B linear probe: a frozen DINOv2-B backbone with a trained linear head. Three seeds are ensembled with flip test-time augmentation. It reaches **99.88% validation accuracy**.
+- **CIFAR-10 (part g).** Fine-tuned DINOv2-S reaches **98.87% test accuracy**.
+- **Long-tailed CIFAR-10 (part h).** Logit adjustment reaches **78.53% test accuracy** at imbalance ratio 100.
 
-| Path | What it is |
+The submission file is [`submission.csv`](submission.csv). The report's LaTeX source is in [`report/overleaf/`](report/overleaf/).
+
+There are two ways to reproduce the results:
+
+| | What it reproduces | Needs | Time |
+|---|---|---|---|
+| **A. Quick check** | `submission.csv` and every result table and figure, rebuilt from the saved outputs of all training runs | Any computer with Python 3.9+, no GPU | about 5 minutes |
+| **B. Full reproduction** | All 108 training runs from scratch | An NVIDIA GPU with CUDA, the course dataset | about 15 GPU-hours (one final-model run takes about 8 minutes) |
+
+---
+
+## Repository layout
+
+| Path | Contents |
 |---|---|
-| `src/train.py` | Dogs vs. Cats training: one model and one seed per run. It handles LP-FT, the linear probe, ablation flags, last-epoch reporting, flip TTA, and writes `submission.csv` per run |
-| `src/models.py` | Model factory: the scratch CNN, plus timm backbones `resnet50`, `effnetv2_s`, `convnext_tiny`, `dinov2_s`, `dinov2_b`, ... |
-| `src/data.py` | Datasets and transforms (augmentation levels, class-balanced subsets, train/val duplicate exclusion) |
-| `src/classical.py` | HOG + colour histogram → linear / RBF SVM baseline (CPU) |
-| `src/cifar.py` | CIFAR-10 (part g) and long-tailed CIFAR-10 (part h): ResNet-18 from scratch or a pretrained backbone; imbalance methods |
-| `scripts/preresize.py` | One-time copy of the images with shorter side 288 px (`data_288/`) |
+| `src/train.py` | Dogs vs. Cats training: one model and one seed per run (linear probe or LP-FT, ablation flags, flip TTA, writes a `submission.csv` per run) |
+| `src/models.py` | Model factory: the scratch CNN and the pretrained timm backbones (`resnet50`, `effnetv2_s`, `convnext_tiny`, `dinov2_s`, `dinov2_b`) |
+| `src/data.py` | Datasets and transforms (augmentation levels, class-balanced subsets, removal of the train/val duplicate) |
+| `src/classical.py` | HOG + colour histogram features with a linear and an RBF SVM (CPU only) |
+| `src/cifar.py` | CIFAR-10 (part g) and long-tailed CIFAR-10 (part h) |
+| `scripts/preresize.py` | One-time copy of the images with the shorter side resized to 288 px (`data_288/`) |
 | `scripts/prefetch_weights.py` | Downloads all pretrained weights and CIFAR-10 once |
-| `scripts/run_queue.py` | Runs a job file (one run per line) across several GPUs, one run per GPU at a time |
-| `scripts/ensemble.py` | Averages the predictions of several runs and writes the final `submission.csv` |
-| `scripts/summarize.py` | Quick table of all runs (validation accuracy, mean ± SD over seeds) |
-| `scripts/make_tables.py` | Final report tables → `report/tables/RESULTS.md` + CSVs |
-| `scripts/make_plots.py` | Report charts → `report/figures/` |
-| `scripts/analyze_errors.py` | Part (e) galleries and Grad-CAM |
-| `scripts/make_arch_diagram.py` | Part (b) architecture diagrams |
-| `scripts/model_summary.py` | Part (b) layer tables (input/output shape and parameters per layer) → `report/model_summaries/` |
-| `scripts/make_aug_examples.py` | Part (a) figure of augmented training images |
-| `scripts/figstyle.py`, `scripts/style/` | Shared figure style and colour-blind-safe palette |
-| `jobs/*.txt` | Job lists used with `run_queue.py` (a few later batches were written on the server only; every run's `runs/<name>/args.json` holds its exact settings) |
-| `runs/` | Results of all 108 training runs and 2 ensembles: `metrics.json`, `args.json`, `val_predictions.csv`, `test_probs.csv`, logs. Checkpoints are not included |
-| `report/` | Figures (PNG at 600 dpi + PDF), draft captions, tables, layer tables, Grad-CAM maps |
-| `submission_final.csv` | The submission: 500 rows, `id,label` (1 = dog, 0 = cat) |
-| `PLAN.md` | The original project plan. Some parts are out of date (compute moved from EEE to MLDA); `CONTEXT.md` is the up-to-date account |
+| `scripts/run_queue.py` | Runs a job file (one run per line) on several GPUs, one run per GPU at a time |
+| `scripts/ensemble.py` | Averages the predictions of several runs and writes the ensemble's `submission.csv` |
+| `scripts/make_tables.py`, `scripts/make_plots.py` | Result tables (`report/tables/`) and figures (`report/figures/`) |
+| other `scripts/` | Figures for single report parts: `make_report_extras.py` (a, b), `make_aug_examples.py` (a), `model_summary.py`, `arch_table.py`, `make_arch_diagram.py` (b), `analyze_errors.py`, `make_test_cases.py`, `make_test_review.py` (e), `summarize.py` (quick overview of all runs) |
+| `jobs/*.txt` | Job files: the command-line arguments of all 106 neural-network runs, one run per line |
+| `runs/` | Saved outputs of all 108 runs and 2 ensembles: `args.json` (exact settings), `metrics.json` (metrics and per-epoch history), `val_predictions.csv`, `test_probs.csv` and the log file. Model checkpoints are not included because of their size |
+| `report/` | Report figures (PNG and PDF), tables, layer tables, Grad-CAM maps and the LaTeX source (`report/overleaf/`) |
+| `requirements.txt` | Python packages apart from PyTorch |
+| `submission.csv` | Final test predictions: 500 rows, `id,label` (1 = dog, 0 = cat) |
+| `CONTEXT.md`, `PLAN.md` | Project notes. `PLAN.md` is the original plan, and parts of it are out of date |
 
-## 1. Environment
+The course dataset is **not** included, because it is not ours to redistribute. Step B3 explains where to put it.
 
-Training ran on a Linux server with 4× RTX 3090, Python 3.11 and PyTorch 2.11 (CUDA 12.8).
+---
+
+## A. Quick check (no GPU, about 5 minutes)
+
+This rebuilds the final submission and all result tables and figures from the saved run outputs in `runs/`.
 
 ```bash
-conda create -y -n ie4483 python=3.11 && conda activate ie4483
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
-pip install timm scikit-learn scikit-image pandas matplotlib seaborn tensorboard torchinfo grad-cam pillow
-export HF_HOME=~/ie4483/hf_cache          # where pretrained weights are cached; set it in every shell
+git clone https://github.com/Dheemant19/IE4483-Team97.git
+cd IE4483-Team97
+pip install numpy pandas matplotlib seaborn pillow          # only make_plots.py needs these
+
+python scripts/ensemble.py runs/dinov2_b_probe_s0 runs/dinov2_b_probe_s1 runs/dinov2_b_probe_s2 --out check/ens_dinov2_b_probe
+python scripts/make_tables.py --out check/tables
+python scripts/make_plots.py --out check/figures
 ```
 
-The figure and table scripts (`make_plots.py`, `make_tables.py`, `analyze_errors.py` without `--gradcam`, `make_arch_diagram.py`) only need numpy, pandas, matplotlib, seaborn and Pillow, so they also run on a laptop without a GPU.
+What you should see:
 
-## 2. Data
+1. `ensemble.py` prints `ensemble of 3: val acc (TTA) 0.9988, confusion [[2495, 4], [2, 2498]]`.
+2. `check/ens_dinov2_b_probe/submission.csv` is identical to `submission.csv` (259 dogs, 241 cats).
+3. `check/tables/` is identical to `report/tables/` (`RESULTS.md` collects every table in one file).
+4. `check/figures/` holds the result figures of the report.
 
-Put the course data in `datasets/`:
-- `datasets/train/{cat,dog}/*.jpg` (10,000 each);
-- `datasets/val/{cat,dog}/*.jpg` (2,500 each);
-- `datasets/test/1.jpg … 500.jpg`.
+`ensemble.py` and `make_tables.py` use only the Python standard library.
 
-Then run these once:
+---
+
+## B. Full reproduction (NVIDIA GPU)
+
+### B1. What you need
+
+- **A Linux or Windows machine with an NVIDIA GPU and a recent NVIDIA driver.** The training scripts stop with a message if no GPU is found. Training uses bfloat16 mixed precision, so an Ampere GPU (RTX 30xx, A100) or newer is recommended. We used RTX 3090s with 24 GB of memory.
+- **Python 3.9 or newer.** We used 3.11.
+- **A few GB of free disk space** for the pre-resized data, the pretrained weights and CIFAR-10.
+
+### B2. Install the software
+
+**Step 1. Create an environment.** Either option works.
 
 ```bash
-python scripts/preresize.py --src datasets --dst data_288    # shorter side 288 px; drops the train/val duplicate
+# Option 1: conda
+conda create -y -n ie4483 python=3.11
+conda activate ie4483
+
+# Option 2: venv
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+```
+
+**Step 2. Install PyTorch for your GPU.** PyTorch has a separate build for each CUDA version, so it is installed on its own. Go to <https://pytorch.org/get-started/locally/>, choose your operating system, `Pip` and a CUDA version that your driver supports (`nvidia-smi` shows the highest supported version at the top right), and run the command it gives. For example:
+
+```bash
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128   # CUDA 12.8 (what we used)
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126   # CUDA 12.6
+pip install torch torchvision                                                       # default build (CUDA on Linux, but CPU-only on Windows)
+```
+
+Any recent PyTorch 2.x release works. The report was produced with PyTorch 2.11.0 and CUDA 12.8. The code was also tested with PyTorch 2.15 and timm 1.0.31.
+
+**Step 3. Install the remaining packages.**
+
+```bash
+pip install -r requirements.txt
+```
+
+**Step 4. Check the installation.**
+
+```bash
+python -c "import torch, timm; print(torch.__version__, timm.__version__, 'CUDA:', torch.cuda.is_available(), 'bf16:', torch.cuda.is_available() and torch.cuda.is_bf16_supported())"
+```
+
+This must print `CUDA: True` and `bf16: True`. If it prints `CUDA: False`, PyTorch was installed without GPU support. Repeat step 2 with a CUDA build.
+
+**Step 5 (optional). Choose where the pretrained weights are stored.** By default they go to `~/.cache/huggingface`. To keep them elsewhere, set `HF_HOME` in every new terminal:
+
+```bash
+export HF_HOME=~/ie4483/hf_cache            # Windows PowerShell: $env:HF_HOME = "$HOME\ie4483\hf_cache"
+```
+
+### B3. Prepare the data
+
+Place the course data in a folder `datasets/` at the top of the repository:
+
+```
+datasets/train/cat/*.jpg   (10,000 images)
+datasets/train/dog/*.jpg   (10,000 images)
+datasets/val/cat/*.jpg     (2,500 images)
+datasets/val/dog/*.jpg     (2,500 images)
+datasets/test/1.jpg ... datasets/test/500.jpg
+```
+
+Then run these two commands once:
+
+```bash
+python scripts/preresize.py --src datasets --dst data_288
 python scripts/prefetch_weights.py --cifar-root ~/ie4483/cifar
 ```
 
-`val/cat/cat.12408.jpg` is an exact copy of `train/cat/cat.2339.jpg`. It is excluded, so validation has 4,999 images.
+- `preresize.py` writes a copy with the shorter side resized to 288 pixels to `data_288/`. It leaves out `val/cat/cat.12408.jpg`, an exact copy of a training image. It ends by printing the image counts, which must be 10,000, 10,000, 2,499, 2,500 and 500.
+- `prefetch_weights.py` downloads the pretrained weights of every backbone and CIFAR-10. This is optional for Dogs vs. Cats, since the weights are also downloaded on first use. It is needed for `src/cifar.py`, which expects CIFAR-10 in `~/ie4483/cifar` (change this with `--cifar-root`).
 
-## 3. Dogs vs. Cats
+### B4. Train the final model
 
-One run means one model and one seed. Output goes to `runs/<name>/`.
+Each command trains one DINOv2-B linear probe with one seed. **Write new runs to `runs_repro/`**, so that the saved results in `runs/` stay untouched.
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python src/train.py --model resnet50 --seed 0                          # ResNet-50, LP-FT
-CUDA_VISIBLE_DEVICES=0 python src/train.py --model dinov2_b --freeze backbone --seed 0 --name dinov2_b_probe_s0   # final model type
-CUDA_VISIBLE_DEVICES=0 python src/train.py --model scratch_cnn --seed 0                       # scratch CNN, 50 epochs
-CUDA_VISIBLE_DEVICES=0 python src/train.py --model resnet50 --limit 512 --epochs 1 --name smoke   # 1-minute smoke test
+python src/train.py --model dinov2_b --freeze backbone --seed 0 --name dinov2_b_probe_s0 --out runs_repro
+python src/train.py --model dinov2_b --freeze backbone --seed 1 --name dinov2_b_probe_s1 --out runs_repro
+python src/train.py --model dinov2_b --freeze backbone --seed 2 --name dinov2_b_probe_s2 --out runs_repro
 ```
 
-**Useful flags:**
+- Each run takes about 8 minutes on an RTX 3090. It writes `args.json`, `metrics.json`, `val_predictions.csv`, `test_probs.csv`, `submission.csv`, the checkpoints `last.pt` and `best.pt`, and TensorBoard logs to `runs_repro/<name>/`.
+- The validation accuracy with flip TTA (`val_acc_tta` in `metrics.json`) should be close to 99.90%, 99.88% and 99.86% for seeds 0, 1 and 2.
+- GPU computations are not fully deterministic, so a repeated run can differ by up to about 0.05 percentage points (two or three images).
+- With several GPUs, the three runs can share the work. Prefix each command with `CUDA_VISIBLE_DEVICES=0`, `=1` or `=2` (Linux and macOS shells only), or use `run_queue.py` (B6).
+
+### B5. Build the ensemble and the submission file
+
+```bash
+python scripts/ensemble.py runs_repro/dinov2_b_probe_s0 runs_repro/dinov2_b_probe_s1 runs_repro/dinov2_b_probe_s2 --out runs_repro/ens_dinov2_b_probe
+```
+
+This averages the flip-TTA probabilities of the three runs and writes `runs_repro/ens_dinov2_b_probe/submission.csv`, in the format of the course's sample submission (`id,label`, 1 = dog, 0 = cat).
+
+### B6. Run all other experiments
+
+Every other run uses the same two training scripts. The job files list the arguments of every run, and `run_queue.py` runs a job file on the GPUs you name, one run per GPU at a time:
+
+```bash
+python scripts/run_queue.py jobs/week1.txt --gpus 0,1,2,3 --out runs_repro
+python scripts/run_queue.py jobs/cifar_g.txt --script src/cifar.py --gpus 0,1,2,3 --out runs_repro
+python src/classical.py --data data_288 --out runs_repro --jobs 8       # HOG + SVM baselines, CPU only
+```
+
+| Job file | Runs | Report part |
+|---|---|---|
+| `week1.txt`, `week1b.txt` | Model comparison, linear probe and LP-FT | (b), (c), (f) |
+| `week2b.txt` | Seeds 1 and 2 of the ConvNeXt-T and DINOv2 probes, EfficientNetV2-S and the training-set size runs, and seed 0 of ResNet-50 and the scratch CNN | (b), (c), (f) |
+| `lr_sweep.txt` | ResNet-50 learning-rate sweep | (c) |
+| `week2a.txt` | Lower fine-tuning learning rate, augmentation and training-set size (seed 0) | (c), (f) |
+| `cifar_g.txt` | CIFAR-10 from scratch and with pretrained models (`--script src/cifar.py`) | (g) |
+| `cifar_h.txt`, `cifar_h_seeds.txt` | Long-tailed CIFAR-10 (`--script src/cifar.py`) | (h) |
+
+Notes:
+
+- The queue skips any run whose `metrics.json` already exists in the output folder, so a stopped queue can simply be started again. This is also why `--out runs_repro` is needed, since `runs/` already holds the finished runs.
+- To run a single job instead, pass one line of a job file to `src/train.py` (or `src/cifar.py` for the CIFAR job files) and add `--out runs_repro`.
+- On Linux, add `nohup ... > runs_repro/queue.log 2>&1 &` to keep a queue running after you log out.
+
+### B7. Rebuild the tables and figures from your runs
+
+```bash
+python scripts/make_tables.py --runs runs_repro --out runs_repro/tables
+python scripts/make_plots.py --runs runs_repro --out runs_repro/figures
+python scripts/analyze_errors.py --gradcam --probe-run runs_repro/dinov2_b_probe_s0 --scratch-run runs_repro/scratch_cnn_s0 --ens runs_repro/ens_dinov2_b_probe --out runs_repro/gradcam
+```
+
+Compare the results with `report/tables/` and `report/figures/`. The Grad-CAM maps (part e) need model checkpoints, which are not included in `runs/`, so they can only be made after the seed-0 runs of DINOv2-B and the scratch CNN have been trained again.
+
+---
+
+## Reference
+
+### Training options (`src/train.py`)
 
 | Flag | What it does |
 |---|---|
-| `--freeze backbone` | Linear probe: only the head is trained |
-| `--lp-epochs` | Number of head-only epochs before fine-tuning (default 1) |
+| `--model` | `scratch_cnn`, `resnet50`, `effnetv2_s`, `convnext_tiny`, `dinov2_s`, `dinov2_b` or any timm model name |
+| `--freeze backbone` | Linear probe: only the new head is trained. Without it, the model is trained with LP-FT |
+| `--lp-epochs` | Head-only epochs before fine-tuning (default 1) |
 | `--lr`, `--head-lr` | Backbone and head learning rates |
 | `--epochs` | Number of training epochs |
 | `--aug {none,basic,default,trivial}` | Augmentation level |
 | `--n-train N` | Class-balanced training subset of N images |
-| `--img-size` | Input size |
-| `--label-smoothing` | Label smoothing amount |
+| `--label-smoothing` | Label smoothing amount (default 0.1) |
 | `--no-pretrained` | Train a timm backbone from random weights |
-| `--select {last,best}` | Which epoch is reported (default `last`) |
-| `--seed` | Random seed |
-| `--name` | Run folder name |
+| `--seed`, `--name`, `--out` | Random seed, run folder name and output folder |
+| `--limit N --epochs 1` | Quick smoke test on N images |
 
-Every run writes:
-- `metrics.json`, with validation accuracy (last epoch), flip-TTA accuracy, best/head-only-epoch accuracy, confusion matrix and per-epoch history;
-- `val_predictions.csv`, `test_probs.csv`, `submission.csv`;
-- `last.pt` (resumable), `best.pt`, and TensorBoard logs.
+Default settings:
 
-**Default recipes (from `PLAN.md` §8.2):**
-- **Scratch CNN:** SGD (Nesterov 0.9), one-cycle LR 0.05, weight decay 5e-4, batch 128, 50 epochs, 128 px.
-- **Pretrained CNNs:** AdamW, weight decay 0.05, head LR 1e-3, backbone LR 1e-4, 1 head-only epoch + 9 fine-tuning epochs, 1-epoch warm-up then cosine decay, batch 128, 224 px, bf16.
-- **ViTs:** backbone LR 5e-5 with layer-wise decay 0.75, batch 64 for ViT-B.
-- **All models:** cross-entropy with label smoothing 0.1.
+- **Scratch CNN:** SGD with Nesterov momentum 0.9, one-cycle learning rate 0.05, weight decay 5e-4, batch 128, 50 epochs, 128 px.
+- **Pretrained models:** AdamW, weight decay 0.05, head learning rate 1e-3, backbone learning rate 1e-4 (CNNs) or 5e-5 with layer-wise decay 0.75 (ViTs), 1 head-only epoch and 9 fine-tuning epochs, 1-epoch warm-up then cosine decay, batch 128 (64 for DINOv2-B), bfloat16. The input is 224 px (300 px for EfficientNetV2-S).
+- **All models:** cross-entropy with label smoothing 0.1. The reported result is always the **last** epoch.
 
-**Classical baseline (CPU):** `python src/classical.py --data data_288 --jobs 8`
+### CIFAR-10 options (`src/cifar.py`)
 
-**Many runs at once**, using the job files that produced the results:
+- `--model resnet18_cifar` trains a CIFAR-style ResNet-18 from scratch (200 epochs). Any `train.py` model name fine-tunes a pretrained model on images upsampled to 224 px (10 epochs).
+- `--imb-ratio R` (with `--imb-type exp|step`) makes the training set long-tailed.
+- `--method` picks the imbalance handling: `ce` (plain cross-entropy), `resample`, `cb` (class-balanced weights), `cb_drw` (the same weights for the last 20% of epochs), `la` (logit adjustment, τ = 1) or `focal` (focal loss, γ = 1).
+- 500 images per class are held out as a balanced validation set. The official test set is evaluated once, after the last epoch.
 
-```bash
-nohup python scripts/run_queue.py jobs/week1.txt --gpus 0,1,2,3 > runs/queue.log 2>&1 &
-```
+### Reproducibility notes
 
-Runs that already have `metrics.json` are skipped, so a queue can be re-run safely. `--skip-busy` shares GPUs with runs that are already going.
-
-**Final submission:** average the three seeds of the DINOv2-B linear probe.
-
-```bash
-python scripts/ensemble.py runs/dinov2_b_probe_s0 runs/dinov2_b_probe_s1 runs/dinov2_b_probe_s2 --out runs/ens_dinov2_b_probe
-cp runs/ens_dinov2_b_probe/submission.csv submission_final.csv
-```
-
-## 4. CIFAR-10 (parts g and h)
-
-The whole dataset is held on the GPU and augmented there. 500 images per class are held out as a balanced validation set. The official 10,000-image test set is evaluated once, after the last epoch.
-
-```bash
-python src/cifar.py --model resnet18_cifar --seed 0 --name cifar_r18_s0                     # from scratch, 200 epochs
-python src/cifar.py --model dinov2_s --seed 0 --name cifar_dinov2_s_s0                      # transfer, 224 px, 10 epochs
-python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 0 --name cifar_r18_lt100_la_s0
-nohup python scripts/run_queue.py jobs/cifar_h.txt --script src/cifar.py --gpus 0,1,2,3 > runs/queue_cifar.log 2>&1 &
-```
-
-**Imbalance options:**
-- `--imb-type exp|step` and `--imb-ratio R` set the long-tailed class profile.
-- `--method` chooses the handling:
-  - `ce`: plain cross-entropy (baseline);
-  - `resample`: class-balanced re-sampling;
-  - `cb`: class-balanced loss weights;
-  - `cb_drw`: the same weights, switched on for the last 20% of epochs;
-  - `la`: logit-adjusted loss (τ = 1);
-  - `focal`: focal loss (γ = 1).
-
-## 5. Tables and figures
-
-```bash
-python scripts/summarize.py                     # quick overview (validation accuracy)
-python scripts/make_tables.py                   # report/tables/RESULTS.md + CSVs (CIFAR uses test accuracy)
-python scripts/make_plots.py                    # report/figures/*.png|pdf + captions.md + data/*.csv
-python scripts/analyze_errors.py                # part (e) galleries
-python scripts/analyze_errors.py --gradcam --out report/gradcam                 # on the GPU server: Grad-CAM maps
-python scripts/analyze_errors.py --cams-from report/gradcam/gradcam_maps.npz    # laptop: redraw Grad-CAM figure
-python scripts/make_arch_diagram.py             # part (b) diagrams (reads report/model_summaries/stages.csv)
-python scripts/model_summary.py                 # part (b) layer tables (needs torch, timm, torchinfo; CPU is fine)
-python scripts/make_aug_examples.py             # part (a) augmentation figure (needs torch + torchvision; CPU)
-```
-
-## 6. Reproducibility
-
-- **Seeds:** every reported configuration was run with seeds 0, 1 and 2, and is reported as mean ± SD. The seed fixes Python, NumPy, PyTorch and the data-loader order. Class-balanced subsets use a separate fixed seed (1234), so every training seed sees the same images.
-- **Non-determinism:** `cudnn.benchmark` and GPU non-determinism are on. Repeating a seed is therefore not bit-identical. Repeats differ by up to ~0.3 points for the scratch CNN and ≤ 0.05 points for pretrained models, which is why results are given as mean ± SD rather than single runs.
-- **Reported epoch:** the reported number is always the **last** epoch. `best_val_acc` is kept in `metrics.json` only for reference.
-- **Test sets:** the Dogs-vs-Cats test images are unlabelled and were never used for any decision. The CIFAR-10 test set was evaluated once per run, after training.
-- **Compute:** 108 training runs, about 15 GPU-hours of training in total on RTX 3090s.
+- **Seeds:** every run fixes the seeds of Python, NumPy and PyTorch, which also fixes the order of the training images. The main configurations were run with seeds 0, 1 and 2 and are reported as mean ± SD. The number of seeds of every result is given as `n` in the report's tables. Class-balanced subsets always use a fixed seed (1234), so every training seed sees the same images.
+- **Non-determinism:** GPU kernels are not fully deterministic, so repeating a run with the same seed is not bit-identical. Repeats differ by up to about 0.05 percentage points for the pretrained models and about 0.3 for the scratch CNN.
+- **Exact settings:** `runs/<name>/args.json` stores every setting of every run, including the defaults.
+- **Test sets:** the Dogs vs. Cats test images are unlabelled and were never used for any decision. The CIFAR-10 test set was evaluated once per run, after training.
+- **Compute:** 108 training runs took about 15 GPU-hours on RTX 3090 GPUs.

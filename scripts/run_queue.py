@@ -1,20 +1,10 @@
-"""Run a list of train.py jobs across several GPUs, one job per GPU at a time.
+"""Run a job file (one argument list per line) across several GPUs, one run per GPU at a time.
 
-Each non-empty line of the job file is the argument list for src/train.py, e.g.
-    --model resnet50 --seed 1
-    --model convnext_tiny --seed 0 --n-train 2000 --name convnext_tiny_n2000_s0
-Lines starting with # are skipped. Runs that already have runs/<name>/metrics.json
-are skipped, so the same file can be re-run after adding lines or after a crash
-(unfinished runs resume from their last.pt).
+Runs that already have metrics.json are skipped, so a queue can be restarted after a crash.
+--skip-busy only uses GPUs with < 500 MB in use and skips runs that another process is training.
 
-    nohup python scripts/run_queue.py jobs/week1.txt --gpus 0,1,2,3 > runs/queue.log 2>&1 &
-    nohup python scripts/run_queue.py jobs/cifar_h.txt --script src/cifar.py > runs/queue_cifar_h.log 2>&1 &
-For src/cifar.py give every line an explicit --name (its default names differ from model_s<seed>).
-
---skip-busy lets a new queue share GPUs and a job file with work that is already running
-(e.g. after stopping an old queue process while its runs carry on): a GPU is only used when
-less than 500 MB of its memory is in use, and a run is skipped at launch time if it has finished
-meanwhile or its last.pt was written in the last 5 minutes (someone else is training it).
+    python scripts/run_queue.py jobs/week1.txt --gpus 0,1,2,3
+    python scripts/run_queue.py jobs/cifar_h.txt --script src/cifar.py --gpus 0,1,2,3
 """
 import argparse
 import os
@@ -61,6 +51,7 @@ def main():
                     help="only use GPUs with < 500 MB memory in use; skip runs that are being trained elsewhere")
     args = ap.parse_args()
 
+    Path(args.out).mkdir(parents=True, exist_ok=True)
     gpus = [g.strip() for g in args.gpus.split(",") if g.strip()]
     lines = [l.strip() for l in Path(args.jobs).read_text().splitlines()]
     jobs = []

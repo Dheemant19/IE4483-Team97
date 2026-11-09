@@ -1,8 +1,8 @@
-"""Model factory: timm backbones plus the scratch CNN (PLAN.md section 6)."""
+"""Model factory: the scratch CNN and the pretrained timm backbones."""
 import timm
 import torch.nn as nn
 
-# Short names used on the command line -> timm names (PLAN.md section 7)
+# Short names used on the command line -> timm model names
 ALIASES = {
     "resnet18": "resnet18.a1_in1k",
     "resnet50": "resnet50.a1_in1k",

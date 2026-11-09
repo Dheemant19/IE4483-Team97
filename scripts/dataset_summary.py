@@ -1,9 +1,6 @@
-"""Summarise the Dogs vs. Cats dataset folder without opening images by hand.
+"""Summarise the dataset folder: file counts, image sizes and modes, corrupt files and exact duplicates.
 
-Usage:  python scripts/dataset_summary.py [path/to/datasets] [--out dataset_summary.json]
-
-Reports per split/class: file counts, extensions, image modes, size statistics,
-unreadable/corrupt files, and exact duplicates (MD5) within and across splits.
+    python scripts/dataset_summary.py datasets --out dataset_summary.json
 """
 import argparse, hashlib, json, os, statistics, sys, threading, time
 from io import BytesIO

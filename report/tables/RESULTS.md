@@ -122,5 +122,5 @@ ResNet-18 from scratch, 200 epochs, exponential class profile (4,500 down to 45 
 | Model | DINOv2-B (ViT-B/14) frozen + linear head; average of 3 seeds; flip TTA |
 | Validation accuracy | 99.88% (6 errors / 4999) |
 | Validation confusion (rows true cat/dog, cols predicted) | cat: [2495, 4], dog: [2, 2498] |
-| submission_final.csv | 500 rows (id 1-500), 259 predicted dogs |
+| submission.csv | 500 rows (id 1-500), 259 predicted dogs |
 

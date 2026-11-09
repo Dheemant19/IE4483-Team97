@@ -1,11 +1,6 @@
-"""Part (a): what the network actually sees - a few training images and random draws of the training
-augmentation, next to the deterministic validation/test view. Uses the exact transforms from src/data.py.
+"""Part (a): training images with random draws of the training augmentation, next to the evaluation view.
 
-    python scripts/make_aug_examples.py              # -> report/figures/aug_examples.png|pdf
-Needs torch + torchvision (CPU is enough). On the laptop:
-    uv run --no-project --python 3.12 --with torch --with torchvision --with matplotlib --with pillow \
-        --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple \
-        python scripts/make_aug_examples.py
+    python scripts/make_aug_examples.py    # -> report/figures/aug_examples.png|pdf (needs torch; CPU is fine)
 """
 import argparse
 import sys

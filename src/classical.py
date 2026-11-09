@@ -1,11 +1,6 @@
-"""M0: HOG + colour histogram -> SVM (PLAN.md section 5.5). CPU only.
+"""Classical baseline: HOG + colour histogram features with a linear and an RBF SVM (CPU only).
 
-Features: grayscale 128x128 HOG (9 orientations, 8x8 cells, 2x2 blocks, 8,100-d)
-concatenated with a 16-bin histogram per RGB channel (48-d).
-Classifiers: StandardScaler -> LinearSVC, and StandardScaler -> PCA(256) -> RBF SVC.
-
-    python src/classical.py --data data_288 --jobs 16
-Writes runs/hog_svm_linear/ and runs/hog_svm_rbf/ (metrics.json, val_predictions.csv, submission.csv).
+    python src/classical.py --data data_288 --jobs 8    # -> runs/hog_svm_linear/, runs/hog_svm_rbf/
 """
 import argparse
 import csv

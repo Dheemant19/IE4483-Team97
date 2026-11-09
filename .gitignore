@@ -21,3 +21,23 @@ __pycache__/
 .venv/
 .ipynb_checkpoints/
 runs/*/tb/
+
+# Local outputs of the reproduction steps in README.md
+check/
+runs_repro/
+
+# Team-internal working files (report draft and merge log)
+IE4483 report.docx
+report/pending_changes.md
+
+# LaTeX build files
+*.aux
+*.log
+!runs/*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
