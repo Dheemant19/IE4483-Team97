@@ -23,7 +23,7 @@ Written 18 Oct 2026 by the person who ran the experiments. It assumes you have t
   With only 2,000 training images, DINOv2-B already reaches 99.83%. That beats the scratch CNN trained on all 20,000 images.
 - **Linear probe ≥ fine-tuning here.** For ResNet-50 and DINOv2-B, training only the head beats fine-tuning the whole network. For ConvNeXt-T and DINOv2-S they tie. Diagnostic runs explain it (§4c).
 - **CIFAR-10 (part g):** ResNet-18 from scratch reaches 94.78% test accuracy. A fine-tuned pretrained DINOv2-S reaches **98.87%**.
-- **Long-tailed CIFAR-10 (part h):** **logit adjustment** is the best of five methods. At imbalance ratio 100 it lifts test accuracy from 74.1% to 78.5%, and tail-class accuracy from 52% to 65%. Class-balanced re-weighting with deferred re-weighting is second. Naive re-sampling is worse than doing nothing.
+- **Long-tailed CIFAR-10 (part h):** **logit adjustment** is the best of five methods. At imbalance ratio 100 it lifts test accuracy from 74.1% to 78.5%, and tail-class accuracy from 52% to 65%. Class-balanced re-weighting with deferred re-weighting is second. Naive re-sampling is worse than doing nothing. The fine-tuned DINOv2-S of part (g) is far less hurt by imbalance (96.36% with plain cross-entropy at ratio 100, 92.5% on the tail), and logit adjustment still lifts it to **97.72%** (tail 96.9%).
 
 ## 2. Where each part of the brief is covered
 
@@ -207,7 +207,7 @@ Figures `cifar_h`, `cifar_h_groups`; table "Long-tailed CIFAR-10".
 ## 6. Compute
 
 - **Hardware:** all training ran on the MLDA GPU server `gpu21` (4× NVIDIA RTX 3090 24 GB, PyTorch 2.11, CUDA 12.8), with 4 runs in parallel. The EEE GPU cluster was fully booked when the project started.
-- **Volume:** 108 training runs (80 Dogs-vs-Cats, 28 CIFAR) and about 15 GPU-hours of training.
+- **Volume:** 114 training runs (80 Dogs-vs-Cats, 34 CIFAR) and about 15 GPU-hours of training.
 - **Timing:** a ResNet-50 fine-tune takes ~8 min, a DINOv2-B probe ~8 min, a DINOv2-B fine-tune ~21 min, and a CIFAR ResNet-18 ~26 min.
 
 ## 7. File index (what is in this zip)
@@ -222,7 +222,7 @@ Figures `cifar_h`, `cifar_h_groups`; table "Long-tailed CIFAR-10".
 | `report/gradcam/` | Grad-CAM maps computed on the server (`gradcam_maps.npz`), used to redraw the Grad-CAM figure |
 | `report/diagrams/` | Excalidraw sources of the architecture and prediction-pipeline diagrams |
 | `runs/<run>/` | Per run: `metrics.json` (all numbers + per-epoch history), `args.json` (exact settings), `val_predictions.csv`, `test_probs.csv`; logs in `runs/<run>.log` |
-| `jobs/*.txt` | Run lists of all 106 neural-network runs (`week2b.txt` was rebuilt from the runs' `args.json` files); each run's `args.json` records its exact settings |
+| `jobs/*.txt` | Run lists of all 112 neural-network runs (`week2b.txt` was rebuilt from the runs' `args.json` files); each run's `args.json` records its exact settings |
 | `submission.csv` | The file to submit |
 | `src/`, `scripts/` | All code |
 | `PLAN.md` | The original plan (§3 dataset analysis is still accurate; the compute section is outdated) |

@@ -1,0 +1,14 @@
+6 jobs on GPUs ['2', '3']
+13:45:20 gpu 2 start cifar_dinov2_s_lt100_ce_s0
+13:45:21 gpu 3 start cifar_dinov2_s_lt100_la_s0
+13:52:01 gpu 2 cifar_dinov2_s_lt100_ce_s0 done
+13:52:01 gpu 2 start cifar_dinov2_s_lt100_ce_s1
+13:52:51 gpu 3 cifar_dinov2_s_lt100_la_s0 done
+13:52:51 gpu 3 start cifar_dinov2_s_lt100_la_s1
+13:57:51 gpu 2 cifar_dinov2_s_lt100_ce_s1 done
+13:57:51 gpu 2 start cifar_dinov2_s_lt100_ce_s2
+13:59:21 gpu 3 cifar_dinov2_s_lt100_la_s1 done
+13:59:21 gpu 3 start cifar_dinov2_s_lt100_la_s2
+14:03:41 gpu 2 cifar_dinov2_s_lt100_ce_s2 done
+14:05:51 gpu 3 cifar_dinov2_s_lt100_la_s2 done
+all done

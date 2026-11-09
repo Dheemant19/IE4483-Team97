@@ -198,19 +198,20 @@ def main():
 
     # T8: long-tailed CIFAR-10 (part h)
     t = Table("t8_cifar10_longtail", "Long-tailed CIFAR-10 (part h): test accuracy (%) by imbalance method",
-              ["Imbalance ratio", "Method", "n", "Test acc", "Macro-F1", "Head (3 largest)", "Medium (4)", "Tail (3 smallest)"],
-              "ResNet-18 from scratch, 200 epochs, exponential class profile (4,500 down to 45 images per class at "
-              "ratio 100, down to 450 at ratio 10); balanced 10,000-image test set.")
+              ["Model", "Imbalance ratio", "Method", "n", "Test acc", "Macro-F1", "Head (3 largest)", "Medium (4)", "Tail (3 smallest)"],
+              "ResNet-18 from scratch (200 epochs) and fine-tuned DINOv2-S (10 epochs), exponential class profile "
+              "(4,500 down to 45 images per class at ratio 100, down to 450 at ratio 10); balanced 10,000-image test set.")
     methods = [("cross-entropy (baseline)", "ce"), ("focal loss (γ = 1)", "focal"), ("class-balanced re-sampling", "resample"),
                ("class-balanced weights + DRW", "cbdrw"), ("logit adjustment (τ = 1)", "la")]
-    for ratio in (100, 10):
-        for label, tag in methods:
-            rs = seeds(R, f"cifar_r18_lt{ratio}_{tag}")
-            if not rs:
-                continue
-            acc, n = ms(r["test_acc"] for r in rs)
-            grp = [ms((r["test_group_acc"][g] for r in rs), nd=1)[0] for g in ("head", "medium", "tail")]
-            t.add(ratio, label, n, acc, ms((r["test_macro_f1"] for r in rs), scale=1, nd=4)[0], *grp)
+    for model, prefix in (("ResNet-18 (scratch)", "cifar_r18"), ("DINOv2-S (fine-tuned)", "cifar_dinov2_s")):
+        for ratio in (100, 10):
+            for label, tag in methods:
+                rs = seeds(R, f"{prefix}_lt{ratio}_{tag}")
+                if not rs:
+                    continue
+                acc, n = ms(r["test_acc"] for r in rs)
+                grp = [ms((r["test_group_acc"][g] for r in rs), nd=1)[0] for g in ("head", "medium", "tail")]
+                t.add(model, ratio, label, n, acc, ms((r["test_macro_f1"] for r in rs), scale=1, nd=4)[0], *grp)
     tables.append(t)
 
     # T9: final submission

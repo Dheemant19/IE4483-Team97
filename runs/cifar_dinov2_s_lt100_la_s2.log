@@ -1,0 +1,14 @@
+device: cuda:0 = NVIDIA GeForce RTX 3090 (CUDA_VISIBLE_DEVICES=3), torch 2.11.0+cu128
+cifar_dinov2_s_lt100_la_s2: 21.6M params, train 11165 [4500, 2697, 1617, 969, 581, 348, 208, 125, 75, 45], val 5000, test 10000, input 224px, method la
+ep   0 LP train loss 0.3223 acc 0.8440 | val acc 0.9288 | 10s 1090 img/s
+ep   1    train loss 0.0737 acc 0.9608 | val acc 0.9494 | 31s 363 img/s
+ep   2    train loss 0.0446 acc 0.9788 | val acc 0.9518 | 31s 363 img/s
+ep   3    train loss 0.0262 acc 0.9858 | val acc 0.9758 | 31s 363 img/s
+ep   4    train loss 0.0113 acc 0.9940 | val acc 0.9694 | 31s 363 img/s
+ep   5    train loss 0.0054 acc 0.9967 | val acc 0.9734 | 31s 363 img/s
+ep   6    train loss 0.0031 acc 0.9980 | val acc 0.9768 | 31s 363 img/s
+ep   7    train loss 0.0009 acc 0.9991 | val acc 0.9774 | 31s 363 img/s
+ep   8    train loss 0.0005 acc 0.9996 | val acc 0.9790 | 31s 364 img/s
+ep   9    train loss 0.0005 acc 0.9999 | val acc 0.9780 | 31s 363 img/s
+last epoch 9: val acc 0.9780 | TEST acc 0.9764 (flip TTA 0.9770), macro-F1 0.9764 | head 0.9920, medium 0.9715, tail 0.9673
+wrote runs/cifar_dinov2_s_lt100_la_s2/metrics.json

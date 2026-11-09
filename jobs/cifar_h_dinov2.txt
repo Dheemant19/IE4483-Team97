@@ -1,0 +1,8 @@
+# Part (h): the best CIFAR-10 model of part (g), fine-tuned DINOv2-S, on long-tailed CIFAR-10 (ratio 100).
+# Run with: python scripts/run_queue.py jobs/cifar_h_dinov2.txt --script src/cifar.py --gpus 0,1,2,3
+--model dinov2_s --imb-ratio 100 --method ce --seed 0 --name cifar_dinov2_s_lt100_ce_s0
+--model dinov2_s --imb-ratio 100 --method la --seed 0 --name cifar_dinov2_s_lt100_la_s0
+--model dinov2_s --imb-ratio 100 --method ce --seed 1 --name cifar_dinov2_s_lt100_ce_s1
+--model dinov2_s --imb-ratio 100 --method la --seed 1 --name cifar_dinov2_s_lt100_la_s1
+--model dinov2_s --imb-ratio 100 --method ce --seed 2 --name cifar_dinov2_s_lt100_ce_s2
+--model dinov2_s --imb-ratio 100 --method la --seed 2 --name cifar_dinov2_s_lt100_la_s2

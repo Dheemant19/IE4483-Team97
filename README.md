@@ -4,7 +4,7 @@ This repository holds all code, settings and results behind our IE4483 report. I
 
 - **Dogs vs. Cats.** The final model is a DINOv2-B linear probe: a frozen DINOv2-B backbone with a trained linear head. Three seeds are ensembled with flip test-time augmentation. It reaches **99.88% validation accuracy**.
 - **CIFAR-10 (part g).** Fine-tuned DINOv2-S reaches **98.87% test accuracy**.
-- **Long-tailed CIFAR-10 (part h).** Logit adjustment reaches **78.53% test accuracy** at imbalance ratio 100.
+- **Long-tailed CIFAR-10 (part h).** Logit adjustment is the best of five imbalance methods. At imbalance ratio 100 it raises the ResNet-18 from 74.12% to 78.53% test accuracy, and fine-tuned DINOv2-S from 96.36% to **97.72%**.
 
 The submission file is [`submission.csv`](submission.csv). The report's LaTeX source is in [`report/overleaf/`](report/overleaf/).
 
@@ -13,7 +13,7 @@ There are two ways to reproduce the results:
 | | What it reproduces | Needs | Time |
 |---|---|---|---|
 | **A. Quick check** | `submission.csv` and every result table and figure, rebuilt from the saved outputs of all training runs | Any computer with Python 3.9+, no GPU | about 5 minutes |
-| **B. Retrain the best models** | The best model of each part, trained from scratch: the Dogs vs. Cats final model, the best CIFAR-10 model and the best long-tailed CIFAR-10 method | An NVIDIA GPU with CUDA, the course dataset | about 1 hour on one GPU |
+| **B. Retrain the best models** | The best model of each part, trained from scratch: the Dogs vs. Cats final model, the best CIFAR-10 model and the best long-tailed CIFAR-10 model | An NVIDIA GPU with CUDA, the course dataset | about 1 hour on one GPU |
 
 ---
 
@@ -32,8 +32,8 @@ There are two ways to reproduce the results:
 | `scripts/ensemble.py` | Averages the predictions of several runs and writes the ensemble's `submission.csv` |
 | `scripts/make_tables.py`, `scripts/make_plots.py` | Result tables (`report/tables/`) and result figures. The figure scripts write to `report/figures/`, which is not tracked; the figures used in the report are kept in `report/overleaf/figures/` |
 | other `scripts/` | Figures and tables for single report parts: `make_report_extras.py` (a, b), `make_aug_examples.py` (a), `model_summary.py`, `arch_table.py` (b), `analyze_errors.py`, `make_test_cases.py`, `make_test_review.py` (e), `summarize.py` (quick overview of all runs) |
-| `jobs/*.txt` | Job files: the command-line arguments of all 106 neural-network runs, one run per line |
-| `runs/` | Saved outputs of all 108 runs and 2 ensembles: `args.json` (exact settings), `metrics.json` (metrics and per-epoch history), `val_predictions.csv`, `test_probs.csv` and the log file. Model checkpoints are not included because of their size |
+| `jobs/*.txt` | Job files: the command-line arguments of all 112 neural-network runs, one run per line |
+| `runs/` | Saved outputs of all 114 runs and 2 ensembles: `args.json` (exact settings), `metrics.json` (metrics and per-epoch history), `val_predictions.csv`, `test_probs.csv` and the log file. Model checkpoints are not included because of their size |
 | `report/` | `overleaf/`: the LaTeX source of the report with its 12 figures. `tables/`: all result tables. `model_summaries/`: the layer-by-layer table of the final model. `gradcam/`: the saved Grad-CAM maps, so the Grad-CAM figure can be redrawn without checkpoints. `diagrams/`: the Excalidraw sources of the two diagrams |
 | `requirements.txt` | Python packages apart from PyTorch |
 | `submission.csv` | Final test predictions: 500 rows, `id,label` (1 = dog, 0 = cat) |
@@ -70,7 +70,7 @@ What you should see:
 
 ## B. Retrain the best models (NVIDIA GPU, about 1 hour)
 
-This retrains the three results the report is built on. Retraining all 108 runs is not needed, but every other run can be repeated in the same way (see [Other experiments](#other-experiments)).
+This retrains the three results the report is built on. Retraining all 114 runs is not needed, but every other run can be repeated in the same way (see [Other experiments](#other-experiments)).
 
 ### B1. What you need
 
@@ -164,12 +164,12 @@ python scripts/ensemble.py runs_repro/dinov2_b_probe_s0 runs_repro/dinov2_b_prob
 python src/cifar.py --model dinov2_s --seed 0 --name cifar_dinov2_s_s0 --out runs_repro
 ```
 
-### B6. Long-tailed CIFAR-10 (part h): ResNet-18 with logit adjustment (about 20 minutes)
+### B6. Long-tailed CIFAR-10 (part h): DINOv2-S with logit adjustment (about 15 minutes)
 
 ```bash
-python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 0 --name cifar_r18_lt100_la_s0 --out runs_repro
-python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 1 --name cifar_r18_lt100_la_s1 --out runs_repro
-python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 2 --name cifar_r18_lt100_la_s2 --out runs_repro
+python src/cifar.py --model dinov2_s --imb-ratio 100 --method la --seed 0 --name cifar_dinov2_s_lt100_la_s0 --out runs_repro
+python src/cifar.py --model dinov2_s --imb-ratio 100 --method la --seed 1 --name cifar_dinov2_s_lt100_la_s1 --out runs_repro
+python src/cifar.py --model dinov2_s --imb-ratio 100 --method la --seed 2 --name cifar_dinov2_s_lt100_la_s2 --out runs_repro
 ```
 
 ### B7. Compare with the report
@@ -181,9 +181,9 @@ Each run stores its results in `runs_repro/<name>/metrics.json`. The same file f
 | `dinov2_b_probe_s0`, `_s1`, `_s2` | `val_acc_tta` (validation accuracy with flip TTA) | 0.9990, 0.9988, 0.9986 |
 | `ens_dinov2_b_probe` | `val_acc` (printed by `ensemble.py`) | 0.9988, with 259 dogs in `submission.csv` |
 | `cifar_dinov2_s_s0` | `test_acc` and `test_acc_tta` | 0.9887 and 0.9893 |
-| `cifar_r18_lt100_la_s0`, `_s1`, `_s2` | `test_acc` | 0.7890, 0.7795, 0.7875 (mean 78.53%) |
+| `cifar_dinov2_s_lt100_la_s0`, `_s1`, `_s2` | `test_acc` | 0.9771, 0.9782, 0.9764 (mean 97.72%) |
 
-GPU computations are not fully deterministic, so a retrained run will not match to the last digit. The Dogs vs. Cats probes (B4) differ by at most about 0.05 percentage points. The CIFAR runs (B5, B6) update the whole network and can vary more. For the ResNet-18 runs, expect results within the spread of the three seeds above rather than exactly the same values.
+GPU computations are not fully deterministic, so a retrained run will not match to the last digit. The Dogs vs. Cats probes (B4) differ by at most about 0.05 percentage points. The CIFAR runs (B5, B6) update the whole network and can vary more, so expect results within the spread of the three seeds above rather than exactly the same values.
 
 On a machine with several GPUs, the runs can be spread over them. Prefix each command with `CUDA_VISIBLE_DEVICES=0`, `=1`, ... (Linux and macOS shells), or use `scripts/run_queue.py` as described below.
 
@@ -237,7 +237,8 @@ python src/classical.py --data data_288 --out runs_repro --jobs 8       # HOG + 
 | `lr_sweep.txt` | ResNet-50 learning-rate sweep | (c) |
 | `week2a.txt` | Lower fine-tuning learning rate, augmentation and training-set size (seed 0) | (c), (f) |
 | `cifar_g.txt` | CIFAR-10 from scratch and with pretrained models (`--script src/cifar.py`) | (g) |
-| `cifar_h.txt`, `cifar_h_seeds.txt` | Long-tailed CIFAR-10 (`--script src/cifar.py`) | (h) |
+| `cifar_h.txt`, `cifar_h_seeds.txt` | Long-tailed CIFAR-10 with the ResNet-18, all five methods (`--script src/cifar.py`) | (h) |
+| `cifar_h_dinov2.txt` | Long-tailed CIFAR-10 with fine-tuned DINOv2-S, cross-entropy and logit adjustment (`--script src/cifar.py`) | (h) |
 
 The tables, figures and Grad-CAM maps can then be rebuilt from the new runs. Grad-CAM needs the checkpoints of the seed-0 DINOv2-B probe and scratch CNN, which are not included in `runs/`.
 
@@ -253,4 +254,4 @@ python scripts/analyze_errors.py --gradcam --probe-run runs_repro/dinov2_b_probe
 - **Non-determinism:** GPU kernels are not fully deterministic, so repeating a run with the same seed is not bit-identical. Repeats differ by up to about 0.05 percentage points for the pretrained models and about 0.3 for the scratch CNN.
 - **Exact settings:** `runs/<name>/args.json` stores every setting of every run, including the defaults.
 - **Test sets:** the Dogs vs. Cats test images are unlabelled and were never used for any decision. The CIFAR-10 test set was evaluated once per run, after training.
-- **Compute:** 108 training runs took about 15 GPU-hours on RTX 3090 GPUs.
+- **Compute:** 114 training runs took about 15 GPU-hours on RTX 3090 GPUs.

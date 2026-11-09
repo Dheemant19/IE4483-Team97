@@ -53,9 +53,9 @@
 \begin{center}
   {\Large\bfseries IE4483 Artificial Intelligence and Data Mining\par}
   \vspace{0.4em}
-  {\LARGE Dogs vs.\ Cats Project Report\par}
+  {\LARGE Mini Project Report\par}
   \vspace{0.4em}
-  {\large Mini Project (Option 2), Team 97\par}
+  {\large Dogs vs.\ Cats (Option 2), Team 97\par}
 \end{center}
 
 \vspace{0.6em}
@@ -73,7 +73,6 @@
   \end{tabularx}
 \end{table}
 
-{\centering\small Code, settings and results of all experiments: \repo\par}
 
 \vspace{-0.5em}
 {\small\tableofcontents}
@@ -614,7 +613,7 @@ Train the classifier for (g), while some of the classes in Cifar-10 training dat
 
 \subsection*{Imbalanced Training Set}
 
-The training set was made long-tailed with an exponential profile. Class $c$ (from 0 to 9) keeps $n_c = \lfloor 4500 \, R^{-c/9} \rfloor$ images, where the imbalance ratio $R$ is the size of the largest class divided by the size of the smallest. For $R = 100$, the classes fall from 4,500 images to 45, leaving 11,165 training images. For $R = 10$, they fall from 4,500 to 450, leaving 18,388. The validation and test sets stay balanced, and the model and training settings are those of the scratch ResNet-18 in \cref{sec:g}. The scratch ResNet-18 was used rather than the best model of \cref{sec:g}, because a pretrained backbone brings features learned from large datasets and would therefore be less affected by the imbalance. Training from scratch shows the effect of the imbalance, and of each method against it, more clearly. This also follows the standard long-tailed CIFAR-10 benchmarks, in which the networks are trained from scratch~\cite{cao2019ldam,menon2021logitadjustment}.
+The training set was made long-tailed with an exponential profile. Class $c$ (from 0 to 9) keeps $n_c = \lfloor 4500 \, R^{-c/9} \rfloor$ images, where the imbalance ratio $R$ is the size of the largest class divided by the size of the smallest. For $R = 100$, the classes fall from 4,500 images to 45, leaving 11,165 training images. For $R = 10$, they fall from 4,500 to 450, leaving 18,388. The validation and test sets stay balanced. Both classifiers of \cref{sec:g} were trained on this set with their settings from \cref{sec:g}, the ResNet-18 from scratch and the fine-tuned DINOv2-S. The ResNet-18 learns all of its features from the imbalanced images, so it shows the effect of each method most clearly, as in the standard long-tailed CIFAR-10 benchmarks~\cite{cao2019ldam,menon2021logitadjustment}. All methods were therefore compared on the ResNet-18, and the best method was then also applied to DINOv2-S.
 
 Imbalance reduced the test accuracy of the ResNet-18 trained with plain cross-entropy from \pct{94.78} to \pct{88.89} at $R = 10$ and \pct{74.12} at $R = 100$. Cross-entropy averages over the training images, so the model learns the training distribution and favours the frequent classes. To show where the errors occur at $R = 100$, the head, medium and tail accuracies are the mean accuracies of the three largest classes (4,500 to 1,617 training images), the four middle classes (969 to 208) and the three smallest classes (125 to 45). With cross-entropy, the head still reached \pct{94.5}, but the tail reached only \pct{52.1}. Two main approaches were tested against this baseline, and both improved on it (\cref{tab:imbalance,fig:cifarh}).
 
@@ -639,7 +638,7 @@ with $\tau = 1$. The offsets are used only during training, and at test time the
 \begin{table}[ht]
   \centering
   \small
-  \caption{Test accuracy (\%) on long-tailed CIFAR-10 with ResNet-18.}
+  \caption{Test accuracy (\%) on long-tailed CIFAR-10 for the two classifiers of \cref{sec:g}.}
   \label{tab:imbalance}
   \setlength{\tabcolsep}{5pt}
   \begin{tabular}{@{}lclcccclc@{}}
@@ -648,11 +647,16 @@ with $\tau = 1$. The offsets are used only during training, and at test time the
     \cmidrule{3-6}\cmidrule{8-9}
     Method & $n$ & Overall & Head & Medium & Tail & & Overall & Tail \\
     \midrule
+    \multicolumn{9}{@{}l}{\textit{ResNet-18, trained from scratch}} \\
     Cross-entropy (baseline)        & 3 & $74.12 \pm 0.15$ & 94.5 & 75.4 & 52.1 & & $88.89 \pm 0.12$ & 85.5 \\
     Focal loss ($\gamma = 1$)       & 1 & 73.53            & 94.6 & 75.4 & 50.0 & & 89.01            & 85.6 \\
     Class-balanced re-sampling      & 1 & 69.24            & 94.3 & 71.9 & 40.6 & & 88.85            & 85.2 \\
     Class-balanced weights + DRW    & 3 & $76.05 \pm 0.28$ & 94.3 & 76.7 & 56.9 & & $89.33 \pm 0.45$ & 86.7 \\
     \textbf{Logit adjustment} ($\tau = 1$) & 3 & $\mathbf{78.53 \pm 0.51}$ & 93.8 & 77.1 & \textbf{65.1} & & $\mathbf{89.86 \pm 0.13}$ & \textbf{88.3} \\
+    \midrule
+    \multicolumn{9}{@{}l}{\textit{DINOv2-S, fine-tuned}} \\
+    Cross-entropy (baseline)        & 3 & $96.36 \pm 0.14$ & 99.5 & 96.9 & 92.5 & & -- & -- \\
+    \textbf{Logit adjustment} ($\tau = 1$) & 3 & $\mathbf{97.72 \pm 0.09}$ & 99.3 & 97.2 & \textbf{96.9} & & -- & -- \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -660,15 +664,19 @@ with $\tau = 1$. The offsets are used only during training, and at test time the
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/cifar_h.pdf}
-  \caption{Test accuracy on long-tailed CIFAR-10 for imbalance ratios of (a) 100 and (b) 10. The dotted line marks plain cross-entropy, and the two panels have different axis ranges. Markers as in \cref{fig:ladder}.}
+  \caption{Test accuracy of the ResNet-18 on long-tailed CIFAR-10 for imbalance ratios of (a) 100 and (b) 10. The dotted line marks plain cross-entropy, and the two panels have different axis ranges. Markers as in \cref{fig:ladder}.}
   \label{fig:cifarh}
 \end{figure}
+
+\subsection*{The Pretrained Classifier}
+
+With plain cross-entropy, DINOv2-S reached \pmpct{96.36}{0.14} at $R = 100$ (\cref{tab:imbalance}), only 2.5 points below its accuracy on the balanced training set (\pct{98.87}, \cref{sec:g}). The ResNet-18 lost 20.7 points under the same imbalance. Even the three rarest classes reached \pct{92.5}, although they have only 45 to 125 training images, probably because the pretrained features already separate the classes well and the rare classes need little data of their own. Logit adjustment still improved DINOv2-S. It raised the accuracy to \pmpct{97.72}{0.09} and the tail accuracy from \pct{92.5} to \pct{96.9}, while the head accuracy fell by only 0.2 points. Pretraining and logit adjustment therefore improve the result in different ways, and they work best together.
 
 \subsection*{Other Methods and Comparison}
 
 Two further methods were tested with one seed each. Focal loss~\cite{lin2017focal} with $\gamma = 1$ focuses on hard examples without using the class frequencies, and it gave no improvement at $R = 100$ (\pct{73.53}). Class-balanced re-sampling was worse than the baseline at $R = 100$ (\pct{69.24}). The rarest class has only 45 images, so each of them is drawn about 25 times per epoch, 100 times as often as an image of the largest class. The model therefore probably memorises these few images instead of learning from them. This is consistent with the idea behind DRW, which applies rebalancing only in the last part of training.
 
-The gains in \cref{tab:imbalance} come almost entirely from the rare classes, since the head accuracy stays near \pct{94} for every method. Logit adjustment was the most effective approach, and it requires only one extra line in the loss function. The values of $\beta$ and $\tau$ were not tuned, so these results do not depend on any selection using the test set.
+For the ResNet-18, the gains in \cref{tab:imbalance} come almost entirely from the rare classes, since the head accuracy stays near \pct{94} for every method. Logit adjustment was the most effective approach for both classifiers, and it requires only one extra line in the loss function. The values of $\beta$ and $\tau$ were not tuned, so these results do not depend on any selection using the test set.
 
 % ================================================================== references
 \clearpage
@@ -688,7 +696,7 @@ The gains in \cref{tab:imbalance} come almost entirely from the rare classes, si
 All code, settings and results of this project are available in the GitHub repository \repo. Its \texttt{README.md} gives step-by-step instructions for two ways of reproducing the results.
 \begin{itemize}
   \item \textbf{Quick check (no GPU, about 5 minutes).} Three commands rebuild \texttt{submission.csv} and every result table and figure of the report from the saved outputs of the training runs.
-  \item \textbf{Retraining the best models (one NVIDIA GPU, about one hour).} This retrains the final Dogs vs.\ Cats ensemble, fine-tuned DINOv2-S on CIFAR-10 and ResNet-18 with logit adjustment on long-tailed CIFAR-10, and lists the values that the new runs should reach.
+  \item \textbf{Retraining the best models (one NVIDIA GPU, about one hour).} This retrains the final Dogs vs.\ Cats ensemble, fine-tuned DINOv2-S on CIFAR-10 and fine-tuned DINOv2-S with logit adjustment on long-tailed CIFAR-10, and lists the values that the new runs should reach.
 \end{itemize}
 \Cref{tab:repo} lists the main parts of the repository. Every other run in the report can also be repeated, because the exact settings of each run are stored in its \texttt{args.json} file.
 
@@ -706,14 +714,14 @@ All code, settings and results of this project are available in the GitHub repos
     \texttt{src/classical.py} & HOG and colour histogram features with linear and RBF SVMs \\
     \texttt{src/cifar.py} & CIFAR-10 and long-tailed CIFAR-10 experiments (parts (g) and (h)) \\
     \texttt{scripts/} & Pre-resizing, weight download, ensembling, job queue, and the scripts that make every table and figure of the report \\
-    \texttt{jobs/} & Command-line arguments of all 106 neural network runs, one run per line \\
-    \texttt{runs/} & Saved outputs of all 108 runs: settings (\texttt{args.json}), metrics with per-epoch history (\texttt{metrics.json}), validation and test predictions, and log files \\
+    \texttt{jobs/} & Command-line arguments of all 112 neural network runs, one run per line \\
+    \texttt{runs/} & Saved outputs of all 114 runs: settings (\texttt{args.json}), metrics with per-epoch history (\texttt{metrics.json}), validation and test predictions, and log files \\
     \texttt{report/} & Report figures and tables, and the LaTeX source of this report \\
     \texttt{requirements.txt} & Python packages apart from PyTorch \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-Three further points matter for reproducing the results. First, the course dataset is not included, because it is not ours to redistribute. It has to be placed in a folder \texttt{datasets/}, as described in the \texttt{README.md}. Second, model checkpoints are not included because of their size, so results that need a trained model, such as the Grad-CAM maps, can only be recomputed after retraining. Third, all 108 runs of this report were trained on a Linux server with four NVIDIA RTX 3090 GPUs (24 GB each), one run per GPU, with Python 3.11, PyTorch 2.11.0, CUDA 12.8 and bfloat16 mixed precision, and took about 15 GPU-hours in total. Any recent PyTorch 2.x release works with the code. GPU computations are not fully deterministic, so a retrained run can differ slightly from the saved one (Section~\ref{sec:b}).
+Three further points matter for reproducing the results. First, the course dataset is not included, because it is not ours to redistribute. It has to be placed in a folder \texttt{datasets/}, as described in the \texttt{README.md}. Second, model checkpoints are not included because of their size, so results that need a trained model, such as the Grad-CAM maps, can only be recomputed after retraining. Third, all 114 runs of this report were trained on a Linux server with four NVIDIA RTX 3090 GPUs (24 GB each), one run per GPU, with Python 3.11, PyTorch 2.11.0, CUDA 12.8 and bfloat16 mixed precision, and took about 15 GPU-hours in total. Any recent PyTorch 2.x release works with the code. GPU computations are not fully deterministic, so a retrained run can differ slightly from the saved one (Section~\ref{sec:b}).
 
 \end{document}
