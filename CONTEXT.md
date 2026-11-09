@@ -27,10 +27,10 @@ Written 18 Oct 2026 by the person who ran the experiments. It assumes you have t
 
 ## 2. Where each part of the brief is covered
 
-| Part | Evidence (figures in `report/figures/`, tables in `report/tables/RESULTS.md`) |
+| Part | Evidence (figures made by the scripts in `scripts/`, tables in `report/tables/RESULTS.md`) |
 |---|---|
 | a. Data, preprocessing, augmentation | Table "Dataset"; `aug_examples` (what the network sees); `aug_ablation`; §3 below |
-| b. Model, architecture, I/O dims, loss, training strategy, code, reproducibility | `arch_final_model`, `arch_scratch_cnn`; layer-by-layer shapes in `report/model_summaries/*.txt`; `training_curves`; `README.md` (code and run instructions, seeds) |
+| b. Model, architecture, I/O dims, loss, training strategy, code, reproducibility | architecture diagram (`report/diagrams/`); layer-by-layer shapes in `report/model_summaries/*.txt`; `training_curves`; `README.md` (code and run instructions, seeds) |
 | c. Choice of hyperparameters | `lr_sweep` + table "learning rate"; table "diagnostic runs"; `aug_ablation`; default recipes in §4a |
 | d. Validation accuracy and submission | Table "Final model and submission"; `submission.csv` |
 | e. Correct/incorrect samples, strengths/weaknesses | `test_cases`, `test_confidence`, `test_uncertain`, `errors_final_val`, `errors_scratch_val`, `gradcam`; contact sheets of all 500 test images in `report/test_review/`; §4e |
@@ -38,12 +38,12 @@ Written 18 Oct 2026 by the person who ran the experiments. It assumes you have t
 | g. CIFAR-10 | `cifar_g`; table "CIFAR-10" |
 | h. Imbalanced CIFAR-10, ≥ 2 methods | `cifar_h`, `cifar_h_groups`; table "Long-tailed CIFAR-10" |
 
-**Draft captions and alt text** for every figure are in `report/figures/captions*.md`. The figures deliberately contain no titles, so the caption must say what is plotted. In the plots, the colour shows how the backbone was trained:
+Only the 12 figures used in the report are kept in the repository (`report/overleaf/figures/`). The other figures named above were exploratory. The scripts regenerate all of them, with draft captions (`captions*.md`) and the plotted values (`data/*.csv`), into `report/figures/`, which is not tracked. The figures deliberately contain no titles, so the caption must say what is plotted. In the plots, the colour shows how the backbone was trained:
 - blue = fine-tuned;
 - green = linear probe;
 - vermillion = no pretraining.
 
-Filled markers are means; small open markers are individual seeds. The exact plotted numbers are in `report/figures/data/*.csv`.
+Filled markers are means; small open markers are individual seeds.
 
 ## 3. Data and preprocessing (part a)
 
@@ -143,7 +143,7 @@ Figures: `errors_final_val`, `errors_scratch_val`, `test_uncertain`, `test_cases
 
   So 99.88% is close to the ceiling the labels allow. This is worth a paragraph: the Kaggle Dogs vs. Cats data is known to contain such images.
 - **The scratch CNN's mistakes** are mostly ordinary, clear single-animal photos. It has not learned robust features; the pretrained model has.
-- **Test set, visual check:** Dheemant inspected all 500 test predictions by eye, using the contact sheets in `report/test_review/` (made by `scripts/make_test_review.py`). The check found **no wrong prediction**, so the estimated test accuracy is 500/500. Say clearly that this comes from visual inspection, since the test labels are not public.
+- **Test set, visual check:** Dheemant inspected all 500 test predictions by eye, using contact sheets of all 500 images (regenerated into `report/test_review/` by `scripts/make_test_review.py`). The check found **no wrong prediction**, so the estimated test accuracy is 500/500. Say clearly that this comes from visual inspection, since the test labels are not public.
   - **Confidence** (`test_confidence`): only 3 of 500 test images have p(dog) between 0.2 and 0.8.
   - **Hardest correct test cases** (`test_cases` panel a, all predicted correctly):
     - **469** (dog, p = 0.65): a tiny, blurry photo of fluffy merle puppies;
@@ -217,13 +217,12 @@ Figures `cifar_h`, `cifar_h_groups`; table "Long-tailed CIFAR-10".
 | `README.md` | Code: setup, how to run every experiment, the figures and tables |
 | `CONTEXT.md` | This file |
 | `report/tables/RESULTS.md` (+ `*.csv`) | **All final numbers**, in 10 tables |
-| `report/figures/*.png` / `*.pdf` | All report figures (PNG 600 dpi, PDF vector) |
-| `report/figures/captions*.md` | Draft captions and alt text for every figure |
-| `report/figures/data/*.csv` | The exact values plotted in each figure |
-| `report/model_summaries/` | Layer tables (input/output shapes, parameters) for DINOv2-B, the scratch CNN and ResNet-50 |
-| `report/gradcam/` | Grad-CAM maps computed on the server (`gradcam_maps.npz`) |
+| `report/overleaf/` | The report: `main.tex`, `references.bib` and the 12 figures it uses |
+| `report/model_summaries/` | Layer table (input/output shapes, parameters) of the final DINOv2-B model |
+| `report/gradcam/` | Grad-CAM maps computed on the server (`gradcam_maps.npz`), used to redraw the Grad-CAM figure |
+| `report/diagrams/` | Excalidraw sources of the architecture and prediction-pipeline diagrams |
 | `runs/<run>/` | Per run: `metrics.json` (all numbers + per-epoch history), `args.json` (exact settings), `val_predictions.csv`, `test_probs.csv`; logs in `runs/<run>.log` |
-| `jobs/*.txt` | Run lists for most batches. A few later batches (extra seeds, data-size seeds, fine-tuning diagnostics) were written directly on the server and are not here; each run's `args.json` records its exact settings |
+| `jobs/*.txt` | Run lists of all 106 neural-network runs (`week2b.txt` was rebuilt from the runs' `args.json` files); each run's `args.json` records its exact settings |
 | `submission.csv` | The file to submit |
 | `src/`, `scripts/` | All code |
 | `PLAN.md` | The original plan (§3 dataset analysis is still accurate; the compute section is outdated) |

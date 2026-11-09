@@ -30,11 +30,11 @@ There are two ways to reproduce the results:
 | `scripts/prefetch_weights.py` | Downloads all pretrained weights and CIFAR-10 once |
 | `scripts/run_queue.py` | Runs a job file (one run per line) on several GPUs, one run per GPU at a time |
 | `scripts/ensemble.py` | Averages the predictions of several runs and writes the ensemble's `submission.csv` |
-| `scripts/make_tables.py`, `scripts/make_plots.py` | Result tables (`report/tables/`) and figures (`report/figures/`) |
-| other `scripts/` | Figures for single report parts: `make_report_extras.py` (a, b), `make_aug_examples.py` (a), `model_summary.py`, `arch_table.py`, `make_arch_diagram.py` (b), `analyze_errors.py`, `make_test_cases.py`, `make_test_review.py` (e), `summarize.py` (quick overview of all runs) |
+| `scripts/make_tables.py`, `scripts/make_plots.py` | Result tables (`report/tables/`) and result figures. The figure scripts write to `report/figures/`, which is not tracked; the figures used in the report are kept in `report/overleaf/figures/` |
+| other `scripts/` | Figures and tables for single report parts: `make_report_extras.py` (a, b), `make_aug_examples.py` (a), `model_summary.py`, `arch_table.py` (b), `analyze_errors.py`, `make_test_cases.py`, `make_test_review.py` (e), `summarize.py` (quick overview of all runs) |
 | `jobs/*.txt` | Job files: the command-line arguments of all 106 neural-network runs, one run per line |
 | `runs/` | Saved outputs of all 108 runs and 2 ensembles: `args.json` (exact settings), `metrics.json` (metrics and per-epoch history), `val_predictions.csv`, `test_probs.csv` and the log file. Model checkpoints are not included because of their size |
-| `report/` | Report figures (PNG and PDF), tables, layer tables, Grad-CAM maps and the LaTeX source (`report/overleaf/`) |
+| `report/` | `overleaf/`: the LaTeX source of the report with its 12 figures. `tables/`: all result tables. `model_summaries/`: the layer-by-layer table of the final model. `gradcam/`: the saved Grad-CAM maps, so the Grad-CAM figure can be redrawn without checkpoints. `diagrams/`: the Excalidraw sources of the two diagrams |
 | `requirements.txt` | Python packages apart from PyTorch |
 | `submission.csv` | Final test predictions: 500 rows, `id,label` (1 = dog, 0 = cat) |
 | `CONTEXT.md`, `PLAN.md` | Project notes. `PLAN.md` is the original plan, and parts of it are out of date |
@@ -62,7 +62,7 @@ What you should see:
 1. `ensemble.py` prints `ensemble of 3: val acc (TTA) 0.9988, confusion [[2495, 4], [2, 2498]]`.
 2. `check/ens_dinov2_b_probe/submission.csv` is identical to `submission.csv` (259 dogs, 241 cats).
 3. `check/tables/` is identical to `report/tables/` (`RESULTS.md` collects every table in one file).
-4. `check/figures/` holds the result figures of the report.
+4. `check/figures/` holds the result figures. Four of them are in the report (`lr_sweep`, `model_ladder`, `cifar_g`, `cifar_h`) and match the copies in `report/overleaf/figures/`.
 
 `ensemble.py` and `make_tables.py` use only the Python standard library.
 

@@ -1,7 +1,0 @@
-model,strategy,seed,test_acc_pct
-ResNet-18 (scratch),No pretraining,0,94.8700
-ResNet-18 (scratch),No pretraining,1,94.9700
-ResNet-18 (scratch),No pretraining,2,94.5000
-DINOv2-B (probe),Linear probe,0,97.9900
-ConvNeXt-T (FT),Fine-tuned,0,98.6900
-DINOv2-S (FT),Fine-tuned,0,98.8700

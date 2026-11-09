@@ -22,7 +22,8 @@ __pycache__/
 .ipynb_checkpoints/
 runs/*/tb/
 
-# Local outputs of the reproduction steps in README.md
+# Local outputs of the reproduction steps and figure scripts (the report's figures are in report/overleaf/figures)
+report/figures/
 check/
 runs_repro/
 
