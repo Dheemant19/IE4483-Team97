@@ -13,7 +13,7 @@ There are two ways to reproduce the results:
 | | What it reproduces | Needs | Time |
 |---|---|---|---|
 | **A. Quick check** | `submission.csv` and every result table and figure, rebuilt from the saved outputs of all training runs | Any computer with Python 3.9+, no GPU | about 5 minutes |
-| **B. Full reproduction** | All 108 training runs from scratch | An NVIDIA GPU with CUDA, the course dataset | about 15 GPU-hours (one final-model run takes about 8 minutes) |
+| **B. Retrain the best models** | The best model of each part, trained from scratch: the Dogs vs. Cats final model, the best CIFAR-10 model and the best long-tailed CIFAR-10 method | An NVIDIA GPU with CUDA, the course dataset | about 1 hour on one GPU |
 
 ---
 
@@ -68,7 +68,9 @@ What you should see:
 
 ---
 
-## B. Full reproduction (NVIDIA GPU)
+## B. Retrain the best models (NVIDIA GPU, about 1 hour)
+
+This retrains the three results the report is built on. Retraining all 108 runs is not needed, but every other run can be repeated in the same way (see [Other experiments](#other-experiments)).
 
 ### B1. What you need
 
@@ -140,65 +142,50 @@ python scripts/prefetch_weights.py --cifar-root ~/ie4483/cifar
 ```
 
 - `preresize.py` writes a copy with the shorter side resized to 288 pixels to `data_288/`. It leaves out `val/cat/cat.12408.jpg`, an exact copy of a training image. It ends by printing the image counts, which must be 10,000, 10,000, 2,499, 2,500 and 500.
-- `prefetch_weights.py` downloads the pretrained weights of every backbone and CIFAR-10. This is optional for Dogs vs. Cats, since the weights are also downloaded on first use. It is needed for `src/cifar.py`, which expects CIFAR-10 in `~/ie4483/cifar` (change this with `--cifar-root`).
+- `prefetch_weights.py` downloads the pretrained weights of every backbone and CIFAR-10. This is optional for Dogs vs. Cats, since the weights are also downloaded on first use. It is needed for the CIFAR runs (B5, B6), because `src/cifar.py` does not download CIFAR-10 itself and expects it in `~/ie4483/cifar` (change this with `--cifar-root`).
 
-### B4. Train the final model
+### B4. Dogs vs. Cats: final model (about 25 minutes)
 
-Each command trains one DINOv2-B linear probe with one seed. **Write new runs to `runs_repro/`**, so that the saved results in `runs/` stay untouched.
+The final model is an ensemble of three DINOv2-B linear probes, one per seed. **Write new runs to `runs_repro/`**, so that the saved results in `runs/` stay untouched.
 
 ```bash
 python src/train.py --model dinov2_b --freeze backbone --seed 0 --name dinov2_b_probe_s0 --out runs_repro
 python src/train.py --model dinov2_b --freeze backbone --seed 1 --name dinov2_b_probe_s1 --out runs_repro
 python src/train.py --model dinov2_b --freeze backbone --seed 2 --name dinov2_b_probe_s2 --out runs_repro
-```
-
-- Each run takes about 8 minutes on an RTX 3090. It writes `args.json`, `metrics.json`, `val_predictions.csv`, `test_probs.csv`, `submission.csv`, the checkpoints `last.pt` and `best.pt`, and TensorBoard logs to `runs_repro/<name>/`.
-- The validation accuracy with flip TTA (`val_acc_tta` in `metrics.json`) should be close to 99.90%, 99.88% and 99.86% for seeds 0, 1 and 2.
-- GPU computations are not fully deterministic, so a repeated run can differ by up to about 0.05 percentage points (two or three images).
-- With several GPUs, the three runs can share the work. Prefix each command with `CUDA_VISIBLE_DEVICES=0`, `=1` or `=2` (Linux and macOS shells only), or use `run_queue.py` (B6).
-
-### B5. Build the ensemble and the submission file
-
-```bash
 python scripts/ensemble.py runs_repro/dinov2_b_probe_s0 runs_repro/dinov2_b_probe_s1 runs_repro/dinov2_b_probe_s2 --out runs_repro/ens_dinov2_b_probe
 ```
 
-This averages the flip-TTA probabilities of the three runs and writes `runs_repro/ens_dinov2_b_probe/submission.csv`, in the format of the course's sample submission (`id,label`, 1 = dog, 0 = cat).
+- Each run takes about 8 minutes on an RTX 3090. It writes `args.json`, `metrics.json`, `val_predictions.csv`, `test_probs.csv`, `submission.csv`, the checkpoints `last.pt` and `best.pt`, and TensorBoard logs to `runs_repro/<name>/`.
+- `ensemble.py` averages the flip-TTA probabilities of the three runs and writes `runs_repro/ens_dinov2_b_probe/submission.csv`, in the format of the course's sample submission (`id,label`, 1 = dog, 0 = cat).
 
-### B6. Run all other experiments
-
-Every other run uses the same two training scripts. The job files list the arguments of every run, and `run_queue.py` runs a job file on the GPUs you name, one run per GPU at a time:
+### B5. CIFAR-10 (part g): fine-tuned DINOv2-S (about 17 minutes)
 
 ```bash
-python scripts/run_queue.py jobs/week1.txt --gpus 0,1,2,3 --out runs_repro
-python scripts/run_queue.py jobs/cifar_g.txt --script src/cifar.py --gpus 0,1,2,3 --out runs_repro
-python src/classical.py --data data_288 --out runs_repro --jobs 8       # HOG + SVM baselines, CPU only
+python src/cifar.py --model dinov2_s --seed 0 --name cifar_dinov2_s_s0 --out runs_repro
 ```
 
-| Job file | Runs | Report part |
+### B6. Long-tailed CIFAR-10 (part h): ResNet-18 with logit adjustment (about 20 minutes)
+
+```bash
+python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 0 --name cifar_r18_lt100_la_s0 --out runs_repro
+python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 1 --name cifar_r18_lt100_la_s1 --out runs_repro
+python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 2 --name cifar_r18_lt100_la_s2 --out runs_repro
+```
+
+### B7. Compare with the report
+
+Each run stores its results in `runs_repro/<name>/metrics.json`. The same file for the original run is in `runs/<name>/metrics.json`.
+
+| Run | Metric in `metrics.json` | Expected value |
 |---|---|---|
-| `week1.txt`, `week1b.txt` | Model comparison, linear probe and LP-FT | (b), (c), (f) |
-| `week2b.txt` | Seeds 1 and 2 of the ConvNeXt-T and DINOv2 probes, EfficientNetV2-S and the training-set size runs, and seed 0 of ResNet-50 and the scratch CNN | (b), (c), (f) |
-| `lr_sweep.txt` | ResNet-50 learning-rate sweep | (c) |
-| `week2a.txt` | Lower fine-tuning learning rate, augmentation and training-set size (seed 0) | (c), (f) |
-| `cifar_g.txt` | CIFAR-10 from scratch and with pretrained models (`--script src/cifar.py`) | (g) |
-| `cifar_h.txt`, `cifar_h_seeds.txt` | Long-tailed CIFAR-10 (`--script src/cifar.py`) | (h) |
+| `dinov2_b_probe_s0`, `_s1`, `_s2` | `val_acc_tta` (validation accuracy with flip TTA) | 0.9990, 0.9988, 0.9986 |
+| `ens_dinov2_b_probe` | `val_acc` (printed by `ensemble.py`) | 0.9988, with 259 dogs in `submission.csv` |
+| `cifar_dinov2_s_s0` | `test_acc` and `test_acc_tta` | 0.9887 and 0.9893 |
+| `cifar_r18_lt100_la_s0`, `_s1`, `_s2` | `test_acc` | 0.7890, 0.7795, 0.7875 (mean 78.53%) |
 
-Notes:
+GPU computations are not fully deterministic, so a retrained run will not match to the last digit. The Dogs vs. Cats probes (B4) differ by at most about 0.05 percentage points. The CIFAR runs (B5, B6) update the whole network and can vary more. For the ResNet-18 runs, expect results within the spread of the three seeds above rather than exactly the same values.
 
-- The queue skips any run whose `metrics.json` already exists in the output folder, so a stopped queue can simply be started again. This is also why `--out runs_repro` is needed, since `runs/` already holds the finished runs.
-- To run a single job instead, pass one line of a job file to `src/train.py` (or `src/cifar.py` for the CIFAR job files) and add `--out runs_repro`.
-- On Linux, add `nohup ... > runs_repro/queue.log 2>&1 &` to keep a queue running after you log out.
-
-### B7. Rebuild the tables and figures from your runs
-
-```bash
-python scripts/make_tables.py --runs runs_repro --out runs_repro/tables
-python scripts/make_plots.py --runs runs_repro --out runs_repro/figures
-python scripts/analyze_errors.py --gradcam --probe-run runs_repro/dinov2_b_probe_s0 --scratch-run runs_repro/scratch_cnn_s0 --ens runs_repro/ens_dinov2_b_probe --out runs_repro/gradcam
-```
-
-Compare the results with `report/tables/` and `report/figures/`. The Grad-CAM maps (part e) need model checkpoints, which are not included in `runs/`, so they can only be made after the seed-0 runs of DINOv2-B and the scratch CNN have been trained again.
+On a machine with several GPUs, the runs can be spread over them. Prefix each command with `CUDA_VISIBLE_DEVICES=0`, `=1`, ... (Linux and macOS shells), or use `scripts/run_queue.py` as described below.
 
 ---
 
@@ -232,6 +219,33 @@ Default settings:
 - `--imb-ratio R` (with `--imb-type exp|step`) makes the training set long-tailed.
 - `--method` picks the imbalance handling: `ce` (plain cross-entropy), `resample`, `cb` (class-balanced weights), `cb_drw` (the same weights for the last 20% of epochs), `la` (logit adjustment, τ = 1) or `focal` (focal loss, γ = 1).
 - 500 images per class are held out as a balanced validation set. The official test set is evaluated once, after the last epoch.
+
+### Other experiments
+
+Every run in the report can be repeated with the same two training scripts. Its exact arguments are listed in the job files (one run per line) and stored in `runs/<name>/args.json`. `scripts/run_queue.py` runs a job file on the GPUs you name, one run per GPU at a time, and skips runs that already have a `metrics.json` in the output folder:
+
+```bash
+python scripts/run_queue.py jobs/week1.txt --gpus 0,1,2,3 --out runs_repro
+python scripts/run_queue.py jobs/cifar_g.txt --script src/cifar.py --gpus 0,1,2,3 --out runs_repro
+python src/classical.py --data data_288 --out runs_repro --jobs 8       # HOG + SVM baselines, CPU only
+```
+
+| Job file | Runs | Report part |
+|---|---|---|
+| `week1.txt`, `week1b.txt` | Model comparison, linear probe and LP-FT | (b), (c), (f) |
+| `week2b.txt` | Seeds 1 and 2 of the ConvNeXt-T and DINOv2 probes, EfficientNetV2-S and the training-set size runs, and seed 0 of ResNet-50 and the scratch CNN | (b), (c), (f) |
+| `lr_sweep.txt` | ResNet-50 learning-rate sweep | (c) |
+| `week2a.txt` | Lower fine-tuning learning rate, augmentation and training-set size (seed 0) | (c), (f) |
+| `cifar_g.txt` | CIFAR-10 from scratch and with pretrained models (`--script src/cifar.py`) | (g) |
+| `cifar_h.txt`, `cifar_h_seeds.txt` | Long-tailed CIFAR-10 (`--script src/cifar.py`) | (h) |
+
+The tables, figures and Grad-CAM maps can then be rebuilt from the new runs. Grad-CAM needs the checkpoints of the seed-0 DINOv2-B probe and scratch CNN, which are not included in `runs/`.
+
+```bash
+python scripts/make_tables.py --runs runs_repro --out runs_repro/tables
+python scripts/make_plots.py --runs runs_repro --out runs_repro/figures
+python scripts/analyze_errors.py --gradcam --probe-run runs_repro/dinov2_b_probe_s0 --scratch-run runs_repro/scratch_cnn_s0 --ens runs_repro/ens_dinov2_b_probe --out runs_repro/gradcam
+```
 
 ### Reproducibility notes
 
