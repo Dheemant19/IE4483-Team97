@@ -17,7 +17,6 @@
 \usepackage{enumitem}
 \usepackage[section]{placeins}
 \usepackage[font=small,labelfont=bf,labelsep=period]{caption}
-\usepackage{fvextra}
 \usepackage[numbers,square,sort&compress]{natbib}
 \PassOptionsToPackage{hyphens}{url}   % long URLs may break at hyphens, so bibliography lines fit
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
@@ -47,14 +46,6 @@
 \newcommand{\pdog}{$p(\mathrm{dog})$}
 \newcommand{\repo}{\url{https://github.com/Dheemant19/IE4483-Team97}}
 
-% Code is typeset with fvextra, which compiles much faster than listings.
-\fvset{fontsize=\scriptsize, breaklines=true, breakanywhere=true, frame=lines,
-  framerule=0.3pt, framesep=3pt, tabsize=4}
-\newcounter{codelisting}
-\newcommand{\codefile}[2]{%
-  \par\medskip\refstepcounter{codelisting}%
-  \noindent{\small\textbf{Listing \thecodelisting.} #1}\par\nopagebreak\smallskip
-  \VerbatimInput[numbers=left, numbersep=6pt, xleftmargin=1.5em]{#2}}
 
 \begin{document}
 
@@ -229,7 +220,7 @@ For the final classifier, the three seed models were combined into an ensemble, 
   \label{fig:pipeline}
 \end{figure}
 
-The model was implemented in Python and PyTorch~\cite{paszke2019pytorch}, with pretrained weights loaded through the timm library~\cite{wightman2019timm}. The code and instructions for running it are given in Appendix~\ref{app:run}, and the complete source code is listed in Appendix~\ref{app:code}. All code and the saved outputs of every training run are available in the project's GitHub repository, \repo.
+The model was implemented in Python and PyTorch~\cite{paszke2019pytorch}, with pretrained weights loaded through the timm library~\cite{wightman2019timm}. All code and the saved outputs of every training run are available in the project's GitHub repository, \repo, and Appendix~\ref{app:run} explains how to use it.
 
 % ================================================================== (c)
 \section{Choice of Parameters and Settings}\label{sec:c}
@@ -311,7 +302,7 @@ Further experiments lowered the backbone learning rate for DINOv2-B fine-tuning 
 
 Weight initialisation mattered in two ways, and the larger effect came from the backbone. The scratch CNN, whose weights were randomly initialised with He initialisation~\cite{he2015init}, reached \pct{97.65} after 50 epochs. In contrast, with the default settings, every backbone initialised from pretrained weights exceeded \pct{99.4} within 10 epochs (\cref{sec:f}). Pretrained initialisation was therefore the most important single setting in this project.
 
-The initialisation of the new classification head also mattered. For every pretrained backbone, the original classifier was replaced by a new linear layer with two outputs, and the timm library initialises this layer differently for different architectures. For EfficientNetV2-S, the initial head weights had a standard deviation of 0.41, more than 20 times larger than for the other backbones, and its head-only epoch reached only about \pct{90} validation accuracy. Re-initialising the head from a truncated normal distribution (standard deviation 0.02, zero bias), the same scale as the other backbones, raised the final accuracy of EfficientNetV2-S from \pct{99.12} to \pct{99.64}. The code applies this correction automatically whenever the initial head weights have a standard deviation above 0.05 (\texttt{models.py} in Appendix~\ref{app:code}). The DINOv2-B head was below this threshold and was not modified.
+The initialisation of the new classification head also mattered. For every pretrained backbone, the original classifier was replaced by a new linear layer with two outputs, and the timm library initialises this layer differently for different architectures. For EfficientNetV2-S, the initial head weights had a standard deviation of 0.41, more than 20 times larger than for the other backbones, and its head-only epoch reached only about \pct{90} validation accuracy. Re-initialising the head from a truncated normal distribution (standard deviation 0.02, zero bias), the same scale as the other backbones, raised the final accuracy of EfficientNetV2-S from \pct{99.12} to \pct{99.64}. The code applies this correction automatically whenever the initial head weights have a standard deviation above 0.05 (\texttt{src/models.py} in the repository). The DINOv2-B head was below this threshold and was not modified.
 
 \subsection*{Other Training Settings}
 
@@ -692,77 +683,37 @@ The gains in \cref{tab:imbalance} come almost entirely from the rare classes, si
 \renewcommand{\thesection}{\Alph{section}}
 \crefname{section}{Appendix}{Appendices}
 
-\section{Code and Instructions to Reproduce the Results}\label{app:run}
+\section{Code and Reproducibility}\label{app:run}
 
-The source files used in this report are listed in \cref{app:code}. The GitHub repository \repo\ contains the same code, the job lists (\texttt{jobs/}), the table and figure scripts, and the saved outputs of all 108 training runs in \texttt{runs/} (80 for Dogs vs.\ Cats and 28 for CIFAR-10). For every run, these are its exact settings (\texttt{args.json}), its metrics with per-epoch history (\texttt{metrics.json}), its validation and test predictions, and its log file. Model checkpoints are not included because of their size. The \texttt{README.md} of the repository gives the same instructions as this appendix in more detail and describes every script.
+All code, settings and results of this project are available in the GitHub repository \repo. Its \texttt{README.md} gives step-by-step instructions for two ways of reproducing the results.
+\begin{itemize}
+  \item \textbf{Quick check (no GPU, about 5 minutes).} Three commands rebuild \texttt{submission.csv} and every result table and figure of the report from the saved outputs of the training runs.
+  \item \textbf{Retraining the best models (one NVIDIA GPU, about one hour).} This retrains the final Dogs vs.\ Cats ensemble, fine-tuned DINOv2-S on CIFAR-10 and ResNet-18 with logit adjustment on long-tailed CIFAR-10, and lists the values that the new runs should reach.
+\end{itemize}
+\Cref{tab:repo} lists the main parts of the repository. Every other run in the report can also be repeated, because the exact settings of each run are stored in its \texttt{args.json} file.
 
-The results can be reproduced at two levels. Step 2 rebuilds the submission file and the result tables from the saved outputs. It takes a few minutes on any computer and needs no GPU. Steps 3 to 5 retrain the best model of each part, which takes about one hour on one GPU. This needs an NVIDIA GPU with CUDA, and the training scripts stop with a message if no GPU is found. All 108 runs of the report were trained on a Linux server with four NVIDIA RTX 3090 GPUs (24 GB each), with one run per GPU, and took about 15 GPU-hours in total. Repeating all of them is not necessary, but step 6 explains how any other run can be repeated. All commands below are run from the top folder of the repository.
+\begin{table}[ht]
+  \centering
+  \small
+  \caption{Main contents of the GitHub repository.}
+  \label{tab:repo}
+  \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Path & Contents \\
+    \midrule
+    \texttt{src/train.py} & Dogs vs.\ Cats training and evaluation, one model and one seed per run (linear probe or LP-FT, flip TTA, per-run predictions) \\
+    \texttt{src/models.py}, \texttt{src/data.py} & Model definitions (scratch CNN, pretrained backbones, head initialisation check), datasets, pre-processing and augmentation \\
+    \texttt{src/classical.py} & HOG and colour histogram features with linear and RBF SVMs \\
+    \texttt{src/cifar.py} & CIFAR-10 and long-tailed CIFAR-10 experiments (parts (g) and (h)) \\
+    \texttt{scripts/} & Pre-resizing, weight download, ensembling, job queue, and the scripts that make every table and figure of the report \\
+    \texttt{jobs/} & Command-line arguments of all 106 neural network runs, one run per line \\
+    \texttt{runs/} & Saved outputs of all 108 runs: settings (\texttt{args.json}), metrics with per-epoch history (\texttt{metrics.json}), validation and test predictions, and log files \\
+    \texttt{report/} & Report figures and tables, and the LaTeX source of this report \\
+    \texttt{requirements.txt} & Python packages apart from PyTorch \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-\subsection*{1. Environment}
-\begin{Verbatim}
-git clone https://github.com/Dheemant19/IE4483-Team97.git
-cd IE4483-Team97
-conda create -y -n ie4483 python=3.11 && conda activate ie4483
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128   # build for CUDA 12.8
-pip install -r requirements.txt
-\end{Verbatim}
-PyTorch is installed separately because each CUDA version has its own build. Any recent PyTorch 2.x release works, and the selector at \url{https://pytorch.org/get-started/locally/} gives the install command for a particular system and CUDA version. The command above installs the CUDA 12.8 build that was used for the report (PyTorch 2.11.0). The file \texttt{requirements.txt} lists the other packages with minimum versions only. Pretrained weights are cached in \texttt{\textasciitilde/.cache/huggingface}, or in the folder set by the environment variable \texttt{HF\_HOME}. Each pretrained model is identified by its full timm name in \texttt{models.py}, for example \texttt{vit\_base\_patch14\_dinov2.lvd142m} for DINOv2-B, so the same pretrained weights are downloaded every time.
-
-\subsection*{2. Checking the Results without Retraining (No GPU Needed)}
-\begin{Verbatim}
-python scripts/ensemble.py runs/dinov2_b_probe_s0 runs/dinov2_b_probe_s1 runs/dinov2_b_probe_s2 --out check/ens_dinov2_b_probe
-python scripts/make_tables.py --out check/tables      # compare with report/tables/
-python scripts/make_plots.py --out check/figures      # compare with report/figures/
-\end{Verbatim}
-The first command averages the saved test probabilities of the three final runs. It prints an ensemble validation accuracy of 0.9988, and the file \texttt{check/ens\_dinov2\_b\_probe/submission.csv} that it writes is identical to the submitted \texttt{submission.csv} (259 dogs and 241 cats). The other two commands rebuild the result tables and figures of Sections~\ref{sec:c}, \ref{sec:d} and \ref{sec:f} to \ref{sec:h} from the \texttt{metrics.json} files. \texttt{ensemble.py} and \texttt{make\_tables.py} use only the Python standard library, and \texttt{make\_plots.py} also needs numpy, pandas, matplotlib and seaborn.
-
-\subsection*{3. Data Preparation}
-The course data is placed in the folder \texttt{datasets/} with the following layout:
-\begin{Verbatim}
-datasets/train/cat/*.jpg  (10,000 images)       datasets/val/cat/*.jpg  (2,500 images)
-datasets/train/dog/*.jpg  (10,000 images)       datasets/val/dog/*.jpg  (2,500 images)
-datasets/test/1.jpg ... datasets/test/500.jpg
-\end{Verbatim}
-The commands below create the resized copy of the data in \texttt{data\_288/} and download the pretrained weights and CIFAR-10 once.
-\begin{Verbatim}
-python scripts/preresize.py --src datasets --dst data_288
-python scripts/prefetch_weights.py --cifar-root ~/ie4483/cifar
-\end{Verbatim}
-\texttt{preresize.py} resizes every image to a shorter side of 288 pixels and leaves out the duplicated validation image (Section~\ref{sec:a}). It ends by printing the number of images in each folder, which should be 10,000 (\texttt{train/cat}), 10,000 (\texttt{train/dog}), 2,499 (\texttt{val/cat}), 2,500 (\texttt{val/dog}) and 500 (\texttt{test}).
-
-\subsection*{4. Dogs vs.\ Cats: Final Model}
-The first three commands each train one DINOv2-B linear probe with one seed, and the last command combines them into the final ensemble. The new runs are written to \texttt{runs\_repro/}, so that the saved results in \texttt{runs/} are not overwritten.
-\begin{Verbatim}
-python src/train.py --model dinov2_b --freeze backbone --seed 0 --name dinov2_b_probe_s0 --out runs_repro
-python src/train.py --model dinov2_b --freeze backbone --seed 1 --name dinov2_b_probe_s1 --out runs_repro
-python src/train.py --model dinov2_b --freeze backbone --seed 2 --name dinov2_b_probe_s2 --out runs_repro
-python scripts/ensemble.py runs_repro/dinov2_b_probe_s0 runs_repro/dinov2_b_probe_s1 runs_repro/dinov2_b_probe_s2 --out runs_repro/ens_dinov2_b_probe
-\end{Verbatim}
-All other settings are the defaults in \texttt{train.py}, and \texttt{args.json} records the full list for every run. Each run takes about 8 minutes on an RTX 3090 and writes its settings, metrics and predictions to \texttt{runs\_repro/<name>/}. The validation accuracy with flip TTA (\texttt{val\_acc\_tta} in \texttt{metrics.json}) should be close to \pct{99.90}, \pct{99.88} and \pct{99.86} for seeds 0, 1 and 2 (\cref{tab:seeds}). Because GPU kernels are not fully deterministic, a repeated run can differ from these values by up to about 0.05 percentage points (Section~\ref{sec:b}). The ensemble writes \texttt{submission.csv} to \texttt{runs\_repro/ens\_dinov2\_b\_probe/}, in the format of the sample submission (\texttt{id} and \texttt{label}, with 1 for dog and 0 for cat).
-
-\subsection*{5. CIFAR-10 and Long-Tailed CIFAR-10: Best Models}
-The first command trains the best CIFAR-10 model, fine-tuned DINOv2-S (\cref{tab:cifar}), in about 17 minutes. The other three train the ResNet-18 with logit adjustment at an imbalance ratio of 100 (\cref{tab:imbalance}), in about 7 minutes per seed.
-\begin{Verbatim}
-python src/cifar.py --model dinov2_s --seed 0 --name cifar_dinov2_s_s0 --out runs_repro
-python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 0 --name cifar_r18_lt100_la_s0 --out runs_repro
-python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 1 --name cifar_r18_lt100_la_s1 --out runs_repro
-python src/cifar.py --model resnet18_cifar --imb-ratio 100 --method la --seed 2 --name cifar_r18_lt100_la_s2 --out runs_repro
-\end{Verbatim}
-The test accuracy is stored as \texttt{test\_acc} (and \texttt{test\_acc\_tta} with flip TTA) in \texttt{metrics.json}. It should be close to \pct{98.87} for DINOv2-S and close to the mean of \pct{78.53} for the three ResNet-18 runs. The CIFAR models update the whole network, so repeated runs can vary more than the Dogs vs.\ Cats probes.
-
-\subsection*{6. Other Experiments}
-Every other run in the report can be repeated in the same way. Its exact arguments are stored in \texttt{runs/<name>/args.json} and listed in the job files in \texttt{jobs/}, with one run per line. The script \texttt{run\_queue.py} runs a whole job file on several GPUs, and the \texttt{README.md} of the repository explains which job file belongs to which part of the report.
-
-% ------------------------------------------------------------------
-\section{Source Code}\label{app:code}
-
-\codefile{\texttt{scripts/preresize.py}: one-time resizing of the dataset to a shorter side of 288 pixels.}{code/preresize.py}
-\codefile{\texttt{scripts/prefetch\_weights.py}: download of the pretrained weights and CIFAR-10.}{code/prefetch_weights.py}
-\codefile{\texttt{src/data.py}: datasets, pre-processing and augmentation.}{code/data.py}
-\codefile{\texttt{src/models.py}: model definitions, including the scratch CNN and the head initialisation check.}{code/models.py}
-\codefile{\texttt{src/train.py}: training, evaluation, flip TTA and per-run outputs for Dogs vs.\ Cats.}{code/train.py}
-\codefile{\texttt{scripts/ensemble.py}: averaging of several runs and creation of \texttt{submission.csv}.}{code/ensemble.py}
-\codefile{\texttt{src/classical.py}: HOG and colour histogram features with SVM classifiers.}{code/classical.py}
-\codefile{\texttt{src/cifar.py}: CIFAR-10 and long-tailed CIFAR-10 experiments for parts (g) and (h).}{code/cifar.py}
+Three further points matter for reproducing the results. First, the course dataset is not included, because it is not ours to redistribute. It has to be placed in a folder \texttt{datasets/}, as described in the \texttt{README.md}. Second, model checkpoints are not included because of their size, so results that need a trained model, such as the Grad-CAM maps, can only be recomputed after retraining. Third, all 108 runs of this report were trained on a Linux server with four NVIDIA RTX 3090 GPUs (24 GB each), one run per GPU, with Python 3.11, PyTorch 2.11.0, CUDA 12.8 and bfloat16 mixed precision, and took about 15 GPU-hours in total. Any recent PyTorch 2.x release works with the code. GPU computations are not fully deterministic, so a retrained run can differ slightly from the saved one (Section~\ref{sec:b}).
 
 \end{document}
